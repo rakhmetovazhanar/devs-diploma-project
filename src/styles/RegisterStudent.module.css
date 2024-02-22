@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.wrap{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color:  rgba(255, 255, 255, 1);
+    
+}
+
+.container{
+    width: 1240px ;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+section{
+    width: 50%;
+}
+
+form{
+    width: 90%;
+    max-width: 600px;
+}
+
+.logo img{
+    max-width: 191px;
+    height: 55px;
+    margin-top: 67px;
+}
+.logo{
+    text-align: center;
+}
+
+.createUser{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 284px;
+}
+
+.group{
+    position: relative;
+    height: 89px;
+}
+
+label{
+    position: absolute;
+    top: 0;
+    left:0;
+}
+
+.group input{
+    position: absolute;
+    bottom: 0;
+    height: 46px;
+    /* width: 400px; */
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border : 1px solid rgba(45, 45, 45, 1);
+
+}
+
+.button{
+    margin-top: 30px;
+    width: 100%;
+    height: 64px;
+    border-radius: 60px;
+    background-color:  rgba(53, 74, 176, 1);
+    border: none;
+    color: white;
+    font-family: travels;
+    font-weight: 500;
+    font-size: 22px;
+    transition: transform 0.4s linear;
+}
+
+.button:hover{
+    transform: scale(1.1);
+}
+
+.column{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.column .group{
+    flex-basis: 46%;
+}
+
+.instructor_img{
+    margin-top: 50px;
+    width: 507px;
+    height: 448px;
+    
+}
+
+.optionss{
+    background-color: red;
+    border-radius: 30px;
+}
+
+.createUser{
+    margin-top: 68px;
+}
+
+
+.title{
+    font-weight: 500;
+    font-size: 36px;
+    text-align: center;
+    font-family: travels;
+    margin-bottom: 15px;
+}
+
+.tologinpage{
+    font-family: 'Poppins' , sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 17px;
+
+}
+
+label{
+    font-family: 'Poppins' , sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(102, 102, 102, 1);
+}
+
+.footer{
+    height: 513px;
+    background-color: rgba(25, 31, 69, 1);
+
+}
+
+.startoffooter{
+    display: flex;
+    justify-content: center;
+    padding-top: 76px;
+    position: relative;
+}
+
+.logoWhite{
+    width: 193px;
+    height: 65px;
+    margin-right: 20px;
+    margin-top: -13px;
+  
+    
+}
+
+.zoom{
+    font-family: 'Poppins' , sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 1);
+    width : 156px;
+    margin-left: 35px;
+
+}
+
+.subscribe{
+    margin-top: 49px;
+    text-align: center;
+    margin-bottom: 115px;
+   
+}
+
+.subscribe h3{
+    font-family: travels;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(178, 179, 207, 1);
+    letter-spacing: 4%;
+    margin-bottom: 16px;
+
+}
+
+.subscribe-input{
+    column-gap: 15px;
+}
+
+.subscribe-input input{
+    width: 294px;
+    height: 50px;
+    border-radius: 80px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    color: rgba(131, 131, 154, 1);
+    padding-left:  37px;
+}
+
+.subscribe-input button{
+    width: 206px;
+    height: 51px;
+    border-radius: 60px;
+    border: 1px solid rgba(255, 255, 255, 1);
+    background-color :rgba(251, 192, 45, 1);
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Poppins' , sans-serif;
+    margin-left: 20px;
+}
+
+.endoffooter{
+    text-align: center;
+}
+
+.terms{
+    display: flex;
+    justify-content: center;
+    column-gap: 25px;
+    margin-bottom: 20px;
+}
+
+.terms h4 ,
+.tech h4{
+    font-family: 'Poppins' , sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 4%;
+    color: rgba(178, 179, 207, 1);
+
+}
+
+
+
+@font-face {
+    font-family: travels;
+    src: url('../fonts/TT Travels Trial Medium.woff');
+}
