@@ -3,6 +3,7 @@ import logoBlue from '../images/Logo-blue.png';
 import Form from 'react-bootstrap/Form';
 import {useState} from 'react';
 import Footer from '../ui/Footer';
+import {Link} from 'react-router-dom';
 
 
 const LoginPage = () =>{
@@ -30,7 +31,7 @@ const LoginPage = () =>{
                                         Имя пользователя
                                     </label>
                                     <input
-                                    placeholder='Enter your Username'
+                                    placeholder='Введите свое имя пользователя'
                                     type="text"
                                     id='username' />
                                 </div>
@@ -40,7 +41,7 @@ const LoginPage = () =>{
                                         Пароль
                                     </label>
                                     <input
-                                    placeholder='Enter your Password'
+                                    placeholder='Введите свой пароль'
                                     type="password"
                                     id='password' />
                                 </div>
@@ -53,7 +54,8 @@ const LoginPage = () =>{
                                     <h3>Забыли пароль?</h3>
                                 </div>
 
-                                <button className={styles.loginButton}>Login</button>
+                                <button className={styles.loginButton}>Войти</button>
+                                <p className={styles.tosignUp}>У вас нет аккаунта? <Link to='/'>Зарегистрироваться</Link></p>
 
                             </form>
                        </div>

@@ -35,7 +35,18 @@ form{
 .createUser{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 92px;
    
+}
+
+.createUser__inner{
+    border: 1px solid rgba(25, 31, 69, 1);
+    width: 620px;
+    height: 700px;
+    padding: 21px 0 71px 50px ;
+    border-radius: 30px;
+    background: rgba(245, 247, 250, 1);
+
 }
 
 .group{
@@ -73,7 +84,7 @@ label{
     font-weight: 500;
     font-size: 22px;
     transition: transform 0.4s linear;
-    margin-bottom: 284px;
+    /* margin-bottom: 284px; */
 }
 
 .button:hover{
@@ -113,6 +124,8 @@ label{
     text-align: center;
     font-family: travels;
     margin-bottom: 15px;
+    margin-right: 35px;
+    margin-top: 10px;
 }
 
 .tologinpage{
@@ -121,6 +134,7 @@ label{
     font-size: 20px;
     text-align: center;
     margin-bottom: 17px;
+    margin-right: 35px;
 
 }
 
@@ -130,6 +144,8 @@ label{
     font-size: 14px;
     color: rgba(102, 102, 102, 1);
 }
+
+
 
 .footer{
     height: 513px;
@@ -226,6 +242,28 @@ label{
     letter-spacing: 4%;
     color: rgba(178, 179, 207, 1);
 
+}
+
+.error-text{
+    color: red;
+    position: absolute;
+    bottom:0;
+}
+
+.invalid input {
+    border: 1px solid red;
+
+}
+
+.cities{
+    position: absolute;
+    bottom: 0;
+    height: 46px;
+    /* width: 400px; */
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border : 1px solid rgba(45, 45, 45, 1);
 }
 
 
