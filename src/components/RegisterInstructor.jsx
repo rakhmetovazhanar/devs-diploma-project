@@ -1,16 +1,10 @@
 import React from 'react';
 import {useState} from 'react';
 import styles from '../styles/RegisterInstructor.module.css';
-import num1 from '../images/num1blue.svg';
-import num2grey from '../images/num2grey.svg';
-import num3grey from '../images/num3grey.svg';
-import num1grey from '../images/num1grey.svg';
-import num2blue from '../images/num2blue.svg';
 import {useForm} from 'react-hook-form';
 import logoBlue from '../images/Logo-blue.png';
-import instructorImg from '../images/regıstr-ımage1.png';
-import instructorImg2 from '../images/regıstr-ımage2.png';
 import Footer from '../ui/Footer';
+import Logo from './ui/Logo';
 
 const RegisterInstructor = () => {
 const form = useForm({
@@ -19,17 +13,39 @@ const form = useForm({
 const {register , control ,watch, getValues, handleSubmit, formState: { errors , isValid } , reset} = form;
 
 
-const onSubmit= (data)=>{
-    console.log('Form submitted' , data);
-    alert(JSON.stringify(data));
+const onSubmit= async (data)=>{
+
+  // fetch("http://localhost:8000/api/login-teacher/", {
+  //           method : "POST",
+  //           body: JSON.stringify({
+  //               user: data
+  //           })
+  //       })
+  try {
+    const response = await fetch('https://genius-backend-e9a3d-default-rtdb.firebaseio.com/teachers.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    
+    if (response.ok) {
+      console.log('User registered successfully!');
+    } else {
+      console.error('Failed to register user');
+    }
+  } catch (error) {
+    console.error('Error registering user:', error);
+  }
+  // console.log('Form submitted' , data);
+  // alert(JSON.stringify(data));
     reset();
 }
   return (
     <div className={styles.wrap}>
       <div className={styles.container}>
-        <div className={styles.logo}>
-          <img src={logoBlue} alt="logoBlue" />
-        </div>
+      <Logo/>
 
         <div className={styles.registerBack}>
           <div className={styles.registerContent}>
@@ -137,7 +153,7 @@ const onSubmit= (data)=>{
                   <option value="Усть-Каменогорск">Усть-Каменогорск</option>
                   </select>
                   <div>{errors?.city && <p className={styles['error-text']}>Выберите город!</p>}</div>
-                  </div>             
+                  </div>   
 
                   <div className={styles.group}>
                     <label htmlFor='number'>
@@ -154,10 +170,13 @@ const onSubmit= (data)=>{
                     })} 
                     placeholder='+7' />
                     <div>{errors?.number && <p className={styles['error-text']}>Введите номер телефона!</p>}</div>
-                  </div>
+                  </div> 
+
+                
+                  
                 </div>
 
-                <div className={styles.group}>
+                  <div className={styles.group}>
                     <label htmlFor='exp'>
                       *Каков ваш опыт работы?
                     </label>
@@ -165,11 +184,11 @@ const onSubmit= (data)=>{
                       <div className={styles.expOne_Three}>
                         <input 
                         type="radio"
-                        value='От 1 года до 3 лет'
+                        value='До 3 лет'
                         {...register('exp', {
                           required: true
                         })} />
-                        <p>От 1 года до 3 лет</p>
+                        <p>До 3 лет</p>
                       </div>
 
                       <div className={styles.expOne}>
@@ -197,18 +216,17 @@ const onSubmit= (data)=>{
 
                   <div className={styles.group}>
                     <label htmlFor='username'>
-                    *Ваше имя пользователя
+                    *Ваш адрес электронной почты
                     </label>
                     <input style={{width : '369px'}} className={styles.reg_input}
-                    type="text"
-                    id='username'
-                    {...register("username", { required: true, minLength:{
+                    type="email"
+                    id='email'
+                    {...register("email", { required: true, minLength:{
                       value : 5,
-                      message: 'Минимум 5 символов.'
                     } })}
                     autoComplete='off'
                     aria-describedby='uidnote' />
-                    <div>{errors?.username && <p className={styles['error-text']}>{errors?.username?.message || 'Введите имя!'}</p>}</div>
+                    <div>{errors?.email && <p className={styles['error-text']}>{errors?.email?.message || 'Введите адрес электронной почты!'}</p>}</div>
 
                 </div>
 
@@ -217,8 +235,9 @@ const onSubmit= (data)=>{
                     *Ваш пароль
                     </label>
                     <input style={{width : '369px'}} className={styles.reg_input}
-                    type="text"
+                    type="password"
                     id='password'
+                    autoComplete='off'
                     {...register("password", {required: true, 
                       minLength:{
                           value : 4,
@@ -234,7 +253,8 @@ const onSubmit= (data)=>{
                     *Повторите пароль
                     </label>
                     <input style={{width : '369px'}} className={styles.reg_input}
-                    type="text"
+                    type="password"
+                    autoComplete='off'
                     id='matchpassword'
                     {...register("matchpassword", {required: true,
                       validate : (value) => value === getValues("password") || "Пароль не сходится!",

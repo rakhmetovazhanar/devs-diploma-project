@@ -1,17 +1,12 @@
 import React from 'react';
-import Select from 'react-select';
 import {useRef , useState , useEffect} from 'react';
-import logoBlue from '../images/Logo-blue.png';
 import instructorImg from '../images/regıstr-ımage1.png';
 import styles from '../styles/RegisterStudent.module.css';
 import {Link} from 'react-router-dom';
-import LoginPage from './LoginPage';
 import Footer from '../ui/Footer';
 import {useForm , FieldValues} from 'react-hook-form';
 import { DevTool} from '@hookform/devtools';
-import {InputAdornment} from '@mui/material';
-import * as yup from "yup";
-import {yupResolver} from "@hookform/resolvers/yup";
+import Logo from './ui/Logo';
 
 
 // const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -24,18 +19,41 @@ const RegisterStudent = () =>{
     const {register , control , handleSubmit, formState: { errors , isValid , isSubmitting } , reset , getValues} = form;
     
 
-    const onSubmit= (data)=>{
-        console.log('Form submitted' , data);
-        alert(JSON.stringify(data));
+    const onSubmit= async (data)=>{
+        console.log(data)
+        try {
+            const response = await fetch('http://92.47.149.211:8000/api/register-student', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(data),
+            });
+            
+            if (response.ok) {
+              console.log('User registered successfully!');
+            } else {
+              console.error('Failed to register user');
+            }
+        } catch (error) {
+            console.error('Error registering user:', error);
+        }
+
+        // fetch("http://localhost:8000/api/register-student/students.json", {
+        //     method : "POST",
+        //     body: JSON.stringify({
+        //         user: data
+        //     })
+        // })
+        // console.log('Form submitted' , data);
+        // alert(JSON.stringify(data));
         reset();
     }
 
     return(
         <div className={styles.wrap}>
             <div className={styles.container}>
-                <div className={styles.logo}>
-                    <img src={logoBlue} alt="logoBlue" />
-                </div>
+            <Logo/>
 
                 <div className={styles.createUser}>
                     <section className={styles.createUser__inner}>
@@ -47,24 +65,31 @@ const RegisterStudent = () =>{
                         {/* FORM */}
 
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className={styles.group}>
-                                <label htmlFor='username'>
-                                    Ваше имя пользователя                                   
-                                </label>
-                                
-                                <input
-                                type="text"
-                                id='username'
-                                {...register("username", { required: true, minLength:{
-                                    value : 5,
-                                    message: 'Минимум 5 символов.'
-                                } })}
-                                // aria-invalid={errors.username ? "true" : "false"}
-                                autoComplete='off'
-                                aria-describedby='uidnote'
-                                 />
-                                <div>{errors?.username && <p className={styles['error-text']}>{errors?.username?.message || 'Введите имя!'}</p>}</div>
+                            <div className={styles.column}>
+                                <div className={styles.group}>
+                                    <label htmlFor='name'>
+                                    *Имя
+                                    </label>
+                                    <input className={styles.reg_input}
+                                    type="text"
+                                    {...register("name" , {required: true})}
+                                    autoComplete='off'
+                                    id='name' />
+                                    <div>{errors?.name && <p className={styles['error-text']}>{errors?.name?.message || 'Введите имя!'}</p>}</div>
 
+                                </div>
+
+                                <div className={styles.group}>
+                                    <label htmlFor='surname'>
+                                    *Фамилия
+                                    </label>
+                                    <input className={styles.reg_input}
+                                    type="text"
+                                    {...register("surname" , {required: true})}
+                                    id='surname' />
+                                    <div>{errors?.surname && <p className={styles['error-text']}>Введите фамилию!</p>}</div>
+
+                                </div>
                             </div>
 
                             <div className={styles.column}>
@@ -121,7 +146,25 @@ const RegisterStudent = () =>{
 
                             </div>
 
-                            <div className={styles.group}>
+                            <div className={styles.column}>
+
+                                <div className={styles.group}>
+                                    <label htmlFor='email'>
+                                        *Ваш адрес электронной почты                                   
+                                    </label>
+                                    
+                                    <input
+                                    type="email"
+                                    id='email'
+                                    {...register("email", { required: true})}
+                                    autoComplete='off'
+                                    aria-describedby='uidnote'
+                                    />
+                                    <div>{errors?.email && <p className={styles['error-text']}>{errors?.email?.message || 'Введите адрес электронной почты!'}</p>}</div>
+
+                                </div>
+
+                                <div className={styles.group}>
                                     <label htmlFor='number'>
                                         Ваш номер телефона
                                     </label>
@@ -140,6 +183,7 @@ const RegisterStudent = () =>{
                                     <div>{errors?.number && <p className={styles['error-text']}>Введите номер телефона!</p>}</div>
 
                                 </div>
+                            </div>
 
                             <div className={styles.group}>
                                     <label htmlFor='password'>
@@ -149,6 +193,7 @@ const RegisterStudent = () =>{
                                     <input
                                     type="password"
                                     id='password'
+                                    autoComplete='off'
                                     {...register("password", {required: true, 
                                         minLength:{
                                             value : 4,
@@ -166,6 +211,7 @@ const RegisterStudent = () =>{
                                     <br/>
                                     <input
                                     type="password"
+                                    autoComplete='off'
                                     id='matchpassword'
                                     {...register("matchpassword", {required: true,
                                     validate : (value) => value === getValues("password") || "Пароль не сходится!",

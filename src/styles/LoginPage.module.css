@@ -137,3 +137,19 @@ label{
     text-align: center;
     margin-bottom: 92px;
 }
+.error {
+    color: red !important;
+    position: absolute;
+    right:0;
+}
+.userTypes {
+    display: flex;
+    justify-content: space-around;
+    margin: 30px 0;
+}
+.userType {
+    cursor: pointer;
+}
+.activeuser {
+    border-bottom: 5px solid black;
+}
