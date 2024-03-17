@@ -1,28 +1,25 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import styles from '../styles/RegisterInstructor.module.css';
 import {useForm} from 'react-hook-form';
 import logoBlue from '../images/Logo-blue.png';
 import Footer from '../ui/Footer';
-import Logo from './ui/Logo';
+import Logo from '../ui/Logo';
+import { useNavigate , Link} from 'react-router-dom';
+import { UserContext } from './UserContext';
+
 
 const RegisterInstructor = () => {
+const {setUser } = useContext(UserContext);
 const form = useForm({
   mode: "onBlur",
 });
 const {register , control ,watch, getValues, handleSubmit, formState: { errors , isValid } , reset} = form;
-
+const history = useNavigate();
 
 const onSubmit= async (data)=>{
-
-  // fetch("http://localhost:8000/api/login-teacher/", {
-  //           method : "POST",
-  //           body: JSON.stringify({
-  //               user: data
-  //           })
-  //       })
   try {
-    const response = await fetch('https://genius-backend-e9a3d-default-rtdb.firebaseio.com/teachers.json', {
+    const response = await fetch('http://134.209.250.123:8000/api/register-teacher/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,51 +29,71 @@ const onSubmit= async (data)=>{
     
     if (response.ok) {
       console.log('User registered successfully!');
+      const responseData = await response.json();
+      console.log(responseData)
+      const translateRoleToRussian = (role) => {
+        switch (role) {
+          case 'student':
+            return 'Студент';
+          case 'teacher':
+            return 'Репетитор';
+           default:
+            return role;
+        }
+      };
+      const translatedRole = translateRoleToRussian(responseData.role);
+      setUser({
+      loggedIn: true,
+      first_name: responseData.data.first_name,
+      last_name : responseData.data.last_name,
+      token: responseData.token,
+      role: translatedRole
+      });
+      history('/');
     } else {
       console.error('Failed to register user');
     }
   } catch (error) {
     console.error('Error registering user:', error);
   }
-  // console.log('Form submitted' , data);
-  // alert(JSON.stringify(data));
+  console.log('Form submitted' , data);
+  // console.log(data)
     reset();
 }
   return (
     <div className={styles.wrap}>
       <div className={styles.container}>
-      <Logo/>
-
+      <Link to='/'><Logo style={styles.logo}/></Link>
         <div className={styles.registerBack}>
           <div className={styles.registerContent}>
             <div className={styles.registerContent__inner}>
               <h2>Создать аккаунт</h2>
-              <p>*Все поля обязательны для заполнения, если не указано иное.</p>
+              <p>*Все поля обязательны для заполнения, если не указано иное.</p> <Link to='/login'>Войти </Link>
 
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className={styles.column}>
                   <div className={styles.group}>
-                    <label htmlFor='name'>
+                    <label htmlFor='first_name'>
                       *Имя
                     </label>
                     <input className={styles.reg_input}
                     type="text"
-                    {...register("name" , {required: true})}
+                    {...register("first_name" , {required: true})}
                     autoComplete='off'
-                    id='name' />
-                    <div>{errors?.name && <p className={styles['error-text']}>{errors?.name?.message || 'Введите имя!'}</p>}</div>
+                    id='first_name' />
+                    <div>{errors.first_name && <p className={styles['error-text']}>{errors.first_name?.message || 'Введите имя!'}</p>}</div>
 
                   </div>
 
                   <div className={styles.group}>
-                    <label htmlFor='surname'>
+                    <label htmlFor='last_name'>
                       *Фамилия
                     </label>
                     <input className={styles.reg_input}
                     type="text"
-                    {...register("surname" , {required: true})}
-                    id='surname' />
-                    <div>{errors?.surname && <p className={styles['error-text']}>Введите фамилию!</p>}</div>
+                    {...register("last_name" , {required: true})}
+                    id='last_name' />
+                    <div>{errors?.last_name && <p className={styles['error-text']}>Введите фамилию!</p>}</div>
 
                   </div>
                 </div>
@@ -97,7 +114,7 @@ const onSubmit= async (data)=>{
 
                   <div className={styles.group}>
                     <label htmlFor='gender'>
-                      Какого вы пола? (опционально)
+                      Какого вы пола?
                     </label>
                     <div className={styles.genderGroup}>
                       <div className={styles.female}>
@@ -156,20 +173,20 @@ const onSubmit= async (data)=>{
                   </div>   
 
                   <div className={styles.group}>
-                    <label htmlFor='number'>
+                    <label htmlFor='phone_number'>
                       *Ваш номер телефона
                     </label>
                     <input className={styles.reg_input}
                     type="text"
-                    id='number'
-                    {...register("number" , { required: true,
+                    id='phone_number'
+                    {...register("phone_number" , { required: true,
                       pattern: {
                           value: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
                           message : "Номер телефона недействителен!"
                       }
                     })} 
                     placeholder='+7' />
-                    <div>{errors?.number && <p className={styles['error-text']}>Введите номер телефона!</p>}</div>
+                    <div>{errors?.phone_number && <p className={styles['error-text']}>Введите номер телефона!</p>}</div>
                   </div> 
 
                 
@@ -181,7 +198,17 @@ const onSubmit= async (data)=>{
                       *Каков ваш опыт работы?
                     </label>
                     <div className={styles.expGroup}>
-                      <div className={styles.expOne_Three}>
+                      <div className={styles.expNo}>
+                        <input 
+                        type="radio"
+                        value='Нет опыта'
+                        {...register('exp', {
+                          required: true
+                        })} />
+                        <p>Нет опыта</p>
+                      </div>
+
+                      <div className={styles.expOneToThree}>
                         <input 
                         type="radio"
                         value='До 3 лет'
@@ -191,24 +218,24 @@ const onSubmit= async (data)=>{
                         <p>До 3 лет</p>
                       </div>
 
-                      <div className={styles.expOne}>
+                      <div className={styles.expThreeToFive}>
                         <input 
                         type="radio"
-                        value='1 год'
-                        {...register('exp', {
-                          required: true
-                        })} />
-                        <p>1 год</p>
-                      </div>
-
-                      <div className={styles.expNo}>
-                        <input 
-                        type="radio"
-                        value='Нет опыта'
+                        value='От 3 до 5 лет'
                         {...register('exp' , {
                           required: true
                         })} />
-                        <p>Нет опыта</p>
+                        <p>От 3 до 5 лет</p>
+                      </div>
+
+                      <div className={styles.expMore}>
+                        <input 
+                        type="radio"
+                        value='Больше'
+                        {...register('exp' , {
+                          required: true
+                        })} />
+                        <p>Больше</p>
                       </div>
                     </div>
 
@@ -219,14 +246,14 @@ const onSubmit= async (data)=>{
                     *Ваш адрес электронной почты
                     </label>
                     <input style={{width : '369px'}} className={styles.reg_input}
-                    type="email"
-                    id='email'
-                    {...register("email", { required: true, minLength:{
+                    type="text"
+                    id='username'
+                    {...register("username", { required: true, minLength:{
                       value : 5,
                     } })}
                     autoComplete='off'
                     aria-describedby='uidnote' />
-                    <div>{errors?.email && <p className={styles['error-text']}>{errors?.email?.message || 'Введите адрес электронной почты!'}</p>}</div>
+                    <div>{errors?.username && <p className={styles['error-text']}>{errors?.username?.message || 'Введите адрес электронной почты!'}</p>}</div>
 
                 </div>
 

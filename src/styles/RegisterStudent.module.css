@@ -18,7 +18,7 @@ section{
     width: 50%;
 }
 
-form{
+.register_form{
     width: 90%;
     max-width: 600px;
 }
@@ -36,14 +36,15 @@ form{
     display: flex;
     justify-content: space-between;
     margin-bottom: 92px;
+    
    
 }
 
 .createUser__inner{
+    padding-top: 30px;
     border: 1px solid rgba(25, 31, 69, 1);
     width: 620px;
-    height: 700px;
-    padding: 21px 0 71px 50px ;
+    height: 750px;
     border-radius: 30px;
     background: rgba(245, 247, 250, 1);
 
@@ -52,6 +53,7 @@ form{
 .group{
     position: relative;
     height: 89px;
+    margin-bottom: 5px;
 }
 
 label{
@@ -69,7 +71,7 @@ label{
     margin-bottom: 20px;
     border-radius: 12px;
     border : 1px solid rgba(45, 45, 45, 1);
-
+    padding-left: 10px;
 }
 
 .button{
@@ -196,31 +198,16 @@ label{
 
 }
 
-.subscribe-input{
-    column-gap: 15px;
+.socialItem{
+    margin-left: 12px;
 }
 
-.subscribe-input input{
-    width: 294px;
-    height: 50px;
-    border-radius: 80px;
-    border: 1px solid rgba(255, 255, 255, 1);
-    color: rgba(131, 131, 154, 1);
-    padding-left:  37px;
+
+
+.socialItem:first-child{
+    margin-left: 0;
 }
 
-.subscribe-input button{
-    width: 206px;
-    height: 51px;
-    border-radius: 60px;
-    border: 1px solid rgba(255, 255, 255, 1);
-    background-color :rgba(251, 192, 45, 1);
-    color: white;
-    font-size: 18px;
-    font-weight: 500;
-    font-family: 'Poppins' , sans-serif;
-    margin-left: 20px;
-}
 
 .endoffooter{
     text-align: center;
@@ -275,4 +262,14 @@ label{
 @font-face {
     font-family: travels;
     src: url('../fonts/TT Travels Trial Medium.woff');
+}
+
+@font-face {
+    font-family: travelsRegular;
+    src: url('../fonts/TT Travels Trial Regular.woff');
+}
+
+@font-face {
+    font-family: travelsBold;
+    src: url('../fonts/TT Travels Trial Bold.woff');
 }

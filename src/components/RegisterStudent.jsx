@@ -1,28 +1,33 @@
 import React from 'react';
-import {useRef , useState , useEffect} from 'react';
+import {useRef , useState , useContext} from 'react';
 import instructorImg from '../images/regıstr-ımage1.png';
 import styles from '../styles/RegisterStudent.module.css';
 import {Link} from 'react-router-dom';
 import Footer from '../ui/Footer';
 import {useForm , FieldValues} from 'react-hook-form';
 import { DevTool} from '@hookform/devtools';
-import Logo from './ui/Logo';
+import Logo from '../ui/Logo';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext';
+
 
 
 // const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 // const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const RegisterStudent = () =>{
+    const {setUser } = useContext(UserContext);
+    const history = useNavigate()
+
     const form = useForm({
         mode: "onBlur",
     });
     const {register , control , handleSubmit, formState: { errors , isValid , isSubmitting } , reset , getValues} = form;
-    
 
     const onSubmit= async (data)=>{
-        console.log(data)
+       
         try {
-            const response = await fetch('http://92.47.149.211:8000/api/register-student', {
+            const response = await fetch('http://134.209.250.123:8000/api/register-student/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -31,30 +36,41 @@ const RegisterStudent = () =>{
             });
             
             if (response.ok) {
-              console.log('User registered successfully!');
+                console.log('User registered successfully!');
+                const responseData = await response.json();
+                console.log(responseData)
+                const translateRoleToRussian = (role) => {
+                  switch (role) {
+                    case 'student':
+                      return 'Студент';
+                    case 'teacher':
+                      return 'Репетитор';
+                    default:
+                      return role;
+                  }
+                };
+                const translatedRole = translateRoleToRussian(responseData.role);
+                setUser({
+                loggedIn: true,
+                first_name: responseData.data.first_name,
+                last_name : responseData.data.last_name,
+                // token: responseData.token,
+                role: translatedRole
+                });
+                history.push('/');
             } else {
               console.error('Failed to register user');
             }
         } catch (error) {
             console.error('Error registering user:', error);
         }
-
-        // fetch("http://localhost:8000/api/register-student/students.json", {
-        //     method : "POST",
-        //     body: JSON.stringify({
-        //         user: data
-        //     })
-        // })
-        // console.log('Form submitted' , data);
-        // alert(JSON.stringify(data));
         reset();
     }
 
     return(
         <div className={styles.wrap}>
             <div className={styles.container}>
-            <Logo/>
-
+            <Link to='/'><Logo style={styles.logo}/></Link>
                 <div className={styles.createUser}>
                     <section className={styles.createUser__inner}>
                         <h1 className={styles.title}>Создать аккаунт</h1>
@@ -64,30 +80,30 @@ const RegisterStudent = () =>{
 
                         {/* FORM */}
 
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form className={styles.register_form} onSubmit={handleSubmit(onSubmit)}>
                             <div className={styles.column}>
                                 <div className={styles.group}>
-                                    <label htmlFor='name'>
+                                    <label htmlFor='first_name'>
                                     *Имя
                                     </label>
                                     <input className={styles.reg_input}
                                     type="text"
-                                    {...register("name" , {required: true})}
+                                    {...register("first_name" , {required: true})}
                                     autoComplete='off'
-                                    id='name' />
-                                    <div>{errors?.name && <p className={styles['error-text']}>{errors?.name?.message || 'Введите имя!'}</p>}</div>
+                                    id='first_name' />
+                                    <div>{errors?.first_name && <p className={styles['error-text']}>{errors?.first_name?.message || 'Введите имя!'}</p>}</div>
 
                                 </div>
 
                                 <div className={styles.group}>
-                                    <label htmlFor='surname'>
+                                    <label htmlFor='last_name'>
                                     *Фамилия
                                     </label>
                                     <input className={styles.reg_input}
                                     type="text"
-                                    {...register("surname" , {required: true})}
-                                    id='surname' />
-                                    <div>{errors?.surname && <p className={styles['error-text']}>Введите фамилию!</p>}</div>
+                                    {...register("last_name" , {required: true})}
+                                    id='last_name' />
+                                    <div>{errors?.last_name && <p className={styles['error-text']}>Введите фамилию!</p>}</div>
 
                                 </div>
                             </div>
@@ -107,7 +123,7 @@ const RegisterStudent = () =>{
                                     />
                                     <div>{errors?.age && <p className={styles['error-text']}>Укажите свой возраст!</p>}</div>
 
-                                </div>
+                            </div>
 
                                 <div className={styles.group}>
                                     <label htmlFor='city'>
@@ -155,8 +171,8 @@ const RegisterStudent = () =>{
                                     
                                     <input
                                     type="email"
-                                    id='email'
-                                    {...register("email", { required: true})}
+                                    id='username'
+                                    {...register("username", { required: true})}
                                     autoComplete='off'
                                     aria-describedby='uidnote'
                                     />
@@ -165,14 +181,14 @@ const RegisterStudent = () =>{
                                 </div>
 
                                 <div className={styles.group}>
-                                    <label htmlFor='number'>
+                                    <label htmlFor='phone_number'>
                                         Ваш номер телефона
                                     </label>
                                     <br/>
                                     <input
                                     type="text"
-                                    id='number'
-                                    {...register("number" , { required: true,
+                                    id='phone_number'
+                                    {...register("phone_number" , { required: true,
                                     pattern: {
                                         value: /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
                                         message : "Номер телефона недействителен!"
@@ -180,7 +196,7 @@ const RegisterStudent = () =>{
                                     })} 
                                     placeholder='+7'
                                     />
-                                    <div>{errors?.number && <p className={styles['error-text']}>Введите номер телефона!</p>}</div>
+                                    <div>{errors?.phone_number && <p className={styles['error-text']}>Введите номер телефона!</p>}</div>
 
                                 </div>
                             </div>

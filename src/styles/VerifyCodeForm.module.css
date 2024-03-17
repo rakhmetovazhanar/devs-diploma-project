@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: travels;
+}
+
+.wrap{
+    background-color: rgba(232, 233, 254, 1);
+    height: 100%;
+    padding-bottom: 219px;
+    
+}
+
+.container{
+    margin: 0 auto;
+    width: 1240px;
+    position: relative;
+}
+
+
+
+.logo img{
+    max-width: 191px;
+    height: 55px;
+    margin-top: 10px;
+}
+.logo{
+    text-align: center;
+    padding: 10px;
+}
+
+.toLogin{
+    background-color:  rgba(53, 74, 176, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 109px;
+    height: 36px;
+    border-radius: 36px;
+    padding: 6px 30px;
+    border: none;
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    font-family: 'Poppins' , sans-serif;
+    position: absolute;
+    top: 33px;
+    right: 0;
+}
+
+.verifyCode{
+    width: 680px;
+    height: 430px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 1);
+    margin: 122px auto;
+}
+
+.verifyCode_inner{
+    padding: 45px 60px 66px 60px;
+    text-align: center;
+}
+
+.verifyCode_inner h2{
+    font-size: 40px;
+    line-height: 48px;
+    color: rgba(27, 42, 108, 1);
+    font-family: travelsRegular;
+    margin-bottom: 32px;
+
+}
+
+.verifyCode_inner p{
+    font-size: 14px;
+    line-height: 19.6px;
+    font-family: travelsRegular;
+    width: 100%;
+    color: rgba(91, 91, 91, 1);
+
+}
+
+.verify-code-container {
+    width: 410px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+}
+  
+.verify-code-input {
+    /* width: 84px; */
+    width: 300px;
+    height: 60px;
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+  
+  /* Optional: Style for when input is focused */
+  .verify-code-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+
+.checkBtn{
+    width: 294px;
+    height: 55px;
+    border-radius: 36px;
+    background: rgba(53, 74, 176, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    line-height: 33px;
+    font-weight: 400;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.verifyCode_inner span{
+    color:rgba(228, 0, 0, 1);
+}
+
+form{
+    margin: 0 auto;
+}

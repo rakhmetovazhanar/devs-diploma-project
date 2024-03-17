@@ -1,91 +1,114 @@
-import styles from '../styles/LoginPage.module.css';
-import Form from 'react-bootstrap/Form';
-import {useState} from 'react';
+ import styles from '../styles/LoginPage.module.css';
+import {useState, useContext} from 'react';
 import Footer from '../ui/Footer';
 import {Link} from 'react-router-dom';
 import { useForm  } from 'react-hook-form'
-import Logo from './ui/Logo.jsx';
- 
+import Logo from '../ui/Logo';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from './UserContext';
+import {jwtDecode} from 'jwt-decode';
+
 const LoginPage = () =>{
     const [saveUser , setSaveUser] = useState(true);
-    const [user, setUser] = useState('t')
+    const [errorMessage, setErrorMessage] = useState('');
+    const [userType, setUserType] = useState('t');
+    const {setUser } = useContext(UserContext);
     const form = useForm({
         mode: "onBlur",
     });
-    const {register , control , handleSubmit, formState: { errors , isValid , isSubmitting } , reset , getValues} = form;
+    const history = useNavigate()
+    const {register , handleSubmit, formState: { errors  } , reset} = form;
 
-   const onSubmit = (data, e) =>{
-        e.preventDefault()
-        if(user == 's') {
-        // try {
-        //     const response = await fetch('http://92.47.149.211:8000/api/get-students', {
-        //       method: 'GET',
-        //       headers: {
-        //         'Content-Type': 'application/json',
-        //       },
-        //       body: JSON.stringify(data),
-        //     });
-            
-        //     if (response.ok) {
-        //       console.log('User registered successfully!');
-        //     } else {
-        //       console.error('Failed to register user');
-        //     }
-        // } catch (error) {
-        //     console.error('Error registering user:', error);
-        // }
-        console.log(user)
-        console.log(data)
+   const onSubmit = async (data, e) =>{
+
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        userType === "s"
+          ? "http://134.209.250.123:8000/api/login-student/"
+          : "http://134.209.250.123:8000/api/login-teacher/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (response.ok) {
+        console.log("User logged in successfully!");
+        const responseData = await response.json();
+        localStorage.setItem("token", responseData.token);
+        const token = responseData.token;
+        console.log(responseData.data.id)
+
+        // const decodedToken = jwtDecode(token);
+
+        // const userId = userType === "s" ? decodedToken.student_id : decodedToken.teacher_id;
+
+
+        const translateRoleToRussian = (role) => {
+          switch (role) {
+            case 'student':
+              return 'Студент';
+            case 'teacher':
+              return 'Репетитор';
+            default:
+              return role;
+          }
+        };
+
+        const translatedRole = translateRoleToRussian(responseData.role);
+        setUser({
+          loggedIn: true,
+          first_name: responseData.data.first_name,
+          last_name : responseData.data.last_name,
+          token: responseData.token,
+          role: translatedRole,
+          user_id: responseData.data.id
+        });
+        history('/');
+      } else {
+        console.error('Failed to login user');
+        setErrorMessage('Введен неверный логин или пароль');
+        reset();
+      }
+    } catch (error) {
+      console.error('Error login user:', error);
+      setErrorMessage('Произошла ошибка во время входа. Пожалуйста, попробуйте еще раз.');
     }
-    else{
-        // try {
-        //     const response = await fetch('http://92.47.149.211:8000/api/get-teachers', {
-        //       method: 'GET',
-        //       headers: {
-        //         'Content-Type': 'application/json',
-        //       },
-        //       body: JSON.stringify(data),
-        //     });
-            
-        //     if (response.ok) {
-        //       console.log('User registered successfully!');
-        //     } else {
-        //       console.error('Failed to register user');
-        //     }
-        // } catch (error) {
-        //     console.error('Error registering user:', error);
-        // }
-        console.log(user)
-        console.log(data)
-    }
+    console.log(userType);
+    console.log(data);
+  
+    
     }
 
     return(
         <div className={styles.wrap}>
             <div className={styles.container}>
-                <Logo />
-                <div className={styles.loginBack}>
+            <Link to='/'><Logo style={styles.logo}/></Link>                <div className={styles.loginBack}>
                     <div className={styles.logincontent}>
                        <div className={styles.logincontent__inner}>
                             <h2>C возвращением!</h2>
                             <p>Начните пользоваться нашим замечательным <br/> сервисом</p>
 
                             <div className={styles.userTypes}>
-                                <span className={`${user=='t' ? styles.activeuser : ''}  ${styles.userType}`} onClick={() => setUser('t')}>Teacher</span>
-                                <span className={`${user=='s' ? styles.activeuser : ''}  ${styles.userType}`} onClick={() => setUser('s')}>Student</span>
+                                <span className={`${userType=='t' ? styles.activeuser : ''}  ${styles.userType}`} onClick={() => setUserType('t')}>Преподаватель</span>
+                                <span className={`${userType=='s' ? styles.activeuser : ''}  ${styles.userType}`} onClick={() => setUserType('s')}>Студент</span>
                             </div>
                             <form onSubmit = {handleSubmit(onSubmit)}>
                                 <div className={styles.group}>  
-                                    <label htmlFor='email'>
+                                    <label htmlFor='username'>
                                         Ваш адрес электронной почты
                                     </label>
                                     <input
                                     placeholder='Введите свой адрес электронной почты'
                                     type="email"
-                                    {...register("email" , {required: true})}
-                                    id='email' />
-                                     {errors.email?.type === "required" && (
-                                        <p className={styles.error} role="alert">Email is required</p>
+                                    {...register("username" , {required: true})}
+                                    id='username' />
+                                     {errors.username?.type === "required" && (
+                                        <p className={styles.error} role="alert">Обязательно!</p>
                                     )}
 
                                 </div>
@@ -101,7 +124,7 @@ const LoginPage = () =>{
                                     {...register("password" , {required: true})}
                                     id='password' />
                                      {errors.password?.type === "required" && (
-                                        <p className={styles.error} role="alert">Password is required</p>
+                                        <p className={styles.error} role="alert">Обязательно!</p>
                                     )}
 
                                 </div>
@@ -115,11 +138,12 @@ const LoginPage = () =>{
                                 </div>
 
                                 <button className={styles.loginButton}>Войти</button>
+                                {errorMessage && <p className={styles.login_error}>Введен неверный логин или пароль</p>}
                                 
-                                <p className={styles.tosignUp}>У вас нет аккаунта? <Link to='/'>Зарегистрироваться</Link></p>
+                                <p className={styles.tosignUp}>У вас нет аккаунта? <Link to='/login'>Зарегистрироваться</Link></p>
 
                             </form>
-                            <p>{}</p>
+                            
                        </div>
                     </div>
                 </div>

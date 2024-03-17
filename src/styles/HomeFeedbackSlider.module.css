@@ -1,0 +1,64 @@
+
+
+.feedback_slider_inner{
+    width: 1236px;
+    margin: 56px auto;
+
+}
+
+/* .feedback_slider{
+    width: 100%;
+} */
+.feedback_slider_item{
+    position: relative;
+    max-width: 380px;
+    height: 185px;
+    border-radius: 33px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+   
+    padding: 32px 14px;
+}
+
+
+.feedback_slider_item img{
+    position: absolute;
+    top: 40px;
+    left: 30px;
+}
+
+.feedback_slider_item_name{
+    font-size: 22px;
+    font-weight: 500;
+    font-family: travelsBold;
+    line-height: 26.4px;
+    letter-spacing: 2%;
+    color: rgba(45, 45, 45, 1);
+    margin-bottom: 10px;
+    
+}
+
+.feedback_slider_item_position{
+    font-size: 14px;
+    line-height: 16.8px;
+    font-family: travelsRegular;
+    letter-spacing: 2%;
+    font-weight: 400;
+    color: rgba(45, 45, 45, 1);
+
+}
+
+.feedback_slider_item_info{
+    position: absolute;
+    right: 10px;
+    width: 225px;
+    text-align: left;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: red !important;
+}
+

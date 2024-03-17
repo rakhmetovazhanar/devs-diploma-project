@@ -28,7 +28,7 @@
 
 .logincontent{
     width: 680px;
-    height: 750px;
+    height: 800px;
     background-color:white;
     border: 1px solid black;
     margin: 0 auto;
@@ -123,6 +123,7 @@ label{
     font-size: 22px;
     display: flex;
     justify-content: center;
+    margin: 0 auto;
 }
 
 .logincontent{
@@ -152,4 +153,9 @@ label{
 }
 .activeuser {
     border-bottom: 5px solid black;
+}
+
+.login_error{
+    color: red !important;
+    margin-top: 10px;
 }
