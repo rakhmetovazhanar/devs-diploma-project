@@ -1,10 +1,7 @@
 import AppRoutes from "./components/AppRoutes";
 import './App.css';
 import { UserContext } from "./components/UserContext";
-import Home from "./components/Home";
 import {useContext} from 'react';
-import LoginPage from "./components/LoginPage";
-import { BrowserRouter } from "react-router-dom";
 import {useEffect} from 'react';
 
 function App() {

@@ -1,23 +1,19 @@
 import React , {useState, useContext, useEffect} from 'react';
 import styles from '../../styles/MyCourses.module.css';
-import burgerImg from '../../images/burgerImg.svg';
 import {Link} from 'react-router-dom';
 import { UserContext } from '../../components/UserContext';
 import line2 from '../../images/line2.svg';
 import Footer from '../../ui/Footer';
 import CourseItem from './CourseItem';
 import axios from 'axios';
+import TeacherHeader from './TeacherHeader';
 
 const MyCourses = () => {
-    const [isActiveDropdown, setIsActiveDropdown] = useState(false);
-    const [isRotated, setIsRotated] = useState(false);
     const {user} = useContext(UserContext);
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
-    const handleDropdownClick = () => {
-      setIsActiveDropdown(!isActiveDropdown);
-      setIsRotated(!isRotated);
-    };
+    const [searchText, setSearchText] = useState('');
+    
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -28,7 +24,9 @@ const MyCourses = () => {
             Authorization: `Token ${token}`,
           },
         });
-        setCourses(response.data);
+
+        const sortedCourses = response.data.slice().reverse();
+        setCourses(sortedCourses);
         console.log(response.data) 
         console.log(response.data.id)
         setLoading(false);
@@ -40,6 +38,10 @@ const MyCourses = () => {
 
     fetchCourses();
   }, []); 
+
+  const handleSearchInputChange = (e) => {
+    setSearchText(e.target.value);
+  };
 
   const handleDelete = async (courseId) => {
     try {
@@ -57,54 +59,17 @@ const MyCourses = () => {
     }
   };
 
+  // Передаем i
+
   return (
     <div className={styles.wrapper}>
     <div className={styles.wrap_inner}>
         <div className={styles.header}>
             <div className={styles.container}>
-                <div className={styles.header_inner}>
-                    <div className={styles.burgerSide}>
-                        <img src={burgerImg} alt="burger" />
-                        <h2>Мои курсы</h2>
-                    </div>
-
-                  <div onClick={handleDropdownClick} className={styles.users_profile}>
-                <div className={styles.users_profile_info}>
-                  <div className={styles.users_name_role}>
-                    <div className={styles.users_name_surname}>
-                      <div className={styles.users_name}>{user.first_name}</div>
-                      <div>{user.last_name}</div>
-                    </div>
-                    <div className={styles.users_role}>{user.role}</div>
-                  </div> 
-                
-                <img style={{ transform: isRotated ? 'rotate(180deg)' : 'none' }} src={line2}/>
-                </div>
-
-                {isActiveDropdown && 
-                <ul>
-                  <li>
-                    <Link to='/profile'>Мой профиль</Link>
-                  </li>
-                  <li>
-                    <Link to='/edit-profile'>Редактировать </Link>
-                  </li>
-                  <li>
-                    <Link to='/logout'>Выйти</Link>
-                  </li>
-                </ul>}
-              </div>
-                </div>
+                <TeacherHeader headerTitle={'Мои курсы'}/>
                   {/* MAIN CONTENT */}
                 <div className={styles.main_content}>
                   <div className={styles.my_courses_actions}>
-                    <div className={styles.my_courses_filter}>
-                      <input placeholder='Ищите в своих курсах...' className={styles.my_courses_searchBtn} type="search" />
-                      <select className={styles.my_courses_categories}>
-                        <option value="Вся категория">Вся категория</option>
-                      </select>
-                    </div>
-
                     <Link to='/add-course'><button className={styles.to_add_course_btn}>Добавить курс</button></Link>
                   </div>
                 </div>
@@ -112,13 +77,16 @@ const MyCourses = () => {
                 {/* COURSE LIST */}
 
                 <div className={styles.my_courses_list}>
-                  {/* <h3 className={styles.no_courses}>У вас пока нет курсов</h3> */}
-                  {courses.map((course)=> (
-                  <CourseItem key={course.id} course={course} handleDelete={handleDelete} />  
-                  ))}
+                {courses.length === 0 ? (
+                  <h3 className={styles.no_courses}>У вас пока нет курсов</h3>
+                ) : (
+                  courses.filter(course => course.name.toLowerCase().includes(searchText.toLowerCase())).map((course) => (
+                    <CourseItem key={course.id} course={course} handleDelete={handleDelete} />
+                  ))
+                )}
                 </div>
             </div>
-            {/* <Footer/> */}
+            <Footer/>
         </div>
                   
         </div>

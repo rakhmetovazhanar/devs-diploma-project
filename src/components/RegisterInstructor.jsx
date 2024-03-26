@@ -27,7 +27,8 @@ const onSubmit= async (data)=>{
       body: JSON.stringify(data),
     });
     
-    if (response.ok) {
+    if (response.status === 200) {
+      history('/');
       console.log('User registered successfully!');
       const responseData = await response.json();
       console.log(responseData)
@@ -49,7 +50,6 @@ const onSubmit= async (data)=>{
       token: responseData.token,
       role: translatedRole
       });
-      history('/');
     } else {
       console.error('Failed to register user');
     }
@@ -194,7 +194,7 @@ const onSubmit= async (data)=>{
                 </div>
 
                   <div className={styles.group}>
-                    <label htmlFor='exp'>
+                    <label htmlFor='experience'>
                       *Каков ваш опыт работы?
                     </label>
                     <div className={styles.expGroup}>
@@ -202,7 +202,7 @@ const onSubmit= async (data)=>{
                         <input 
                         type="radio"
                         value='Нет опыта'
-                        {...register('exp', {
+                        {...register('experience', {
                           required: true
                         })} />
                         <p>Нет опыта</p>
@@ -212,7 +212,7 @@ const onSubmit= async (data)=>{
                         <input 
                         type="radio"
                         value='До 3 лет'
-                        {...register('exp', {
+                        {...register('experience', {
                           required: true
                         })} />
                         <p>До 3 лет</p>
@@ -222,7 +222,7 @@ const onSubmit= async (data)=>{
                         <input 
                         type="radio"
                         value='От 3 до 5 лет'
-                        {...register('exp' , {
+                        {...register('experience' , {
                           required: true
                         })} />
                         <p>От 3 до 5 лет</p>
@@ -232,7 +232,7 @@ const onSubmit= async (data)=>{
                         <input 
                         type="radio"
                         value='Больше'
-                        {...register('exp' , {
+                        {...register('experience' , {
                           required: true
                         })} />
                         <p>Больше</p>

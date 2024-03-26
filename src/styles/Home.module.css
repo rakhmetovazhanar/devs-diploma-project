@@ -47,6 +47,7 @@ text-decoration: none;
     font-weight: 500;
     color: rgba(51, 50, 50, 1);
     transition: 0.2s linear;
+    cursor:pointer;
 }
 
 .my_courses a , 
@@ -77,6 +78,7 @@ text-decoration: none;
 }
 
 .loginLink{
+    cursor:pointer;
     width: 94px;
     height: 37px;
     border-radius: 80px;
@@ -97,6 +99,7 @@ text-decoration: none;
 }
 
 .registerLink{
+    cursor:pointer;
     background-color: rgba(40, 43, 137, 1);
     width: 199px;
     height: 37px;
@@ -607,7 +610,7 @@ text-decoration: none;
     border: 0.5px solid rgba(38, 54, 130, 1);
     padding: 8px 8px 0px 32px;
     position: absolute;
-    bottom: -89px;
+    bottom: -120px;
     width: 145px;
     border-radius:20px;
    
@@ -673,6 +676,24 @@ text-decoration: none;
     height: 20px;  
     vertical-align: middle;
     background-image:url('../images/editImg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.users_profile ul li:nth-child(3){
+    position: relative;
+}
+
+.users_profile ul li:nth-child(3)::before{
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: -25px; 
+    width: 20px; 
+    height: 20px;  
+    vertical-align: middle;
+    background-image:url('../images/deleteAcc.svg');
     background-size: cover;
     background-repeat: no-repeat;
     z-index: 1;

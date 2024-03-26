@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: travels;
+}
+
+.wrap{
+    background-color: rgba(232, 233, 254, 1);
+    height: 100%;
+    padding-bottom: 219px;
+    
+}
+
+.container{
+    margin: 0 auto;
+    width: 1240px;
+    position: relative;
+}
+
+
+
+.logo img{
+    max-width: 191px;
+    height: 55px;
+    margin-top: 10px;
+}
+.logo{
+    text-align: center;
+    padding: 10px;
+}
+
+.toLogin{
+    background-color:  rgba(53, 74, 176, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 109px;
+    height: 36px;
+    border-radius: 36px;
+    padding: 6px 30px;
+    border: none;
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    font-family: 'Poppins' , sans-serif;
+    position: absolute;
+    top: 33px;
+    right: 0;
+}
+
+.delete{
+    width: 903px;
+    height: 328px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    border: 0.5px solid rgba(255, 255, 255, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: 129px auto;
+    padding: 57px 140px;
+
+}
+
+.delete_inner h2{
+    font-family: travelsRegular;
+    font-size: 36px;
+    color: rgba(27, 42, 108, 1);
+    line-height: 43.2px;
+    text-align: center;
+}
+
+.delete_inner p{
+    font-family: travelsBold;
+    color: rgba(113, 113, 113, 1);
+    font-size: 20px;
+    line-height: 28px;
+    text-align: center;
+    margin: 31px 0 50px 0;
+}
+
+.delete_inner_buttons{
+    display: flex;
+    justify-content: center;
+    gap: 53px;
+}
+
+.delete_inner_buttons button{
+    width: 271px;
+    height: 55px;
+    border-radius:36px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    transition: 0.2s linear;
+}
+
+.cancel{
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(53, 74, 176, 1);
+    color: rgba(53, 74, 176, 1);
+    font-size: 22px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.delete_btn{
+    background: rgba(53, 74, 176, 1);
+    color: rgba(255, 255, 255, 1);
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    border: none;
+    
+}
+
+.delete_inner_buttons button:hover{
+    transform: scale(1.1);
+}
+

@@ -59,6 +59,13 @@
 
 }
 
+/* .edit_form{
+    width: 100%;
+}
+
+.edit_profile_form{
+    width: 100%;
+} */
 
 
 .group{
@@ -78,7 +85,6 @@ label{
     position: absolute;
     bottom: 0;
     height: 46px;
-     /* width: 400px;  */
     width: 100%;
     margin-bottom: 20px;
     border-radius: 12px;

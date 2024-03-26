@@ -1,0 +1,257 @@
+.header_inner{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    align-items: center;
+}
+
+.burgerSide{
+    display: flex;
+    gap: 11px;
+    padding: 31px 0;
+}
+
+.burgerSide h2{
+    font-size: 28px;
+    line-height: 33.6px ;
+    font-family: travels;
+    color:rgba(37, 38, 65, 1);
+
+}
+
+.users_profile{
+    cursor: pointer;
+    position: relative;
+    width: 145px;
+}
+
+.users_profile ul{
+
+    background: rgb(242, 242, 243);
+
+    text-align: left;
+    border: 0.5px solid rgba(38, 54, 130, 1);
+    padding: 8px 8px 0px 32px;
+    position: absolute;
+    bottom: -135px;
+    width: 145px;
+    border-radius:20px;
+    z-index: 1000;
+}
+
+.users_profile ul li{
+    margin-bottom: 10px;
+    width: 100%;
+    transition: 0.2s ;
+}
+
+.users_profile ul li:hover{
+    background-color: rgb(215, 215, 208);
+    border-radius: 5px;
+}
+
+.users_profile ul li a{
+    font-size: 12px;
+    font-weight: 400;
+    /* color: rgba(97, 97, 97, 1); */
+    color:  rgba(38, 54, 130, 1);
+    line-height: 14.4px;
+    /* font-family: travelsRegular; */
+}
+
+ .users_profile ul li a:hover{
+   color:  rgba(38, 54, 130, 1);
+   
+
+}
+
+
+.users_profile ul li:first-child{
+    position: relative;
+}
+
+.users_profile ul li:first-child::before{
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: -25px; 
+    width: 20px; 
+    height: 20px;  
+    vertical-align: middle;
+    background-image:url('../images/profileImg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+
+
+.users_profile ul li:nth-child(2){
+    position: relative;
+}
+
+.users_profile ul li:nth-child(2)::before{
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: -25px; 
+    width: 20px; 
+    height: 20px;  
+    vertical-align: middle;
+    background-image:url('../images/editImg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.users_profile ul li:nth-child(3){
+    position: relative;
+}
+
+.users_profile ul li:nth-child(3)::before{
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: -25px; 
+    width: 20px; 
+    height: 20px;  
+    vertical-align: middle;
+    background-image:url('../images/deleteAcc.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.users_profile ul li:last-child{
+    position: relative;
+}
+
+.users_profile ul li:last-child::before{
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: -25px; 
+    width: 20px; 
+    height: 20px;  
+    vertical-align: middle;
+    background-image:url('../images/logoutImg.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.users_profile_info{
+    display: flex;
+    justify-content: space-between ;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.users_profile img{
+    transform: rotate(180deg);
+}
+
+.users_name_surname{
+    display: flex;
+    font-family: travels;
+    font-size: 14px;
+    line-height: 16.8px;
+    font-weight: 400;
+    color:rgba(29, 29, 29, 1);
+
+}
+.users_name_role{
+    margin-right: 15px;
+}
+
+.users_name{
+   margin-right: 6px;
+}
+
+.users_role{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 14.4px;
+    color: rgba(61, 94, 225, 1);
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100.6vh;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(173, 173, 173, 1);
+    border-radius: 10px;
+    width: 407px;
+    text-align: center;
+    transition: 850ms;
+    padding: 27px 82px 0 62px;
+    z-index: 100;
+    transition: left 0.3s ease; 
+
+}
+
+
+.sidebar_header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 74px;
+    align-items: center;
+}
+.nav_item{
+    display: flex;
+    gap: 25px;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 56px; 
+    text-decoration: none;
+}
+
+
+
+
+.nav_item h4{
+    color: rgba(97, 97, 97, 1);
+    font-family: travelsRegular;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26.4px;
+    letter-spacing: 2%;
+
+}
+
+.nav_item h4:hover{
+    color: rgba(24, 32, 69, 1);
+    font: 700;
+    font-family: travels;
+
+}
+
+
+.logo img{
+    margin-left: -15px;
+    width: 181px;
+    height: 61px;
+}
+
+.closeIcon{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.sidebar p{
+    color: rgba(158, 158, 158, 1);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    font-family: travelsRegular;
+    text-align: left;
+    margin-bottom: 29px;
+}

@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+.wrapper{
+    background-color: rgba(244, 249, 255, 1);
+    height: 100vh;
+}
+
+ul,
+li,
+a
+{
+list-style: none;
+padding: 0;
+margin: 0;
+text-decoration: none;
+}
+
+.wrap_inner{
+    height: 155px;
+    background-color: rgba(37, 38, 65, 1);
+    position: relative;
+}
+
+.container{
+    width: 1240px;
+    margin: 0 auto;
+}
+
+.header{
+    height: 91px;
+    background-color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top:20px;
+    width: 100%;
+}
+
+.edit_profile{
+    margin-top :84px;
+    margin-bottom: 148px;
+}
+
+.edit_profile_title{
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    letter-spacing: 2%;
+    color: rgba(24, 32, 69, 1);
+    font-family: travelsBold;
+    margin-bottom: 37px;
+}
+
+.edit_profile_inner{
+    border-radius:10px;
+    height: 892px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    padding: 55px 138px 178px 80px;
+}
+
+.edit_profile_info{
+    display: flex;
+    gap: 111px;
+    width: 100%;
+    position: relative;
+}
+
+.edit_profile_form{
+    width: 100%;
+    width: 778px;
+    
+}
+
+.edit_form{
+    position: absolute;
+    left: 230px;
+}
+
+
+.user_img{
+    width: 120px;
+    height: 120px;
+    border-radius:80px;
+    border: 2px solid rgba(33, 236, 0, 1);
+}
+
+/* FORM */
+.group{
+    position: relative;
+    height: 60px;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end; 
+    width: 100%;
+    margin-bottom: 24px;
+    
+}
+
+label{
+    position: absolute;
+    top: 0;
+    left:0;
+}
+
+.edit_input{
+    
+    width: 100%;
+    height: 41px;
+    border-radius: 12px;
+    border: 1px solid rgba(45, 45, 45, 1);
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: travels;
+   
+}
+
+.column{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.column .group{
+    flex-basis: 46%;
+}
+
+
+
+
+
+.female input,
+.male input,
+.expMore input,
+.expOneToThree input,
+.expThreeToFive input,
+.expNo input {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px; /* Adjust the margin as needed */
+}
+
+.female , .male,
+.expThreeToFive,
+.expOneToThree,
+.expNo,
+.expMore{
+    gap: 8px;
+    /* display: flex;
+    align-items:center;  */
+    margin-top: 30px;
+    height: auto ;
+    align-items: flex-start;
+    margin-right: 10px;
+    
+}
+.female p, .male p,
+.expMore p,
+.expThreeToFive p,
+.expNo p,
+.expOneToThree p{
+    font-family: 'Poppins' , sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.expGroup,
+.genderGroup{
+    display: flex;
+    align-items: center;
+    gap: 15px;    
+}
+
+.edit_profile_btns{
+    margin-top: 140px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit_profile_btns button{
+    padding: 9px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: travels;
+    font-size: 16px;
+}
+
+.cancel{
+    background: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(74, 74, 74, 1);
+    color: rgba(74, 74, 74, 1);
+    line-height: 24px;
+    
+}
+
+.editBtn{
+    background: rgba(37, 38, 65, 1);
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.delete_profile_picture{
+    margin-top: 25px;
+    width: 120px;
+    height: 36px;
+    border-radius: 7px;
+    border: 1px solid rgba(36, 36, 36, 1);
+    color: rgba(36, 36, 36, 1);
+    font-size: 16px;
+    font-family: travelsRegular;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 1);
+    position: absolute;
+    left: 0;
+    top: 125px;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+input[type="file"]{
+    position: absolute;
+    left: 0;
+    top: 125px;
+}
+input[type="file"]::before {
+    content: 'Добавить фото';
+    display: inline-block;
+    width: 100px;
+    padding: 6px 12px;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid rgba(36, 36, 36, 1);
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-top: 25px;
+  }
+  
+  input[type="file"]::before {
+    color: rgba(36, 36, 36, 1);
+  }
+
+  input[type="file"]::before:hover {
+    background-color: #007bff; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+  }
+  

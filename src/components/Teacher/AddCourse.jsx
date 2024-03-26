@@ -1,29 +1,24 @@
-import React , {useState, useContext} from 'react';
+import React , {useState, useContext, useEffect} from 'react';
 import styles from '../../styles/AddCourse.module.css';
-import burgerImg from '../../images/burgerImg.svg';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { UserContext } from '../../components/UserContext';
-import line2 from '../../images/line2.svg';
 import Footer from '../../ui/Footer';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import categories from '../courseCategories';
+import TeacherHeader from './TeacherHeader';
+
 
 
 const AddCourse = () => {
-    const [isActiveDropdown, setIsActiveDropdown] = useState(false);
-    const [isRotated, setIsRotated] = useState(false);
     const {user} = useContext(UserContext);
+    const history = useNavigate();
+
     const form = useForm({
         mode: "onBlur",
     });
     const {register , handleSubmit, formState: { errors}, reset} = form;
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const handleDropdownClick = () => {
-      setIsActiveDropdown(!isActiveDropdown);
-      setIsRotated(!isRotated);
-    };
 
     const token = localStorage.getItem('token');
 
@@ -38,9 +33,12 @@ const AddCourse = () => {
                 'Content-Type': 'application/json'
               }
           });
-            console.log(response.data);
+          if(response.status ===200){
             setIsSubmitting(false);
-        
+            history('/my-courses')
+          }else{
+            console.log('wrong!')
+          }
         } catch (error) {
           console.error('Error adding course:', error);
           setIsSubmitting(false);
@@ -48,44 +46,13 @@ const AddCourse = () => {
         reset();
       };
 
+      
   return (
     <div className={styles.wrapper}>
     <div className={styles.wrap_inner}>
         <div className={styles.header}>
             <div className={styles.container}>
-                <div className={styles.header_inner}>
-                    <div className={styles.burgerSide}>
-                        <img src={burgerImg} alt="burger" />
-                        <h2>Мои курсы</h2>
-                    </div>
-
-                        <div onClick={handleDropdownClick} className={styles.users_profile}>
-                        <div className={styles.users_profile_info}>
-                        <div className={styles.users_name_role}>
-                            <div className={styles.users_name_surname}>
-                            <div className={styles.users_name}>{user.first_name}</div>
-                            <div>{user.last_name}</div>
-                            </div>
-                            <div className={styles.users_role}>{user.role}</div>
-                        </div> 
-                
-                        <img style={{ transform: isRotated ? 'rotate(180deg)' : 'none' }} src={line2}/>
-                        </div>
-
-                        {isActiveDropdown && 
-                        <ul>
-                        <li>
-                            <Link to='/profile'>Мой профиль</Link>
-                        </li>
-                        <li>
-                            <Link to='/edit-profile'>Редактировать </Link>
-                        </li>
-                        <li>
-                            <Link to='/logout'>Выйти</Link>
-                        </li>
-                        </ul>}
-                    </div>
-                </div>
+                <TeacherHeader headerTitle={'Мои курсы'}/>
 
                 {/* ADD COURSE CONTENT */}
                 <div className={styles.add_course_content}>

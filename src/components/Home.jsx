@@ -1,8 +1,8 @@
 import React from 'react'
-import {useState, useContext, useEffect} from 'react';
+import {useState, useContext} from 'react';
 import styles from '../styles/Home.module.css';
 import Logo from '../ui/Logo';
-import { Route, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import up from '../images/Up.svg';
 import SearchButton from '../ui/SearchButton';
 import SearchResults from '../ui/SearchResults';
@@ -28,7 +28,6 @@ import HomeFeedbacksSlider from '../ui/HomeFeedbacksSlider';
 import Footer from '../ui/Footer';
 import { UserContext } from './UserContext';
 import line2 from '../images/line2.svg';
-import editImg from '../images/editImg.svg';
 import { Link as ScrollLink } from 'react-scroll'; 
 
 const Home = () => {
@@ -71,7 +70,7 @@ const Home = () => {
               )}
               {user.role === 'Студент' && (
                 <li className={styles.my_lessons}>
-                <RouterLink to="/my-lessons">Мои уроки</RouterLink>
+                <RouterLink to="/student-courses">Мои курсы</RouterLink>
                 </li>
               )}
             </ul>
@@ -88,17 +87,44 @@ const Home = () => {
                     <div className={styles.users_role}>{user.role}</div>
                   </div> 
                 
-                <img style={{ transform: isRotated ? 'rotate(180deg)' : 'none' }} src={line2}/>
+                <img style={{ transform: isRotated ? 'rotate(180deg)' : 'none' }} src={line2} alt='line2'/>
                 </div>
 
                 {isActiveDropdown && 
                 <ul>
-                  <li>
-                    <RouterLink to='/profile'>Мой профиль</RouterLink>
+                  {user.role === 'Репетитор' && (
+                     <>
+                        <li>
+                          <RouterLink to='/teacher-profile'>Мой профиль</RouterLink>
+                        </li>
+                        <li>
+                          <RouterLink to='/teacher-edit-page'>Редактировать </RouterLink>
+                        </li>
+                        <li>
+                          <RouterLink to='/teacher-delete-account'>Удалить аккаунт</RouterLink>
+                        </li>
+                        
+                      </>
+                  )}
+                  {user.role === 'Студент' && (
+                     <>
+                        <li>
+                          <RouterLink to='/student-profile'>Мой профиль</RouterLink>
+                        </li>
+                        <li>
+                          <RouterLink to='/student-edit-profile'>Редактировать </RouterLink>
+                        </li>
+                        <li>
+                          <RouterLink to='/student-delete-account'>Удалить аккаунт</RouterLink>
+                        </li>
+                      </>
+                  )}
+                  {/* <li>
+                    <RouterLink to='/teacher-profile'>Мой профиль</RouterLink>
                   </li>
                   <li>
                     <RouterLink to='/edit-profile'>Редактировать </RouterLink>
-                  </li>
+                  </li>  */}
                   <li>
                     <RouterLink to='/logout'>Выйти</RouterLink>
                   </li>
@@ -109,7 +135,7 @@ const Home = () => {
             ) : (
               <div className={styles.buttons}>
               <RouterLink to='/login'><button className={styles.loginLink}>Войти</button></RouterLink>
-              <button onClick={(e) => setIsActiveDropdown(!isActiveDropdown)}  className={styles.registerLink}><img src={up}/>Зарегистрироваться
+              <button onClick={(e) => setIsActiveDropdown(!isActiveDropdown)}  className={styles.registerLink}><img src={up} alt='register'/>Зарегистрироваться
                 {isActiveDropdown &&
                 <ul>
                   <li>
@@ -233,10 +259,10 @@ const Home = () => {
         {/* HOW IT WORKS */}
 
         <section id='howitworks' className={styles.how_it_works}>
-            <img className={styles.circle1} src={circle1} />
-            <img className={styles.circle2} src={circle2} />
-            <img className={styles.circle3} src={circle3} />
-            <img className={styles.circle4} src={circle4} />
+            <img className={styles.circle1} src={circle1} alt='circle1'/>
+            <img className={styles.circle2} src={circle2} alt='circle1'/>
+            <img className={styles.circle3} src={circle3} alt='circle1'/>
+            <img className={styles.circle4} src={circle4} alt='circle1'/>
             <h2>Как это работает?</h2>
             <p>Это один мощный онлайн-пакет программного обеспечения, который сочетает <br/> в себе все инструменты, необходимые для успешного управления школой или <br/> офисом.</p>
             <HomeGuideItem/>
@@ -255,7 +281,6 @@ const Home = () => {
     </div>
   )
 }
-
 export default Home;
 
 

@@ -11,6 +11,13 @@ import SetNewPasswordForm from './SetNewPasswordForm';
 import SuccessResetPassword from './SuccessResetPassword';
 import MyCourses from '../components/Teacher/MyCourses';
 import AddCourse from './Teacher/AddCourse';
+import TeacherProfile from './Teacher/TeacherProfile';
+import TeacherEditPage from './Teacher/TeacherEditPage';
+import StudentProfile from './Student/StudentProfile';
+import StudentEditPage from './Student/StudentEditPage';
+import TeacherDeleteAccount from './Teacher/TeacherDeleteAccount';
+import StudentDeleteAccount from './Student/StudentDeleteAccount';
+import StudentCourses from './Student/StudentCourses';
 
 const AppRoutes = () =>{
     return(
@@ -26,6 +33,14 @@ const AppRoutes = () =>{
             <Route path='/success-reset-password' element={<SuccessResetPassword/>}/>
             <Route path='/my-courses' element={<MyCourses/>}/>
             <Route path='/add-course' element={<AddCourse/>}/>
+            <Route path='/teacher-profile' element={<TeacherProfile/>}/>
+            <Route path='/teacher-edit-page' element={<TeacherEditPage/>}/>
+            <Route path='/student-profile' element={<StudentProfile/>}/>
+            <Route path='/student-edit-profile' element={<StudentEditPage/>}/>
+            <Route path='/teacher-delete-account' element={<TeacherDeleteAccount/>}/>
+            <Route path='/student-delete-account' element={<StudentDeleteAccount/>}/>
+            <Route path='/student-courses' element={<StudentCourses/>}/>
+            
         </Routes>
     )
 }

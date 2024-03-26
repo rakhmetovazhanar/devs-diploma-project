@@ -14,17 +14,29 @@ export const UserContext=createContext({
 });
 
 const Context = ({children}) =>{
-    const [user,setUser] = useState(()=>{
-        const storedUser = localStorage.getItem("user");
-        return storedUser ? JSON.parse(storedUser) : {
-        loggedIn : false,
-        username : '',
-        first_name:'', 
-        last_name : '',
-        token: '',
-        role:'',
-        user_id: ''
-        }
+//     const [user,setUser] = useState(()=>{
+//         const storedUser = localStorage.getItem("user");
+//         return storedUser ? JSON.parse(storedUser) : {
+//         loggedIn : false,
+//         username : '',
+//         first_name:'', 
+//         last_name : '',
+//         token: '',
+//         role:'',
+//         user_id: ''
+//         }
+// });
+
+const [user,setUser] = useState({
+    
+    loggedIn : false,
+    username : '',
+    first_name:'', 
+    last_name : '',
+    token: '',
+    role:'',
+    user_id: ''
+    
 });
 
     useEffect(() => {

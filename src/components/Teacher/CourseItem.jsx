@@ -25,7 +25,7 @@ const CourseItem = ({course, handleDelete}) => {
         <h3 className={styles.course_item_name}>{course.name}</h3>
         <div className={styles.course_item_desc_cost}>
           <p className={styles.course_item_desc}>{course.description}</p>
-          <p className={styles.course_item_cost}>{initialPrice}</p>
+          <p className={styles.course_item_cost}>{initialPrice} тг</p>
         </div>
         <span className={styles.course_item_line}></span>
         <div className={styles.course_item_rating_functions}>
