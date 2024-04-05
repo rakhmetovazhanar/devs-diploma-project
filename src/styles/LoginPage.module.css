@@ -28,7 +28,7 @@
 
 .logincontent{
     width: 680px;
-    height: 800px;
+    height: 820px;
     background-color:white;
     border: 1px solid black;
     margin: 0 auto;
@@ -58,7 +58,7 @@
     font-size: 16px;
     line-height: 19.2px;
     color: rgba(91, 91, 91, 1);
-    margin-bottom: 36px;
+    /* margin-bottom: 36px; */
 
 }
 
@@ -136,7 +136,7 @@ label{
     font-family: travels;
     margin-top: 36px;
     text-align: center;
-    margin-bottom: 92px;
+    margin-bottom: 10px;
 }
 .error {
     color: red !important;
@@ -158,4 +158,28 @@ label{
 .login_error{
     color: red !important;
     margin-top: 10px;
+}
+
+.logincontent__inner a{
+    color:black;
+}
+
+.ins_reg,
+.stud_reg{
+    color: rgba(0, 0, 0, 1);
+    font-size: 18px;
+    text-align: center;
+}
+
+.ins_reg{
+    margin-left: 60px
+}
+
+.stud_reg{
+    margin-left: 70px;
+}
+
+.ins_reg:hover,
+.stud_reg:hover{
+    color: rgba(91, 91, 91, 1);
 }

@@ -7,12 +7,23 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import categories from '../courseCategories';
 import TeacherHeader from './TeacherHeader';
+import { useCourseContext } from '../CourseContext';
 
 
 
 const AddCourse = () => {
+    // const {setCourse} = useCourseContext();
     const {user} = useContext(UserContext);
     const history = useNavigate();
+    const [description, setDescription] = useState('');
+    const maxLength = 250;
+
+    const handleDescriptionChange = (e) => {
+        const inputDescription = e.target.value;
+        setDescription(inputDescription.slice(0, maxLength));
+    }
+
+    const characterCount = description.length;
 
     const form = useForm({
         mode: "onBlur",
@@ -23,7 +34,7 @@ const AddCourse = () => {
     const token = localStorage.getItem('token');
 
     const onSubmit = async (data) => {
-        console.log(data)
+        // console.log(data)
         setIsSubmitting(true);
         try {
           const formData = {...data, teacher_id: user.user_id};
@@ -33,7 +44,8 @@ const AddCourse = () => {
                 'Content-Type': 'application/json'
               }
           });
-          if(response.status ===200){
+          if(response.status===200 || response.status===201){
+           
             setIsSubmitting(false);
             history('/my-courses')
           }else{
@@ -84,27 +96,48 @@ const AddCourse = () => {
                             className={styles.course_desc}
                             type="text"
                             placeholder='Введите описание вашего курса  '
+                            onChange={handleDescriptionChange}
                             id='description'
                             {...register("description", { required: true })}
                             />
+                            {/* <p>{description.length}/{maxLength}</p> */}
                             <div>{errors?.description && <p className={styles['error-text']}>Пожалуйста, заполните это поле</p>}</div>
+                            
 
                         </div>
 
-                        <div className={styles.group}>
-                            <label htmlFor='category_id'>
-                            Категория курса
-                            </label>
-                                    
-                            <select className={styles.course_categories}
-                            {...register("category_id", { required: true })}>
-                                <option disabled selected value="">Выбирать...</option>
-                                {categories.map(category => (
-                                    <option key={category.id} value={category.id}>{category.name}</option>
-                                ))}
-                            </select>
-                            <div>{errors?.category_id && <p className={styles['error-text']}>Выберите категорию!</p>}</div>
+                        <div className={styles.column2}>
+                            <div className={styles.group}>
+                                <label htmlFor='category_id'>
+                                Категория курса
+                                </label>
+                                        
+                                <select className={styles.course_categories}
+                                {...register("category_id", { required: true })}>
+                                    <option disabled selected value="">Выбирать...</option>
+                                    {categories.map(category => (
+                                        <option key={category.id} value={category.id}>{category.name}</option>
+                                    ))}
+                                </select>
+                                <div>{errors?.category_id && <p className={styles['error-text']}>Выберите категорию!</p>}</div>
+                            </div>
+
+                            <div className={styles.group}>
+                                <label  htmlFor='day_time'>
+                                Время для уроков
+                                </label>
+                                <br/>
+                                <input
+                                type="text"
+                                placeholder='Дата и время'
+                                id='day_time'
+                                {...register("day_time", { required: true })}
+                                />
+                                <div>{errors?.day_time && <p className={styles['error-text']}>Пожалуйста, заполните это поле</p>}</div>
+
+                            </div>
                         </div>
+                        
 
                         <div className={styles.column}>
                             <div className={styles.group}>
@@ -132,7 +165,7 @@ const AddCourse = () => {
                                     <option disabled selected value="">Выбирать...</option>
                                     <option value="Казахский">Казахский</option>
                                     <option value="Русский">Русский</option>
-                                    <option value="Английсий">Английский</option>
+                                    <option value="Английский">Английский</option>
                                 </select>
                                 <div>{errors?.language && <p className={styles['error-text']}>Выберите язык!</p>}</div>
                             </div>

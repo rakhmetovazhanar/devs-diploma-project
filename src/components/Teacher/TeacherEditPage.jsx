@@ -11,7 +11,7 @@ import profileImg from '../../images/studentsImg.svg';
 
 
 const TeacherEditPage = () => {
-  const {user} = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const token = localStorage.getItem('token');
   const history = useNavigate();
@@ -48,48 +48,47 @@ const TeacherEditPage = () => {
   }, [user.user_id]);
   
 
-const handleChange = (e) => {
-const { name, value, type } = e.target;
-if (type === 'radio') {
-  setUserData({
-    ...userData,
-    [name]: value
-  });
-} else {
-  setUserData({
-    ...userData,
-    [name]: value
-  });
-}};
+  const handleChange = (e) => {
+    const { name, value, type } = e.target;
+    if (type === 'radio') {
+      setUserData({
+        ...userData,
+        [name]: value
+      });
+    } else {
+      setUserData({
+        ...userData,
+        [name]: value
+      });
+    }};
 
-const handleImageChange = (e) => {
-  const file = e.target.files[0];
-  setUserData(prevUserData => ({
-    ...prevUserData,
-    profile_picture: file
-  }));
-};
-
-const handleRemoveImage = () => {
-  setUserData({
-    ...userData,
-    profile_picture: null
-  });
-};
-
-
-  const handleExperienceChange = (e) => {
-    const { value } = e.target;
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setUserData(prevUserData => ({
+      ...prevUserData,
+      profile_picture: file
+    }));
+  };
+  
+  const handleRemoveImage = () => {
     setUserData({
       ...userData,
-      exp: value
+      profile_picture: null
     });
   };
+
+
+const handleExperienceChange = (e) => {
+  const { value } = e.target;
+  setUserData(prevUserData => ({
+    ...prevUserData,
+    experience: value
+  }));
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
       const response = await axios.put(`http://134.209.250.123:8000/api/update-teacher-profile/${user.user_id}`, userData,{
         headers: {
@@ -108,6 +107,8 @@ const handleRemoveImage = () => {
       console.error('Error updating user:', error);
     }
   };
+
+  console.log(user.first_name)
   return (
     <div className={styles.wrapper}>
     <div className={styles.wrap_inner}>
@@ -118,26 +119,22 @@ const handleRemoveImage = () => {
                     <h2 className={styles.edit_profile_title}>Редактировать профиль</h2>
                     <div className={styles.edit_profile_inner}>
                         <div className={styles.edit_profile_info}>
-                            {/* <img className={styles.user_img} src={profileImg} alt="profile_img" /> */}
-                            <div>
-                              {userData && userData.profile_picture ?(
-                                <>
-                                  <img className={styles.user_img} src={URL.createObjectURL(userData.profile_picture)} alt="profile" />
-                                  <button className={styles.delete_profile_picture} type='button' onClick={handleRemoveImage}>Удалить</button>
-                                </>
-                              ):(
-                                <>
-                                  <img className={styles.user_img} src={profileImg} alt="Default Profile" />
-                                  <input type="file" name='profile_picture' onChange={handleImageChange} accept="image/*" placeholder="Добавить фото"/>
-                                </>
-
-                              )
-                            }
-                            
-                            </div>
                             <div className={styles.edit_form}>
-                                <form onSubmit={handleSubmit} className={styles.edit_profile_form}>
-        
+                                <form onSubmit={handleSubmit} className={styles.general_form} encType='multipart/form-data'>
+                                        <div>
+                                          {userData && userData.profile_picture ? (
+                                            <>
+                                              <img className={styles.user_img} src={userData.profile_picture} alt="profile" />
+                                              <button className={styles.delete_profile_picture} type='button' onClick={handleRemoveImage}>Удалить</button>
+                                            </>
+                                          ) : (
+                                            <>
+                                              <img className={styles.user_img} src={profileImg} alt="Default Profile" />
+                                              <input type="file" name='profile_picture' onChange={handleImageChange} accept="image/*" />
+                                            </>
+                                          )}
+                                        </div>
+                                        <div className={styles.edit_profile_form}>
                                         <div className={styles.column}>
                                             <div className={styles.group}>
                                                 <label htmlFor='first_name'>
@@ -287,6 +284,7 @@ const handleRemoveImage = () => {
                                         <div className={styles.edit_profile_btns}>
                                             <Link to='/teacher-profile'><button  className={styles.cancel}>Отменить</button></Link>
                                             <button className={styles.editBtn} disabled={isSubmitting}>Сохранить</button>
+                                        </div>
                                         </div>
                                 </form>
                             </div>

@@ -1,17 +1,15 @@
 import React from 'react'
-import {useState, useContext} from 'react';
+import {useState, useContext, useEffect} from 'react';
 import styles from '../styles/Home.module.css';
 import Logo from '../ui/Logo';
 import { Link as RouterLink } from 'react-router-dom';
 import up from '../images/Up.svg';
-import SearchButton from '../ui/SearchButton';
-import SearchResults from '../ui/SearchResults';
 import homeImg from '../images/homeImg.svg';
 import studentsImg from '../images/studentsImg.svg';
 import tutorsImg from '../images/tutorsImg.svg';
 import subjectsImg from '../images/subjectsImg.svg';
 import feedbacksImg from '../images/feedbacksImg.svg';
-import CourseItem from '../ui/CourseItem';
+import CategoryItem from '../ui/CourseItem';
 import englishImg from '../images/english.svg';
 import javaImg from '../images/java.svg';
 import frontendImg from '../images/frontend.svg';
@@ -29,144 +27,67 @@ import Footer from '../ui/Footer';
 import { UserContext } from './UserContext';
 import line2 from '../images/line2.svg';
 import { Link as ScrollLink } from 'react-scroll'; 
+import SearchFilters from '../ui/SearchFilters';
+import FilteredCourseItems from './FilteredCourseItems';
+import ModalToLogin from './ModalToLogin';
+import NotLoginHeader from './NotLoginHeader';
 
 const Home = () => {
   const {user} = useContext(UserContext);
   const [results , setResults] = useState([]);
   const [isActiveDropdown, setIsActiveDropdown] = useState(false);
   const [isRotated, setIsRotated] = useState(false);
+  const [isSearchClicked, setIsSearchClicked] = useState(false);
   const handleDropdownClick = () => {
     setIsActiveDropdown(!isActiveDropdown);
     setIsRotated(!isRotated);
   };
 
+  const handleSearchResults = (searchResults) => {
+    setResults(searchResults);
+    setIsSearchClicked(true); // Устанавливаем состояние нажатия кнопки "Поиск"
+  };
+
+  useEffect(() => {
+    console.log(results);
+  }, [results]);
+
  
   return (
-    <div className={styles.wrap}>
-        <div className={styles.container}>
-
-          {/* HEADER */}
-
-          <div className={styles.header}>
-          <RouterLink to='/'><Logo style={styles.logo}/></RouterLink>
-
-            <ul className={styles.navLink}>
-              <li className={styles.navLink_item}>
-              <ScrollLink to="courses" smooth={true} duration={500} hashSpy={true}>Курсы</ScrollLink>
-              </li>
-              <li className={styles.navLink_item}>
-              <ScrollLink to="teachers" smooth={true} duration={500} hashSpy={true}>Репетиторы</ScrollLink>
-              </li>
-              <li className={styles.navLink_item}>
-              <ScrollLink to="aboutus" smooth={true} duration={500} hashSpy={true}>О нас</ScrollLink>
-              </li>
-              <li className={styles.navLink_item}>
-              <ScrollLink to="howitworks" smooth={true} duration={500} hashSpy={true}>Как это работает</ScrollLink>
-              </li>
-              {user.role === 'Репетитор' && (
-                <li className={styles.my_courses}>
-                <RouterLink to="/my-courses">Мои курсы</RouterLink>
-                </li>
-              )}
-              {user.role === 'Студент' && (
-                <li className={styles.my_lessons}>
-                <RouterLink to="/student-courses">Мои курсы</RouterLink>
-                </li>
-              )}
-            </ul>
-
-            {user.loggedIn ? (
-            <>
-              <div onClick={handleDropdownClick} className={styles.users_profile}>
-                <div className={styles.users_profile_info}>
-                  <div className={styles.users_name_role}>
-                    <div className={styles.users_name_surname}>
-                      <div className={styles.users_name}>{user.first_name}</div>
-                      <div>{user.last_name}</div>
-                    </div>
-                    <div className={styles.users_role}>{user.role}</div>
-                  </div> 
-                
-                <img style={{ transform: isRotated ? 'rotate(180deg)' : 'none' }} src={line2} alt='line2'/>
-                </div>
-
-                {isActiveDropdown && 
-                <ul>
-                  {user.role === 'Репетитор' && (
-                     <>
-                        <li>
-                          <RouterLink to='/teacher-profile'>Мой профиль</RouterLink>
-                        </li>
-                        <li>
-                          <RouterLink to='/teacher-edit-page'>Редактировать </RouterLink>
-                        </li>
-                        <li>
-                          <RouterLink to='/teacher-delete-account'>Удалить аккаунт</RouterLink>
-                        </li>
-                        
-                      </>
-                  )}
-                  {user.role === 'Студент' && (
-                     <>
-                        <li>
-                          <RouterLink to='/student-profile'>Мой профиль</RouterLink>
-                        </li>
-                        <li>
-                          <RouterLink to='/student-edit-profile'>Редактировать </RouterLink>
-                        </li>
-                        <li>
-                          <RouterLink to='/student-delete-account'>Удалить аккаунт</RouterLink>
-                        </li>
-                      </>
-                  )}
-                  {/* <li>
-                    <RouterLink to='/teacher-profile'>Мой профиль</RouterLink>
-                  </li>
-                  <li>
-                    <RouterLink to='/edit-profile'>Редактировать </RouterLink>
-                  </li>  */}
-                  <li>
-                    <RouterLink to='/logout'>Выйти</RouterLink>
-                  </li>
-                </ul>}
-              </div>
-            </>
-           
-            ) : (
-              <div className={styles.buttons}>
-              <RouterLink to='/login'><button className={styles.loginLink}>Войти</button></RouterLink>
-              <button onClick={(e) => setIsActiveDropdown(!isActiveDropdown)}  className={styles.registerLink}><img src={up} alt='register'/>Зарегистрироваться
-                {isActiveDropdown &&
-                <ul>
-                  <li>
-                    <RouterLink to='/instructor-register'>Преподаватель</RouterLink>
-                  </li>
-                  <li>
-                    <RouterLink to='/student-register'>Студент</RouterLink>
-                  </li>
-              </ul>}
-              </button>
-              {/* <h1>{user.username}</h1> */}
-            </div>
-            )}
-          
+    <div className={styles.wrapper}>
+      
+      <div className={styles.wrap_inner}>
+      {/* <ModalToLogin className={styles.modal_window}/> */}
+        <div className={styles.header}>
+          <div className={styles.container}>
+            <NotLoginHeader showNavLinks={true}/>
           </div>
-
 
           {/* SEARCH COURSER PART */}
 
-          <section  className={styles.searchCourses}>
-            <div className={styles.searchCourses_inner}>
-              <div className={styles.searchCourses_content}>
-                <h1>Заниматься с репетитором <br/> стало намного проще</h1>
-                <p>Это интересная платформа , которая научит вас более <br/> интерактивно.</p>
-                <SearchButton setResults={setResults}/>
-                {results && results.length > 0 && <SearchResults results={results}/>}
+          <section  className={styles.filterCourses}>
+            <div className={styles.container}>
+              <div className={styles.filterCourses_inner}>
+                <h2>Ищешь помощь с учёбой?</h2>
+                <h2>Выбирай лучших репетиторов с GENIUS!</h2>
+                <SearchFilters onSearchResults={handleSearchResults}/>
               </div>
-              <img className={styles.homeImg} src={homeImg} alt="home"/>
             </div>
           </section>
 
+          {isSearchClicked && results && results.length > 0 ?(
+            <div className={styles.filteredCourses}>
+              <div className={styles.container}>
+              {results.map((course, index) => (
+                <FilteredCourseItems course={course}/>
+              ))}
+              </div>
+            </div>
+          ) : (
+            <div>
+            
+
+          <div className={styles.container}>
           {/* ABOUT US */}
             
           <section id='aboutus' className={styles['about-us']}>
@@ -235,12 +156,12 @@ const Home = () => {
           <section id='courses' className={styles.courses}>
             <h3>Выберите любимое курс из высшей категории</h3>
             <div className={styles.courseItems}>
-              <CourseItem img={englishImg} name={'Англиский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
-              <CourseItem img={javaImg} name={'Java'} desc={'Научим писать код, создавать программы. Онлайн и оффлайн занятия. Поддержка менторов.'}/>
-              <CourseItem img={frontendImg} name={'Front End'} desc={'Научим писать код, создавать программы. Онлайн и оффлайн занятия. Поддержка менторов.'}/>
-              <CourseItem img={spainImg} name={'Испанский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
-              <CourseItem img={koreanImg} name={'Корейский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
-              <CourseItem img={mathImg} name={'Математика'} desc={'Уроки математики, основы программирования,  математический тренажер, игровое обучение.'}/> 
+              <CategoryItem img={englishImg} name={'Англиский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
+              <CategoryItem img={javaImg} name={'Java'} desc={'Научим писать код, создавать программы. Онлайн и оффлайн занятия. Поддержка менторов.'}/>
+              <CategoryItem img={frontendImg} name={'Front End'} desc={'Научим писать код, создавать программы. Онлайн и оффлайн занятия. Поддержка менторов.'}/>
+              <CategoryItem img={spainImg} name={'Испанский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
+              <CategoryItem img={koreanImg} name={'Корейский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
+              <CategoryItem img={mathImg} name={'Математика'} desc={'Уроки математики, основы программирования,  математический тренажер, игровое обучение.'}/> 
             </div>
           </section>
 
@@ -275,9 +196,13 @@ const Home = () => {
           <p>Это один мощный онлайн-пакет программного обеспечения, который сочетает в себе все <br/>инструменты, необходимые для успешного управления школой или офисом.</p>
           <HomeFeedbacksSlider/>
         </section>
+        </div>
+          )}
 
         {/* FOOTER */}
         <Footer/>
+        </div>
+        </div>
     </div>
   )
 }

@@ -7,12 +7,10 @@ import Footer from '../../ui/Footer';
 import CourseItem from './CourseItem';
 import axios from 'axios';
 import TeacherHeader from './TeacherHeader';
-
+ 
 const MyCourses = () => {
-    const {user} = useContext(UserContext);
-    const [courses, setCourses] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [searchText, setSearchText] = useState('');
+  const [courses, setCourses] = useState([]);
+  const [searchText, setSearchText] = useState('');
     
 
   useEffect(() => {
@@ -26,19 +24,18 @@ const MyCourses = () => {
         });
 
         const sortedCourses = response.data.slice().reverse();
-        setCourses(sortedCourses);
-        console.log(response.data) 
-        console.log(response.data.id)
-        setLoading(false);
+        setCourses(sortedCourses)
+        console.log(sortedCourses)
+        
       } catch (error) {
         console.error('Error fetching courses:', error);
-        setLoading(false);
       }
     };
 
     fetchCourses();
   }, []); 
 
+  
   const handleSearchInputChange = (e) => {
     setSearchText(e.target.value);
   };

@@ -43,11 +43,6 @@ const LoginPage = () =>{
         const token = responseData.token;
         console.log(responseData.data.id)
 
-        // const decodedToken = jwtDecode(token);
-
-        // const userId = userType === "s" ? decodedToken.student_id : decodedToken.teacher_id;
-
-
         const translateRoleToRussian = (role) => {
           switch (role) {
             case 'student':
@@ -140,7 +135,10 @@ const LoginPage = () =>{
                                 <button className={styles.loginButton}>Войти</button>
                                 {errorMessage && <p className={styles.login_error}>Введен неверный логин или пароль</p>}
                                 
-                                <p className={styles.tosignUp}>У вас нет аккаунта? <Link to='/login'>Зарегистрироваться</Link></p>
+                                <p className={styles.tosignUp}>У вас нет аккаунта?</p>
+                                <Link className={styles.ins_reg} to='/instructor-register'>Зарегистрироваться как репетитор</Link>
+                                <br/>
+                                <Link className={styles.stud_reg} to='/student-register'>Зарегистрироваться как студент</Link>
 
                             </form>
                             

@@ -18,6 +18,10 @@ import StudentEditPage from './Student/StudentEditPage';
 import TeacherDeleteAccount from './Teacher/TeacherDeleteAccount';
 import StudentDeleteAccount from './Student/StudentDeleteAccount';
 import StudentCourses from './Student/StudentCourses';
+import EditCourse from './Teacher/EditCourse';
+import TeacherCoursePage from './Teacher//TeacherCoursePage';
+import CourseItemPage from './CourseItemPage';
+import StudentCourseItem from './Student//StudentCourseItem';
 
 const AppRoutes = () =>{
     return(
@@ -40,7 +44,10 @@ const AppRoutes = () =>{
             <Route path='/teacher-delete-account' element={<TeacherDeleteAccount/>}/>
             <Route path='/student-delete-account' element={<StudentDeleteAccount/>}/>
             <Route path='/student-courses' element={<StudentCourses/>}/>
-            
+            <Route path='/teacher-edit-course/:courseId' element={<EditCourse/>}/>
+            <Route path='/teacher-course-page/:courseId' element={<TeacherCoursePage/>}/>
+            <Route path='/course-item/:courseId' element={<CourseItemPage/>}/>
+            <Route path='/student-course-page/:courseId' element={<StudentCourseItem/>}/>
         </Routes>
     )
 }

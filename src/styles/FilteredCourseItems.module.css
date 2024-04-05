@@ -6,12 +6,12 @@
     width: 100%;
     height: 191px;
     background: rgba(255, 255, 255, 1);
-    margin-top: 50px;
     padding: 17px 41px 17px 17px;
     border-radius:20px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
     display: flex;
     gap: 25px;
+    margin-bottom: 30px;
 }
 
 .course_item_info{
@@ -177,25 +177,21 @@
     width: 161px;
 }
 
-.course_item_edit{
-    width: 135px;
-    background: rgba(254, 196, 0, 1);
-}
-
 .course_item_delete{
     background: rgba(237, 68, 89, 1);
     width: 92px;
 }
 
-.course_item_video{
+.course_item_edit{
+    width: 135px;
+    background: rgba(254, 196, 0, 1);
+}
+
+.course_item_enroll{
     background: rgba(6, 113, 224, 1);
-    border-radius:20px;
-    width: 217px;
-    height: 28px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 12px;
-    color: rgba(255, 255, 255, 1);
-    border:none;
+    width: 189px;
+}
+
+.modalWindow{
+    background-color:red;
 }

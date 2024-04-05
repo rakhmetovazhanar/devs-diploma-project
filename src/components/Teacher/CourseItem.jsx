@@ -1,43 +1,74 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import styles from '../../styles/CourseItem.module.css';
 import axios from 'axios';
+import { Link , useNavigate} from 'react-router-dom';
+import TeacherCoursePage from './TeacherCoursePage';
+import { UserContext } from '../UserContext';
+import randomPhotos from '../../ui/randomPhotos';
 
-
-const randomPhotos = [
-  'https://cdn.britannica.com/30/199930-131-B3D1D347/computer.jpg',
-  'https://www.herzing.edu/sites/default/files/2020-09/it_computer_programming.jpg',
-  'https://www.codingem.com/wp-content/uploads/2021/10/juanjo-jaramillo-mZnx9429i94-unsplash-1024x683.jpg',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwEMxeuQ2rw0IKhvzKiCV5NNyfm1ez6I5YZA&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSg1JMsWDcY9eDh-QsoOrO-fOF8-T2Hi08dw&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2x7oJNjniXyjJLgKCs0vxOEWburf99-i2ww&usqp=CAU'
-];
-
-const CourseItem = ({course, handleDelete}) => {
+const CourseItem = ({course, handleDelete, deleteCourse}) => {
+  const {user} =useContext(UserContext);
   const randomPhotoIndex = Math.floor(Math.random() * randomPhotos.length);
   const randomPhotoUrl = randomPhotos[randomPhotoIndex];
-  const [initialPrice] = useState(course.cost);
+  const [price, setPrice] = useState(course.cost);
+  const history = useNavigate();
   
+
+  const openCoursePageHandler = (event) => {
+    if(user.role==='Репетитор'){
+      if (event.target.classList.contains(styles.course_item_edit) || event.target.classList.contains(styles.course_item_delete)) {
+        return; 
+    }
+    history(`/teacher-course-page/${course.id}`); 
+    } else if(user.role==='Студент'){
+      if (event.target.classList.contains(styles.course_item_edit) || event.target.classList.contains(styles.course_item_delete)) {
+        return; 
+    }
+    history(`/student-course-page/${course.id}`); 
+    }
+    
+}
+  
+ 
   return (
-    <div className={styles.course_item}>
+    <div onClick={openCoursePageHandler} className={styles.course_item}>
       <img src={randomPhotoUrl} alt="course" />
+      {/* <TeacherCoursePage course={course}/> */}
 
       <div className={styles.course_item_info}>
         <h3 className={styles.course_item_name}>{course.name}</h3>
         <div className={styles.course_item_desc_cost}>
           <p className={styles.course_item_desc}>{course.description}</p>
-          <p className={styles.course_item_cost}>{initialPrice} тг</p>
+          <p className={styles.course_item_cost}>{price} тг</p>
         </div>
         <span className={styles.course_item_line}></span>
         <div className={styles.course_item_rating_functions}>
           <div className={styles.course_item_rating_count}>
             <p className={styles.course_item_rating}>0</p>
-            <p className={styles.course_item_count}>0 студенты</p>
+            {user.role==='Репетитор' && (
+              <>
+              <p className={styles.course_item_count}>0 студенты</p>
+              </>
+            )}
+            <p className={styles.course_item_date_time}>{course.day_time}</p>
           </div>
 
           <div className={styles.course_item_functions}>
-            <button className={styles.course_item_addTime}>Добавить время</button>
-            <button className={styles.course_item_edit}>Редактировать</button>
-            <button  onClick={()=>handleDelete(course.id)} className={styles.course_item_delete}>Удалить</button>
+            {user.role === 'Репетитор' && (
+              <>
+              <Link to={`/teacher-edit-course/${course.id}`}><button className={styles.course_item_edit}>Редактировать</button></Link>
+              <button  onClick={()=>handleDelete(course.id)}  className={styles.course_item_delete}>Удалить</button>
+
+              </>
+            )}
+            {user.role ==='Студент' && (
+              <>
+              <Link to={'/'}><button className={styles.course_item_video}>Присоединение к уроку</button></Link>
+              <button  onClick={()=>deleteCourse(course.id)}  className={styles.course_item_delete}>Удалить</button>
+
+              </>
+            )}
+            {/* <button  onClick={()=>handleDelete(course.id)}  className={styles.course_item_delete}>Удалить</button> */}
           </div>
         </div>
       </div>

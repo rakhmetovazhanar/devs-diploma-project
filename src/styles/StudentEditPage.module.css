@@ -112,6 +112,9 @@ label{
     font-family: travels;
    
 }
+.edit_profile_info{
+    position: relative;
+}
 
 .edit_input:focus{
     outline: none;
@@ -155,3 +158,53 @@ label{
     color: rgba(255, 255, 255, 1);
 
 }
+
+
+.delete_profile_picture{
+    margin-top: 25px;
+    width: 120px;
+    height: 36px;
+    border-radius: 7px;
+    border: 1px solid rgba(36, 36, 36, 1);
+    color: rgba(36, 36, 36, 1);
+    font-size: 16px;
+    font-family: travelsRegular;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 1);
+    position: absolute;
+    left: 0;
+    top: 125px;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+input[type="file"]{
+    position: absolute;
+    left: 0;
+    top: 125px;
+}
+input[type="file"]::before {
+    content: 'Добавить фото';
+    display: inline-block;
+    width: 100px;
+    padding: 6px 12px;
+    outline: none;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid rgba(36, 36, 36, 1);
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-top: 25px;
+  }
+  
+  input[type="file"]::before {
+    color: rgba(36, 36, 36, 1);
+  }
+
+  input[type="file"]::before:hover {
+    background-color: #007bff; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+  }
+  

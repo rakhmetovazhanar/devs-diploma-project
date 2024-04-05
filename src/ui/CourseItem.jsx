@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/Home.module.css';
 
-const CourseItem = (props) => {
+const CategoryItem = (props) => {
   return (
     <div className={styles.courseItem}>
         <img src={props.img} />
@@ -11,4 +11,4 @@ const CourseItem = (props) => {
   )
 }
 
-export default CourseItem;
+export default CategoryItem;

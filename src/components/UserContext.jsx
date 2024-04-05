@@ -7,7 +7,7 @@ export const UserContext=createContext({
         first_name: '', 
         last_name : '',
         token: '',
-        role: '',
+        role: 'null',
         user_id: ''
       },
       setUser: () => {} // Placeholder function
@@ -27,14 +27,13 @@ const Context = ({children}) =>{
 //         }
 // });
 
-const [user,setUser] = useState({
-    
+const [user,setUser] = useState({ 
     loggedIn : false,
     username : '',
     first_name:'', 
     last_name : '',
     token: '',
-    role:'',
+    role:'null',
     user_id: ''
     
 });
@@ -42,6 +41,8 @@ const [user,setUser] = useState({
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(user));
     }, [user]);
+
+    
 
     return (
     <UserContext.Provider value={{ user, setUser }}>

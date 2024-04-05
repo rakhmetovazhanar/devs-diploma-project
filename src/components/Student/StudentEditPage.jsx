@@ -20,11 +20,14 @@ const StudentEditPage = () => {
     age:'',
     username: '',
     phone_number:'',
+    profile_picture: null,
+
   });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        
         const response = await axios.get(`http://134.209.250.123:8000/api/student-profile/${user.user_id}`,{
           headers: {
             Authorization: `Token ${token}`,
@@ -53,6 +56,23 @@ const StudentEditPage = () => {
         [name]: value
       });
     }};
+
+
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      setUserData(prevUserData => ({
+        ...prevUserData,
+        profile_picture: file
+      }));
+    };
+    
+    const handleRemoveImage = () => {
+      setUserData({
+        ...userData,
+        profile_picture: null
+      });
+    };
+    
     
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,6 +85,7 @@ const handleSubmit = async (e) => {
         }
         }); 
         if(response.status ===200){
+          console.log('Successfully updated!');
           history('/student-profile')
         }else{
           console.log('wrong!')
@@ -86,7 +107,23 @@ const handleSubmit = async (e) => {
                     <h2 className={styles.edit_profile_title}>Редактировать профиль</h2>
                     <div className={styles.edit_profile_inner}>
                         <div className={styles.edit_profile_info}>
-                            <img className={styles.user_img} src={profileImg} alt="profile_img" />
+                            {/* <img className={styles.user_img} src={profileImg} alt="profile_img" /> */}
+                            <div>
+                              {userData && userData.profile_picture ?(
+                                <>
+                                  <img className={styles.user_img} src={URL.createObjectURL(userData.profile_picture)} alt="profile" />
+                                  <button className={styles.delete_profile_picture} type='button' onClick={handleRemoveImage}>Удалить</button>
+                                </>
+                              ):(
+                                <>
+                                  <img className={styles.user_img} src={profileImg} alt="Default Profile" />
+                                  <input type="file" name='profile_picture' onChange={handleImageChange} accept="image/*" placeholder="Добавить фото"/>
+                                </>
+
+                              )
+                            }
+                            
+                            </div>
                             <div className={styles.edit_form}>
                                 <form onSubmit={handleSubmit} className={styles.edit_profile_form}>
         

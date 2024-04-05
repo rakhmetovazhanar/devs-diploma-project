@@ -37,3 +37,100 @@ text-decoration: none;
     width: 100%;
 
 }
+
+.main_content{
+    margin-top: 90px;
+}
+.my_courses_actions{
+    display: flex;
+    justify-content: end;
+}
+
+.my_courses_filter{
+    display: flex;
+    gap:25px;
+}
+
+.my_courses_searchBtn{
+    width: 361px;
+    height: 32px;
+    border-radius: 3px;
+    padding: 5px 10px;
+    background: rgba(255, 255, 255, 1);
+    border:none;
+    color:black;
+    font-family: travelsRegular;
+    font-weight: 400;
+
+}
+
+.my_courses_searchBtn::placeholder{
+    color: rgba(140, 148, 163, 1);
+}
+.my_courses_searchBtn:focus,
+.my_courses_categories:focus{
+    outline: none;
+    border: 1px dashed;
+}
+
+.my_courses_categories{
+    background: rgba(255, 255, 255, 1);
+    width: 157px;
+    height: 32px;
+    border-radius: 3px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: rgba(78, 85, 102, 1);
+
+}
+
+.to_add_course_btn{
+    background: rgba(64, 114, 238, 1);
+    width: 181px;
+    height: 38px;
+    border-radius:20px;
+    /* padding: 7px, 0px, 7px, 20px; */
+    border:none;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 500;
+    font-size: 14px;
+    font-family: travelsRegular;
+    position: relative;
+
+}
+
+.to_add_course_btn::before{
+    content: ' ';
+    position: absolute;
+    top: 8px;
+    left: 13px; 
+    width: 20px; 
+    height: 20px;  
+    vertical-align: middle;
+    background-image:url('../images/bi_plus.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.no_courses{
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 43.2px;
+    letter-spacing: 2%;
+    font-family: travels;
+    color: rgba(51, 51, 51, 0.8);
+    margin: 111px;
+    text-align: center;
+    margin-bottom: 323px;
+
+}
+
+
+.my_courses_list{
+    margin-bottom: 168px;
+}
+

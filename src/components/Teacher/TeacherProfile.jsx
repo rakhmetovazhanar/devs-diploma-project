@@ -14,7 +14,7 @@ import doc from '../../images/doc.svg';
 
 
 const TeacherProfile = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [teacherData, setTeacherData] = useState(null);
   const token = localStorage.getItem('token');
 
@@ -50,10 +50,10 @@ const TeacherProfile = () => {
                     <div className={styles.profile_content_info}>
                       
                     {teacherData && teacherData.profile_picture ? (
-                        <img className={styles.user_img} src={URL.createObjectURL(teacherData.profile_picture)} alt="Profile" />
-                    ) : (
-                        <img className={styles.user_img} src={profileImg} alt="profile_img" />
-                    )}
+                          <img className={styles.user_img} src={teacherData.profile_picture} alt="Profile" />
+                      ) : (
+                          <img className={styles.user_img} src={profileImg} alt="profile_img" />
+                      )}
                       <div className={styles.profile_user_data}>
                         <h2 className={styles.user_name}>{teacherData && teacherData.first_name} {teacherData && teacherData.last_name}</h2>
                         <p className={styles.user_email}>{teacherData && teacherData.username}</p>

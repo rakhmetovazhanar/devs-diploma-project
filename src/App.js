@@ -5,18 +5,18 @@ import {useContext} from 'react';
 import {useEffect} from 'react';
 
 function App() {
-  // useEffect(() => {
-  //   const handleBeforeUnload = (e) => {
-  //     e.preventDefault();
-  //     e.returnValue = ''; 
-  //   };
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = ''; 
+    };
 
-  //   window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handleBeforeUnload);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
   const user = useContext(UserContext);
   return (
       <div className="App">

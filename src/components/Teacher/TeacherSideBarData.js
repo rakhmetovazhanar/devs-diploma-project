@@ -3,6 +3,7 @@ import course from '../../images/course.svg';
 import client from '../../images/clients.svg';
 import schedule from '../../images/schedule.svg';
 import settings from '../../images/settings.svg';
+import mainPage from '../../images/mainPage.svg';
 
 
 const SideBarData = [
@@ -20,6 +21,11 @@ const SideBarData = [
       title: 'Мои клиенты',
       icon: client,
       link: '/teacher-clients',
+    },
+    {
+      title: 'Главная страница',
+      icon: mainPage,
+      link: '/',
     },
     {
       title: 'Настройки',

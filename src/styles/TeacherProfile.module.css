@@ -68,8 +68,10 @@ text-decoration: none;
 }
 
 .profile_content_info .user_img{
-    width: 120px;
-    height: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    max-height: 120px;
+    min-height: 120px;
     border-radius:80px;
     border: 2px solid rgba(33, 236, 0, 1);
 }

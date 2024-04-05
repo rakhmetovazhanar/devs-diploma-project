@@ -1,0 +1,61 @@
+.input-wrapper{
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.search_input{
+    width: 427px;
+    height: 48px;
+    border: 1px solid rgba(233, 234, 240, 1);
+    padding-left: 20px;
+    font-family: travelsRegular;
+    font-size: 16px;
+}
+
+.search_input:focus{
+    outline: none;
+}
+
+.search-input::placeholder{
+    font-weight: 400;
+    font-family: travelsRegular;
+    font-size: 16px;
+    line-height: 24px;
+    color: rgba(140, 148, 163, 1);
+
+}
+
+.dropdown,
+.min_cost_input,
+.max_cost_input{
+    width: 150px;
+    border: 1px solid rgba(233, 234, 240, 1);
+    padding-left: 10px;
+    font-family: travelsRegular;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.dropdown:focus,
+.min_cost_input:focus,
+.max_cost_input:focus{
+    outline: none;
+}
+
+.searchBtn{
+    background: rgba(250, 255, 0, 0.96);
+    border: 1px solid rgba(240, 239, 233, 1);
+    width:93px;
+    border-radius:5px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 18px;
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: travelsRegular;
+    src: url('../fonts/TT Travels Trial Regular.woff');
+}
+
