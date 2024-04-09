@@ -25,7 +25,6 @@ const CoursePage = () => {
     const fetchCourse = async () => {
       try {
         const response = await axios.get(`http://134.209.250.123:8000/api/course-details/${courseId}`);
-        console.log(response.data)
         setCourseData(response.data);
       } catch (error) {
         console.error('Error fetching course:', error);

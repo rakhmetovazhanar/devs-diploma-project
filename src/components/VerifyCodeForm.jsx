@@ -8,7 +8,6 @@ import {useNavigate } from 'react-router-dom'
 
 
 const VerifyCodeForm = () => {
-    // const [username , setUsername] = useState('');
     const [code, setCode] = useState('');
     const [message, setMessage] = useState('');
     const location = useLocation();
@@ -20,8 +19,7 @@ const VerifyCodeForm = () => {
     const handleVerifyCode = async (e) => {
       e.preventDefault();
       try {
-        // const token = localStorage.getItem('token');
-        const response = await axios.post('http://134.209.250.123:8000/api/verify-code/', { code , username },{ headers: { Authorization: `Bearer ${token}` } });
+          const response = await axios.post('http://134.209.250.123:8000/api/verify-code/', { code , username },{ headers: { Authorization: `Bearer ${token}` } });
         if(response) {
            let token = response.data.token
            navigate('/set-new-password', {state : {token}})

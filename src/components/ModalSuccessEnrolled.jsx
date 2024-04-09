@@ -6,10 +6,9 @@ import success from '../images/successEnrolled.svg';
 const ModalSuccessEnrolled = ({onClose}) => {
     useEffect(() => {
         const timer = setTimeout(() => {
-          onClose(); // Вызываем функцию onClose после истечения времени
-        }, 2000); // Устанавливаем интервал времени в миллисекундах (в данном случае 3 секунды)
+          onClose(); 
+        }, 2000); 
     
-        // Возвращаем функцию очистки для предотвращения утечек памяти
         return () => clearTimeout(timer);
       }, [onClose]);
   return (

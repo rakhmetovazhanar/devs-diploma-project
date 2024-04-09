@@ -24,9 +24,7 @@ const StudentCourses = () => {
     
             const sortedCourses = response.data.slice().reverse();
             setCourses(sortedCourses)
-            console.log(sortedCourses)
             const courseIds = sortedCourses.map(course => course.id);
-            console.log(courseIds)
             
           } catch (error) {
             console.error('Error fetching courses:', error);
@@ -60,9 +58,9 @@ const StudentCourses = () => {
                 <StudentHeader headerTitle={'Мои курсы'}/>
                   {/* MAIN CONTENT */}
                 <div className={styles.main_content}>
-                  <div className={styles.my_courses_actions}>
+                  {/* <div className={styles.my_courses_actions}>
                     <Link to='/add-course'><button className={styles.to_add_course_btn}>Добавить курс</button></Link>
-                  </div>
+                  </div> */}
                 </div>
                 {/* COURSE LIST */}
                 <div className={styles.my_courses_list}>

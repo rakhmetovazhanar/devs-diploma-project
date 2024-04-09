@@ -50,14 +50,15 @@ text-decoration: none;
 
 }
 
-.pages_links a{
+.pages_links a,
+.pages_links p{
     color: rgba(24, 32, 69, 0.8);
     font-weight: 500;
     font-size:16px;
     line-height: 24px;
 }
 
-.pages_links p{
+.pages_links .last{
     color: rgba(24, 32, 69, 0.9);
     font-weight: 700;
     font-size:16px;

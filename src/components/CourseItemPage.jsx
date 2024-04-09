@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react';
 import Footer from '../ui/Footer';
 import styles from '../styles/CourseItemPage.module.css';
-import {useParams, Link} from 'react-router-dom';
+import {useParams, Link, useLocation} from 'react-router-dom';
 import axios from 'axios';
 import categories from './courseCategories';
 import ModalToLogin from './ModalToLogin';
@@ -23,13 +23,16 @@ const CourseItemPage = () => {
     const [isEnrolledModal, setIsEnrolledModal] = useState(false);
     const [isEnrolled, setIsEnrolled] =useState(false);
     const [courses, setCourses] = useState([]);
+    const queryParams = new URLSearchParams(window.location.search);
+    const showAdditionalLink = queryParams.get('showLink') === 'true';
+    const location = useLocation();
+    const { categoryName } = location.state ? location.state : {}; 
 
     useEffect(() => {
       const fetchCourse = async () => {
         try {
           const response = await axios.get(`http://134.209.250.123:8000/api/course-details/${courseId}`);
           setCourseData(response.data);
-          console.log(response.data)
           
         } catch (error) {
           console.error('Error fetching course:', error);
@@ -40,6 +43,7 @@ const CourseItemPage = () => {
 
 
     useEffect(() => {
+      if(user.role ==='Студент'){
       const fetchData = async () => {
         try {
           const token = localStorage.getItem('token');
@@ -49,21 +53,19 @@ const CourseItemPage = () => {
           },
         });
         const courses = response.data;
-        const courseIds = courses.map(course => course.id);// предположим, что это массив id курсов, на которые записан студент
-    
-          // Проверяем, есть ли id текущего курса среди курсов, на которые записан студент
-          if (courseIds.includes(courseId)) {
-            setIsEnrolled(true);
-          } else {
-            setIsEnrolled(false);
-          }
+        const courseIds = courses.map(course => course.id);
+        const courseIdNumber = parseInt(courseId);
+        setIsEnrolled(courseIds.includes(courseIdNumber));
+       
+  
         } catch (error) {
           console.error('Error fetching user data:', error);
         }
       };
     
       fetchData();
-    }, [courseId, user]);
+    }
+    }, []);
 
   
   
@@ -119,8 +121,15 @@ const CourseItemPage = () => {
                   <div className={styles.main_content}>
                     <div className={styles.pages_links}>
                       <Link to='/'>Главная страница / </Link>
-                      <p>{courseData && courseData.name}</p>
+                      {showAdditionalLink && (
+                        <>
+                        <p>Выберите любимое курс из высшей категории/</p>
+                        <p>{categoryName}/</p>
+                        </>
+                    )}
+                      <p className={styles.last}>{courseData && courseData.name}</p>
                     </div>
+                  
 
                     <div className={styles.course_content}>
                       <div className={styles.course_content_inner}>

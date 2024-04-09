@@ -14,7 +14,6 @@ const cancelLogout=()=>{
   history('/')
 }
 const token = localStorage.getItem('token')
-console.log('Token:', token); 
 
 const handleLogout = async () => {
     try {

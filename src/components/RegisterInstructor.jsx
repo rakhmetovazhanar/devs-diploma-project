@@ -31,7 +31,6 @@ const onSubmit= async (data)=>{
       history('/');
       console.log('User registered successfully!');
       const responseData = await response.json();
-      console.log(responseData)
       const translateRoleToRussian = (role) => {
         switch (role) {
           case 'student':
@@ -57,7 +56,6 @@ const onSubmit= async (data)=>{
     console.error('Error registering user:', error);
   }
   console.log('Form submitted' , data);
-  // console.log(data)
     reset();
 }
   return (

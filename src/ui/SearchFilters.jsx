@@ -11,7 +11,6 @@ const SearchFilters = ({onSearchResults}) => {
     const [maxCostInputValue, setMaxCostInputValue] = useState('');
     const [results, setResults] = useState([]);
     const handleFilter = () => {
-        // Формируем объект с данными для запроса
         const requestData = {
             course,
             category,
@@ -22,7 +21,6 @@ const SearchFilters = ({onSearchResults}) => {
     
         let apiUrl = 'http://134.209.250.123:8000/api/search-and-filter/';
 
-        // Отправляем запрос на сервер с выбранными значениями
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -34,12 +32,11 @@ const SearchFilters = ({onSearchResults}) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json(); // Преобразуем ответ в объект JSON
+            return response.json(); 
         })
         .then(data => {
-            // После получения ответа с курсами, устанавливаем результаты фильтрации
             onSearchResults(data);
-            console.log(data)
+           
         })
         .catch(error => {
             console.error('Error fetching data:', error);

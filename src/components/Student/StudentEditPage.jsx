@@ -90,7 +90,6 @@ const handleSubmit = async (e) => {
         }else{
           console.log('wrong!')
         }
-        console.log(response.data); 
     } catch (error) {
         setIsSubmitting(false);
         console.error('Error updating user:', error);

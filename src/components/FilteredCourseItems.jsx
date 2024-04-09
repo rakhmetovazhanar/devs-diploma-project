@@ -30,11 +30,8 @@ const FilteredCourseItems = ({course, handleDelete}) => {
           },
         });
         setCourses(response.data)
-        console.log(course.id)
-        console.log(user.user_id) 
         const courses = response.data;
         const courseIds = courses.map(course => course.id);
-        console.log(courseIds)
         setIsEnrolled(courseIds.includes(course.id));
       }
 

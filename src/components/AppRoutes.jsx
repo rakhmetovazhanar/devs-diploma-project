@@ -22,6 +22,8 @@ import EditCourse from './Teacher/EditCourse';
 import TeacherCoursePage from './Teacher//TeacherCoursePage';
 import CourseItemPage from './CourseItemPage';
 import StudentCourseItem from './Student//StudentCourseItem';
+import CoursesByCategory from './CoursesByCategory';
+import MyClients from './Teacher/MyClients';
 
 const AppRoutes = () =>{
     return(
@@ -48,6 +50,8 @@ const AppRoutes = () =>{
             <Route path='/teacher-course-page/:courseId' element={<TeacherCoursePage/>}/>
             <Route path='/course-item/:courseId' element={<CourseItemPage/>}/>
             <Route path='/student-course-page/:courseId' element={<StudentCourseItem/>}/>
+            <Route path='/courses-by-category/:categoryId/:categoryName' element={<CoursesByCategory/>}/>
+            <Route path='/teacher-clients' element={<MyClients/>} />
         </Routes>
     )
 }

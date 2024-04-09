@@ -11,10 +11,6 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
 
 
-
-// const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
-// const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-
 const RegisterStudent = () =>{
     const {setUser } = useContext(UserContext);
     const history = useNavigate()
@@ -38,7 +34,6 @@ const RegisterStudent = () =>{
             if (response.ok) {
                 console.log('User registered successfully!');
                 const responseData = await response.json();
-                console.log(responseData)
                 const translateRoleToRussian = (role) => {
                   switch (role) {
                     case 'student':
@@ -54,7 +49,6 @@ const RegisterStudent = () =>{
                 loggedIn: true,
                 first_name: responseData.data.first_name,
                 last_name : responseData.data.last_name,
-                // token: responseData.token,
                 role: translatedRole
                 });
                 history.push('/');

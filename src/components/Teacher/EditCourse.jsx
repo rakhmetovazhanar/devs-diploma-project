@@ -39,8 +39,6 @@ import { useParams } from 'react-router-dom';
                     if (response.data.length > 0) {
                         const courses = response.data;
                         const ids = courses.map(course=> course.id);
-                        console.log(ids);
-                        console.log(courseId)
                         const courseIdNumber = parseInt(courseId, 10);
                         const courseToEdit = courses.find(course => course.id === courseIdNumber);
                         if (courseToEdit) {
@@ -140,7 +138,7 @@ import { useParams } from 'react-router-dom';
                                     <select className={styles.course_categories}
                                     value={course.category_id} // Установите текущее значение категории курса
                                     onChange={(e) => setCourse({...course, category_id: e.target.value})}>
-                                        <option disabled selected value="">Выбирать...</option>
+                                        <option disabled  value="">Выбирать...</option>
                                         {categories.map(category => (
                                             <option key={category.id} value={category.id}>{category.name}</option>
                                         ))}
@@ -173,7 +171,7 @@ import { useParams } from 'react-router-dom';
                                     <select className={styles.course_categories}
                                     value={course.level} // Установите текущее значение языка курса
                                     onChange={(e) => setCourse({...course, level: e.target.value})}>
-                                        <option disabled selected value="">Выбирать...</option>
+                                        <option disabled  value="">Выбирать...</option>
                                         <option value="Легкий">Легкий</option>
                                         <option value="Средний">Средний</option>
                                         <option value="Сложный">Сложный</option>

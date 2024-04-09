@@ -71,9 +71,9 @@ const HomeTeacherSlider = () => {
     <div className={styles.slider}>
         <div className={styles.slider_inner}>
             <Slider {...settings}>
-                {data.map((d) =>(
-                    <div className={styles.slider_item}>
-                        <div className={styles.slider_item_img}>
+                {data.map((d,index) =>(
+                    <div key={index} className={styles.slider_item}>
+                         <div className={styles.slider_item_img}>
                             <img src={d.img} alt="tutorPhoto" />
                         </div>
                         

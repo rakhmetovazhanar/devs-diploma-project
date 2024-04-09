@@ -6,10 +6,8 @@ import { useForm  } from 'react-hook-form'
 import Logo from '../ui/Logo';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
-import {jwtDecode} from 'jwt-decode';
 
 const LoginPage = () =>{
-    const [saveUser , setSaveUser] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const [userType, setUserType] = useState('t');
     const {setUser } = useContext(UserContext);
@@ -40,8 +38,6 @@ const LoginPage = () =>{
         console.log("User logged in successfully!");
         const responseData = await response.json();
         localStorage.setItem("token", responseData.token);
-        const token = responseData.token;
-        console.log(responseData.data.id)
 
         const translateRoleToRussian = (role) => {
           switch (role) {
@@ -73,8 +69,6 @@ const LoginPage = () =>{
       console.error('Error login user:', error);
       setErrorMessage('Произошла ошибка во время входа. Пожалуйста, попробуйте еще раз.');
     }
-    console.log(userType);
-    console.log(data);
   
     
     }
@@ -89,8 +83,8 @@ const LoginPage = () =>{
                             <p>Начните пользоваться нашим замечательным <br/> сервисом</p>
 
                             <div className={styles.userTypes}>
-                                <span className={`${userType=='t' ? styles.activeuser : ''}  ${styles.userType}`} onClick={() => setUserType('t')}>Преподаватель</span>
-                                <span className={`${userType=='s' ? styles.activeuser : ''}  ${styles.userType}`} onClick={() => setUserType('s')}>Студент</span>
+                                <span className={`${userType==='t' ? styles.activeuser : ''}  ${styles.userType}`} onClick={() => setUserType('t')}>Преподаватель</span>
+                                <span className={`${userType==='s' ? styles.activeuser : ''}  ${styles.userType}`} onClick={() => setUserType('s')}>Студент</span>
                             </div>
                             <form onSubmit = {handleSubmit(onSubmit)}>
                                 <div className={styles.group}>  
@@ -126,7 +120,7 @@ const LoginPage = () =>{
 
                                 <div className={styles.losePassword}>
                                     <div className={styles.checkbox}>
-                                        <input type="checkbox" value={saveUser} /> Помнить меня
+                                        <input type="checkbox"  /> Помнить меня
                                     </div>
 
                                     <h3><Link to='/forgot-password'>Забыли пароль?</Link></h3>

@@ -10,12 +10,6 @@ import tutorsImg from '../images/tutorsImg.svg';
 import subjectsImg from '../images/subjectsImg.svg';
 import feedbacksImg from '../images/feedbacksImg.svg';
 import CategoryItem from '../ui/CourseItem';
-import englishImg from '../images/english.svg';
-import javaImg from '../images/java.svg';
-import frontendImg from '../images/frontend.svg';
-import spainImg from '../images/spain.svg';
-import koreanImg from '../images/korean.svg';
-import mathImg from '../images/math.svg';
 import HomeTeacherSlider from '../ui/HomeTeacherSlider';
 import HomeGuideItem from '../ui/HomeGuideItem';
 import circle1 from '../images/circle1.svg';
@@ -31,6 +25,7 @@ import SearchFilters from '../ui/SearchFilters';
 import FilteredCourseItems from './FilteredCourseItems';
 import ModalToLogin from './ModalToLogin';
 import NotLoginHeader from './NotLoginHeader';
+import CourseCategories from '../components/CourseCategories.jsx';
 
 const Home = () => {
   const {user} = useContext(UserContext);
@@ -45,12 +40,12 @@ const Home = () => {
 
   const handleSearchResults = (searchResults) => {
     setResults(searchResults);
-    setIsSearchClicked(true); // Устанавливаем состояние нажатия кнопки "Поиск"
+    setIsSearchClicked(true); 
   };
 
-  useEffect(() => {
-    console.log(results);
-  }, [results]);
+  // useEffect(() => {
+  //   console.log(results);
+  // }, [results]);
 
  
   return (
@@ -79,7 +74,7 @@ const Home = () => {
             <div className={styles.filteredCourses}>
               <div className={styles.container}>
               {results.map((course, index) => (
-                <FilteredCourseItems course={course}/>
+                <FilteredCourseItems key={index} course={course}/>
               ))}
               </div>
             </div>
@@ -152,18 +147,9 @@ const Home = () => {
           </section>
 
           {/* COURSES */}
-
-          <section id='courses' className={styles.courses}>
-            <h3>Выберите любимое курс из высшей категории</h3>
-            <div className={styles.courseItems}>
-              <CategoryItem img={englishImg} name={'Англиский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
-              <CategoryItem img={javaImg} name={'Java'} desc={'Научим писать код, создавать программы. Онлайн и оффлайн занятия. Поддержка менторов.'}/>
-              <CategoryItem img={frontendImg} name={'Front End'} desc={'Научим писать код, создавать программы. Онлайн и оффлайн занятия. Поддержка менторов.'}/>
-              <CategoryItem img={spainImg} name={'Испанский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
-              <CategoryItem img={koreanImg} name={'Корейский язык'} desc={'Cпециально разработанная система, состоящая из совокупности занятий по проработке всех языковых навыков. '}/>
-              <CategoryItem img={mathImg} name={'Математика'} desc={'Уроки математики, основы программирования,  математический тренажер, игровое обучение.'}/> 
-            </div>
-          </section>
+          
+          <CourseCategories/>
+          
 
           {/* BEST TUTORS */}
           

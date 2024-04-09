@@ -40,8 +40,8 @@ const HomeFeedbacksSlider = () => {
     <div className={styles.feedback_slider}>
         <div className={styles.feedback_slider_inner}>
             <Slider {...settings}>
-                {data.map((d) =>(
-                    <div className={styles.feedback_slider_item}>
+                {data.map((d,index) =>(
+                    <div key={index} className={styles.feedback_slider_item}>
                         <div className={styles.feedback_slider_item_img}>
                             <img src={d.img} alt="usersPhoto" />
                         </div>

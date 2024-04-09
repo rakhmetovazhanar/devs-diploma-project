@@ -17,14 +17,11 @@ const ForgotPassword = () => {
         e.preventDefault();
         try {
           const response = await axios.post('http://134.209.250.123:8000/api/forgot-password/', { username });
-          // setMessage(response?.data?.message);
           history(
            '/verify-code-form',
             {state: { username }} // Pass username as state
           );
-          console.log('hh')
         } catch (error) {
-          // setMessage(JSON.stringify(error));
         }
       };
 

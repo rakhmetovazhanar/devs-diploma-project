@@ -1,0 +1,83 @@
+
+.courses{
+    width: 100%;
+}
+
+.courses h3{
+    color : rgba(53, 74, 176, 1);
+    font-size: 32px;
+    font-family: travels;
+    font-weight: 600;
+    line-height: 38.4px;
+    margin-bottom: 30px;
+
+}
+
+.courseItems{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 136px;
+    row-gap: 95px;
+    padding: 0 50px;
+}
+
+.courseItem{
+    box-sizing: border-box;
+    padding: 28px 0;
+    text-align: center;
+    width: 285px;
+    height: 318px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 18.829999923706055px 47.08000183105469px 0px rgba(47, 50, 125, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s linear;
+}
+
+.courseItem:hover{
+    color:white;
+    transform: scale(1.1);
+}
+
+.courseItem h3{
+    font-size: 22px;
+    font-weight: 700;
+    font-family: travelsBold;
+    line-height: 26.4px;
+    text-align: center;
+    color: rgba(38, 38, 38, 1);
+    margin: 24px 0 13px 0 ;
+    padding: 0 7px 0 7px;
+}
+.courseItem img{
+    width: 88.59px;
+    height: 85px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius:5px;
+}
+
+.courseItem p{
+    color :  rgba(105, 105, 132, 1);
+    line-height: 15.6px;
+    font-family: travelsRegular;
+    padding: 0 24px 0 24px;
+    letter-spacing: 2%;
+
+}
+
+.showMore,
+.showLess{
+    margin: 0 auto;
+    font-family: travels;
+    font-size: 20px;
+    line-height: 26.4px;
+    color: rgba(24, 32, 69, 1);
+    background: rgba(255, 255, 255, 1);
+    padding: 5px 10px;
+    border-radius:10px;
+    border: 1px solid rgba(24, 32, 69, 1);
+    cursor: pointer;
+}   

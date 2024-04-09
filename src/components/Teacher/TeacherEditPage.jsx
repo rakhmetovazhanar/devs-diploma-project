@@ -37,7 +37,6 @@ const TeacherEditPage = () => {
             'Content-Type': 'application/json'
           }
         }); 
-        console.log(response.data)
         setUserData(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -108,7 +107,6 @@ const handleExperienceChange = (e) => {
     }
   };
 
-  console.log(user.first_name)
   return (
     <div className={styles.wrapper}>
     <div className={styles.wrap_inner}>

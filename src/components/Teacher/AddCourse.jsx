@@ -12,7 +12,6 @@ import { useCourseContext } from '../CourseContext';
 
 
 const AddCourse = () => {
-    // const {setCourse} = useCourseContext();
     const {user} = useContext(UserContext);
     const history = useNavigate();
     const [description, setDescription] = useState('');
@@ -34,7 +33,6 @@ const AddCourse = () => {
     const token = localStorage.getItem('token');
 
     const onSubmit = async (data) => {
-        // console.log(data)
         setIsSubmitting(true);
         try {
           const formData = {...data, teacher_id: user.user_id};

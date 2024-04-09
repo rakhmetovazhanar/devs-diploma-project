@@ -25,7 +25,6 @@ const MyCourses = () => {
 
         const sortedCourses = response.data.slice().reverse();
         setCourses(sortedCourses)
-        console.log(sortedCourses)
         
       } catch (error) {
         console.error('Error fetching courses:', error);
@@ -56,7 +55,6 @@ const MyCourses = () => {
     }
   };
 
-  // Передаем i
 
   return (
     <div className={styles.wrapper}>
