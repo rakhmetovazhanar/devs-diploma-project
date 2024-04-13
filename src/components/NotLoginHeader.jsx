@@ -67,6 +67,7 @@ const NotLoginHeader = ({showNavLinks}) => {
                           <div>{user.last_name}</div>
                         </div>
                         <div className={styles.users_role}>{user.role}</div>
+                        <div>{user.profile_picture}</div>
                       </div> 
                     
                     <img style={{ transform: isRotated ? 'rotate(180deg)' : 'none' }} src={line2} alt='line2'/>

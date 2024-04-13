@@ -28,6 +28,11 @@ const TeacherProfile = () => {
           }
         });
         setTeacherData(response.data);
+        // setUser(prevUser => ({
+        //   ...prevUser,
+        //   profile_picture: response.data.profile_picture
+        // }));
+        console.log(response.data)
       } catch (error) {
         console.error('Error fetching teacher profile:', error);
       }
@@ -35,6 +40,8 @@ const TeacherProfile = () => {
 
     fetchTeacherProfile();
   }, [user.user_id]);
+
+  
 
  
   return (
@@ -50,7 +57,7 @@ const TeacherProfile = () => {
                     <div className={styles.profile_content_info}>
                       
                     {teacherData && teacherData.profile_picture ? (
-                          <img className={styles.user_img} src={teacherData.profile_picture} alt="Profile" />
+                          <img className={styles.user_img} src={`http://134.209.250.123:8000${teacherData.profile_picture}`} alt="Profile" />
                       ) : (
                           <img className={styles.user_img} src={profileImg} alt="profile_img" />
                       )}

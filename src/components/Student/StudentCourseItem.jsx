@@ -7,14 +7,56 @@ import axios from 'axios';
 import categories from '../courseCategories';
 import { useParams , useNavigate } from 'react-router-dom';
 import randomPhotos from '../../ui/randomPhotos';
+import { MdOutlineStar } from "react-icons/md";
+
+const colors = {
+  orange: "#FD8E1F",
+  grey: "#a9a9a9"
+}
 
 const StudentCourseItem = () => {
   const { courseId } = useParams();
-  const randomPhotoIndex = Math.floor(Math.random() * randomPhotos.length);
-  const randomPhotoUrl = randomPhotos[randomPhotoIndex];
+  const [randomPhotoIndex, setRandomPhotoIndex] = useState(0);
   const [courseData, setCourseData] = useState(null);
   const history = useNavigate();
+  const stars = Array(5).fill(0);
+  const [currentValueStar,setCurrentValueStar] = useState(0);
+  const [hoverValueStar ,setHoverValueStar] = useState(undefined);
+  const [comment, setComment] = useState('');
+  const [commentSaved, setCommentSaved] = useState(false);
+  const [ratingSaved, setRatingSaved]= useState(false);
+  const [ratingSet, setRatingSet] = useState(false);
 
+  useEffect(() => {
+    const index = Math.floor(Math.random() * randomPhotos.length);
+    setRandomPhotoIndex(index);
+  }, []);
+  const randomPhotoUrl = randomPhotos[randomPhotoIndex];
+
+  const handleClickStar = value=>{
+    if (!ratingSet) {
+    setCurrentValueStar(value);
+    localStorage.setItem(`courseRating_${courseId}`, value.toString());
+    setRatingSet(true);
+    rateCourse(value);
+    }
+  }
+
+  useEffect(() => {
+    const savedRating = localStorage.getItem(`courseRating_${courseId}`);
+    if (savedRating !== null) {
+      setCurrentValueStar(parseInt(savedRating));
+      setRatingSet(true)
+    }
+  }, [courseId]);
+
+  const handleMouseOver = value =>{
+    setHoverValueStar(value);
+  }
+
+  const handleMouseLeave = ()=>{
+    setHoverValueStar(undefined);
+  }
 
   const getCategoryNameById = (categoryId) => {
     const category = categories.find(cat => cat.id === categoryId);
@@ -34,26 +76,55 @@ const StudentCourseItem = () => {
     fetchCourse();
   }, [courseId]); 
 
-  // console.log(courseData.name, courseData.id)
-
-
-  const deleteCourse = async (courseId) => {
+  const rateCourse = async (value) => {
     try {
-      if(courseData.id) {
-      const token = localStorage.getItem('token');
-      await axios.delete(`http://134.209.250.123:8000/api/course-delete/${courseData.id}`, {
+      const token = localStorage.getItem('token'); 
+      const config = {
         headers: {
-          Authorization: `Token ${token}`,
+          Authorization: `Token ${token}`
         }
-      });
-      history('/student-courses');
-    }
+      };
+  
+      await axios.post(`http://134.209.250.123:8000/api/rate-course/${courseId}`, {
+        rating: value
+      }, config);
+  
+      console.log('Рейтинг успешно сохранен!');
+      setRatingSaved(true);
+      setTimeout(() => {
+        setRatingSaved(false);
+      }, 3000);
     } catch (error) {
-      console.error('Error deleting course:', error);
+      console.error('Error rating course:', error);
     }
   };
 
+  const postComment = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      await axios.post(`http://134.209.250.123:8000/api/comment/${courseId}`, {
+        comment: comment
+      },{
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      });
+      setCommentSaved(true);
+      setTimeout(() => {
+        setCommentSaved(false);
+      }, 4000);
+      console.log('Комментарий успешно сохранен!');
+      setComment('');
+    } catch (error) {
+      console.error('Error posting comment:', error);
+    }
+  };
 
+  const handleSaveComment = () => {
+    postComment();
+  };
+
+  
 
   return (
     <div className={styles.wrapper}>
@@ -91,16 +162,37 @@ const StudentCourseItem = () => {
                               </div>
                             </div>
                             <div className={styles.course_rating_cost}>
-                              <p className={styles.course_rating}>0</p>
+                              <p className={styles.course_rating}>{courseData && courseData.average_rating}</p>
                               <p className={styles.course_date_time}>{courseData && courseData.day_time}</p>
                               <p className={styles.course_cost}>{courseData && courseData.cost} тг</p>
                             </div>
                           </div>
-                          <span className={styles.line2}></span>
+                          <span className={styles.line}></span>
                           <div className={styles.course_functions}>
-                            <Link to={'/'}><button className={styles.course_item_video}>Присоединение к уроку</button></Link>
-                            <button onClick={()=>deleteCourse(courseData.id)} className={styles.course_delete}>Удалить</button>
+                          <div className={styles.rating_stars}>
+                            <h3>Оставьте свой комментарий</h3>
+                            <div className={styles.stars}>
+                              {stars.map((_, index)=>{
+                                return(
+                                  <MdOutlineStar 
+                                  key={index}
+                                  size={38}
+                                  color ={(hoverValueStar || currentValueStar) > index ? colors.orange : colors.grey}
+                                  onClick={() => handleClickStar(index+1)}
+                                  onMouseOver={()=>handleMouseOver(index+1)}
+                                  onMouseLeave={handleMouseLeave} />
+                                )
+                              })}
+                            </div>
+                            {ratingSaved && <p className={styles.ratingSaved}>Спасибо за оценку!</p>}
                           </div>
+                          <textarea 
+                          placeholder='Добавляйте свои комментарии...'
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}/>
+                          {commentSaved && <p className={styles.commentSaved}>Комментарий успешно сохранен!</p>}
+                          <button onClick={handleSaveComment}>Сохранить</button>
+                        </div>
                         </div>
                         
                       </div>

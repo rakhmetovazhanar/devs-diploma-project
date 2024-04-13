@@ -44,7 +44,7 @@ const CourseItem = ({course, handleDelete, deleteCourse}) => {
         <span className={styles.course_item_line}></span>
         <div className={styles.course_item_rating_functions}>
           <div className={styles.course_item_rating_count}>
-            <p className={styles.course_item_rating}>0</p>
+            <p className={styles.course_item_rating}>{course.avg_rating}</p>
             {user.role==='Репетитор' && (
               <>
               <p className={styles.course_item_count}>0 студенты</p>

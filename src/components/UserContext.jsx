@@ -8,7 +8,8 @@ export const UserContext=createContext({
         last_name : '',
         token: '',
         role: 'null',
-        user_id: ''
+        user_id: '',
+        profile_picture: null
       },
       setUser: () => {} // Placeholder function
 });
@@ -34,7 +35,8 @@ const [user,setUser] = useState({
     last_name : '',
     token: '',
     role:'null',
-    user_id: ''
+    user_id: '',
+    profile_picture: null
     
 });
 

@@ -15,6 +15,9 @@ const TeacherEditPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const token = localStorage.getItem('token');
   const history = useNavigate();
+  const [profileImage, setProfileImage] = useState(null);
+  const [userDataChanged, setUserDataChanged] = useState(false);
+  const [userImgChanged, setUserImgChanged] = useState(false);
 
   const [userData, setUserData] = useState({
     first_name: '',
@@ -25,7 +28,7 @@ const TeacherEditPage = () => {
     phone_number:'',
     experience:'',
     bio: '',
-    profile_picture: null,
+    profile_picture: '',
   });
 
   useEffect(() => {
@@ -45,6 +48,21 @@ const TeacherEditPage = () => {
 
     fetchData();
   }, [user.user_id]);
+
+
+
+  const handleImageChange = (e) => {
+    const imageFile = e.target.files[0];
+    if (imageFile) {
+      setProfileImage(imageFile);
+      setUserData(prevUserData => ({
+        ...prevUserData,
+        profile_picture: URL.createObjectURL(imageFile) // Создаем URL-адрес изображения
+      }));
+    }
+    setUserImgChanged(true);
+  };
+
   
 
   const handleChange = (e) => {
@@ -59,21 +77,8 @@ const TeacherEditPage = () => {
         ...userData,
         [name]: value
       });
-    }};
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setUserData(prevUserData => ({
-      ...prevUserData,
-      profile_picture: file
-    }));
-  };
-  
-  const handleRemoveImage = () => {
-    setUserData({
-      ...userData,
-      profile_picture: null
-    });
+    }
+    setUserDataChanged(true);
   };
 
 
@@ -89,23 +94,64 @@ const handleExperienceChange = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await axios.put(`http://134.209.250.123:8000/api/update-teacher-profile/${user.user_id}`, userData,{
+      const formData = new FormData();
+      if (profileImage) {
+        formData.append('profile_picture', profileImage);
+      } 
+      formData.append('first_name', userData.first_name);
+      formData.append('last_name', userData.last_name);
+      formData.append('city', userData.city);
+      formData.append('age', userData.age);
+      formData.append('username', userData.username);
+      formData.append('phone_number', userData.phone_number);
+      formData.append('experience', userData.experience);
+      formData.append('bio', userData.bio);
+
+      const response = await axios.put(`http://134.209.250.123:8000/api/update-teacher-profile/${user.user_id}`, formData,{
         headers: {
           Authorization: `Token ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'multipart/form-data'
         } 
       }); 
       if(response.status === 200){
+        // console.log(formData)
+        console.log(userData.profile_picture)
         console.log('Successfully updated!');
         history('/teacher-profile')
+        
       }else{
         console.log('Not updated');
       }
+    
     } catch (error) {
       setIsSubmitting(false);
       console.error('Error updating user:', error);
     }
+  
   };
+
+  const handleDeleteImage = async () => {
+    try {
+      const response = await axios.delete(`http://134.209.250.123:8000/api/delete-picture/${user.user_id}`, {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      });
+      if (response.status === 200) {
+        console.log('Profile picture deleted successfully!');
+        setProfileImage(null);
+        setUserData(prevUserData => ({
+          ...prevUserData,
+          profile_picture: null
+        }));
+      } else {
+        console.log('Failed to delete profile picture');
+      }
+    } catch (error) {
+      console.error('Error deleting profile picture:', error);
+    }
+  };
+
 
   return (
     <div className={styles.wrapper}>
@@ -118,20 +164,31 @@ const handleExperienceChange = (e) => {
                     <div className={styles.edit_profile_inner}>
                         <div className={styles.edit_profile_info}>
                             <div className={styles.edit_form}>
-                                <form onSubmit={handleSubmit} className={styles.general_form} encType='multipart/form-data'>
-                                        <div>
-                                          {userData && userData.profile_picture ? (
-                                            <>
-                                              <img className={styles.user_img} src={userData.profile_picture} alt="profile" />
-                                              <button className={styles.delete_profile_picture} type='button' onClick={handleRemoveImage}>Удалить</button>
-                                            </>
-                                          ) : (
-                                            <>
-                                              <img className={styles.user_img} src={profileImg} alt="Default Profile" />
-                                              <input type="file" name='profile_picture' onChange={handleImageChange} accept="image/*" />
-                                            </>
-                                          )}
-                                        </div>
+                                <form onSubmit={handleSubmit} className={styles.general_form} >
+                                <div>
+                                {userData.profile_picture ? (
+                                  <div>
+                                    {/* <img className={styles.user_img} src={`http://134.209.250.123:8000${userData.profile_picture}`} alt="hello" /> */}
+                                    <img className={styles.user_img} src={decodeURIComponent(userData.profile_picture)} alt="Profile" />
+                                    <button onClick={handleDeleteImage} className={styles.delete_profile_picture}>Удалить</button>
+                                  </div>
+                                ) : (
+                                  <>
+                                  
+                                  <img className={styles.user_img} src={profileImg} alt="hello" />
+                                     
+                                      <input
+                                        id="fileInput"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        className={styles.imageInput}
+                                        
+                                      />
+                                    
+                                  </>
+                                )}
+                                </div>
                                         <div className={styles.edit_profile_form}>
                                         <div className={styles.column}>
                                             <div className={styles.group}>

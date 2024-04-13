@@ -153,7 +153,7 @@ const CourseItemPage = () => {
                               </div>
                             </div>
                             <div className={styles.course_rating_cost}>
-                              <p className={styles.course_rating}>0</p>
+                              <p className={styles.course_rating}>{courseData && courseData.average_rating}</p>
                               <p className={styles.course_date_time}>{courseData && courseData.day_time}</p>
                               <p className={styles.course_cost}>{courseData && courseData.cost} тг</p>
                             </div>

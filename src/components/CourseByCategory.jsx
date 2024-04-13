@@ -103,7 +103,7 @@ const CourseByCategory = ({course, categoryName}) => {
             <span className={styles.course_item_line}></span>
             <div className={styles.course_item_rating_functions}>
             <div className={styles.course_item_rating_count}>
-                <p className={styles.course_item_rating}>0</p>
+                <p className={styles.course_item_rating}>{course.avg_rating}</p>
                 <p className={styles.course_item_date_time}>{course.day_time}</p>
             </div>
 

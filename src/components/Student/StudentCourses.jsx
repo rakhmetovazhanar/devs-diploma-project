@@ -25,6 +25,7 @@ const StudentCourses = () => {
             const sortedCourses = response.data.slice().reverse();
             setCourses(sortedCourses)
             const courseIds = sortedCourses.map(course => course.id);
+            console.log(sortedCourses)
             
           } catch (error) {
             console.error('Error fetching courses:', error);

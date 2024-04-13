@@ -74,7 +74,7 @@ text-decoration: none;
 
 .columns{
     display: flex;
-    gap: 120px;
+    gap: 160px;
     margin-left: 37.5px;
     margin-right: 120px;
 }
@@ -103,15 +103,20 @@ text-decoration: none;
 }
 .client_name{
     margin-left: 25px;
-    margin-right: 105px;
+    margin-right: 80px;
+    width: 150px;
 }
 
 .client_email{
-    margin-right: 90px;
+    margin-right: 110px;
+    width: 210px;
+    text-align: center;
 }
 
 .client_number{
-    margin-right: 75px;
+    margin-right: 95px;
+    width: 130px;
+    text-align: center;
 }
 
 .client_course{
@@ -191,4 +196,37 @@ text-decoration: none;
 @font-face {
     font-family: travelsRegular;
     src: url(../fonts/TT\ Travels\ Trial\ Regular.woff);
+}
+
+/* MYCLIENTS PAGE */
+
+.courses{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Четыре колонки равной ширины */
+    gap: 32px;
+   
+    
+}
+
+.course{
+    width: 277px;
+    height: 254px;
+    border-radius:10px;
+    background: #FFFFFF;
+    box-shadow: 0px 18.83px 47.08px 0px #2F327D1A;
+    padding: 18px 16px 0 16px;
+}
+
+.course img{
+    width: 245px;
+    height: 133px;
+    border-radius:10px;
+    margin-bottom: 20px;
+}
+
+.course_name{
+    color: #252641;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21.6px;
 }

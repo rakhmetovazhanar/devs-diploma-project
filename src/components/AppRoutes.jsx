@@ -23,6 +23,7 @@ import TeacherCoursePage from './Teacher//TeacherCoursePage';
 import CourseItemPage from './CourseItemPage';
 import StudentCourseItem from './Student//StudentCourseItem';
 import CoursesByCategory from './CoursesByCategory';
+import CourseClients from './Teacher/CourseClients';
 import MyClients from './Teacher/MyClients';
 
 const AppRoutes = () =>{
@@ -51,7 +52,9 @@ const AppRoutes = () =>{
             <Route path='/course-item/:courseId' element={<CourseItemPage/>}/>
             <Route path='/student-course-page/:courseId' element={<StudentCourseItem/>}/>
             <Route path='/courses-by-category/:categoryId/:categoryName' element={<CoursesByCategory/>}/>
+            <Route path='/teacher-course-clients/:courseId' element={<CourseClients/>} />
             <Route path='/teacher-clients' element={<MyClients/>} />
+
         </Routes>
     )
 }
