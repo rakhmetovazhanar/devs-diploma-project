@@ -8,6 +8,7 @@ import categories from '../courseCategories';
 import { useParams , useNavigate } from 'react-router-dom';
 import randomPhotos from '../../ui/randomPhotos';
 import { MdOutlineStar } from "react-icons/md";
+import { UserContext } from '../UserContext';
 
 const colors = {
   orange: "#FD8E1F",
@@ -15,6 +16,7 @@ const colors = {
 }
 
 const StudentCourseItem = () => {
+  const {user} = useContext(UserContext);
   const { courseId } = useParams();
   const [randomPhotoIndex, setRandomPhotoIndex] = useState(0);
   const [courseData, setCourseData] = useState(null);
@@ -27,6 +29,7 @@ const StudentCourseItem = () => {
   const [ratingSaved, setRatingSaved]= useState(false);
   const [ratingSet, setRatingSet] = useState(false);
 
+
   useEffect(() => {
     const index = Math.floor(Math.random() * randomPhotos.length);
     setRandomPhotoIndex(index);
@@ -36,16 +39,17 @@ const StudentCourseItem = () => {
   const handleClickStar = value=>{
     if (!ratingSet) {
     setCurrentValueStar(value);
-    localStorage.setItem(`courseRating_${courseId}`, value.toString());
+    localStorage.setItem(`courseRating_${courseId}_${user.user_id}`, value.toString());
     setRatingSet(true);
     rateCourse(value);
     }
   }
 
   useEffect(() => {
-    const savedRating = localStorage.getItem(`courseRating_${courseId}`);
+    const savedRating = localStorage.getItem(`courseRating_${courseId}_${user.user_id}`);
     if (savedRating !== null) {
       setCurrentValueStar(parseInt(savedRating));
+      console.log(parseInt(savedRating))
       setRatingSet(true)
     }
   }, [courseId]);
@@ -86,6 +90,7 @@ const StudentCourseItem = () => {
       };
   
       await axios.post(`http://134.209.250.123:8000/api/rate-course/${courseId}`, {
+        studentId: user.user_id,
         rating: value
       }, config);
   

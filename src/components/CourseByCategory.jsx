@@ -26,6 +26,7 @@ const CourseByCategory = ({course, categoryName}) => {
     useEffect(() => {
       if (user.role === 'Студент') {
       const fetchCourses = async () => {
+        try{
           const token = localStorage.getItem('token');
           const response = await axios.get(`http://134.209.250.123:8000/api/student-courses/${user && user.user_id}`, {
             headers: {
@@ -36,10 +37,16 @@ const CourseByCategory = ({course, categoryName}) => {
           const courses = response.data;
           const courseIds = courses.map(course => course.id);
           setIsEnrolled(courseIds.includes(course.id));
-            
+        } catch(error){
+          console.error('Error fetching student courses:', error);
+          
+        }
         }
   
         fetchCourses();
+      }else{
+        setIsEnrolled(false);
+      
       }
     }, []);
   
