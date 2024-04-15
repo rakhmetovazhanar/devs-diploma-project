@@ -12,6 +12,8 @@ const StudentEditPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const token = localStorage.getItem('token');
   const history=useNavigate();
+  const [profileImage, setProfileImage] = useState(null);
+
 
   const [userData, setUserData] = useState({
     first_name: '',
@@ -20,7 +22,7 @@ const StudentEditPage = () => {
     age:'',
     username: '',
     phone_number:'',
-    profile_picture: null,
+    profile_picture: '',
 
   });
 
@@ -57,31 +59,36 @@ const StudentEditPage = () => {
       });
     }};
 
-
-    const handleImageChange = (e) => {
-      const file = e.target.files[0];
-      setUserData(prevUserData => ({
-        ...prevUserData,
-        profile_picture: file
-      }));
-    };
-    
-    const handleRemoveImage = () => {
-      setUserData({
-        ...userData,
-        profile_picture: null
-      });
-    };
-    
+const handleImageChange = (e) => {
+  const imageFile = e.target.files[0];
+  if (imageFile) {
+    setProfileImage(imageFile);
+    setUserData(prevUserData => ({
+      ...prevUserData,
+      profile_picture: URL.createObjectURL(imageFile) // Создаем URL-адрес изображения
+    }));
+  }
+};
     
 const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true); 
     try {
-        const response = await axios.put(`http://134.209.250.123:8000/api/update-student-profile/${user.user_id}`, userData,{
+        const formData = new FormData();
+        if (profileImage) {
+          formData.append('profile_picture', profileImage);
+        } 
+        formData.append('first_name', userData.first_name);
+        formData.append('last_name', userData.last_name);
+        formData.append('city', userData.city);
+        formData.append('age', userData.age);
+        formData.append('username', userData.username);
+        formData.append('phone_number', userData.phone_number);
+
+        const response = await axios.put(`http://134.209.250.123:8000/api/update-student-profile/${user.user_id}`, formData,{
         headers: {
             Authorization: `Token ${token}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'multipart/form-data'
         }
         }); 
         if(response.status ===200){
@@ -96,6 +103,28 @@ const handleSubmit = async (e) => {
     }
 }
 
+const handleDeleteImage = async () => {
+  try {
+    const response = await axios.delete(`http://134.209.250.123:8000/api/delete-picture/${user.user_id}`, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    });
+    if (response.status === 200) {
+      console.log('Profile picture deleted successfully!');
+      setProfileImage(null);
+      setUserData(prevUserData => ({
+        ...prevUserData,
+        profile_picture: null
+      }));
+    } else {
+      console.log('Failed to delete profile picture');
+    }
+  } catch (error) {
+    console.error('Error deleting profile picture:', error);
+  }
+};
+
   return (
     <div className={styles.wrapper}>
     <div className={styles.wrap_inner}>
@@ -106,26 +135,29 @@ const handleSubmit = async (e) => {
                     <h2 className={styles.edit_profile_title}>Редактировать профиль</h2>
                     <div className={styles.edit_profile_inner}>
                         <div className={styles.edit_profile_info}>
-                            {/* <img className={styles.user_img} src={profileImg} alt="profile_img" /> */}
-                            <div>
-                              {userData && userData.profile_picture ?(
-                                <>
-                                  <img className={styles.user_img} src={URL.createObjectURL(userData.profile_picture)} alt="profile" />
-                                  <button className={styles.delete_profile_picture} type='button' onClick={handleRemoveImage}>Удалить</button>
-                                </>
-                              ):(
-                                <>
-                                  <img className={styles.user_img} src={profileImg} alt="Default Profile" />
-                                  <input type="file" name='profile_picture' onChange={handleImageChange} accept="image/*" placeholder="Добавить фото"/>
-                                </>
-
-                              )
-                            }
-                            
-                            </div>
                             <div className={styles.edit_form}>
-                                <form onSubmit={handleSubmit} className={styles.edit_profile_form}>
-        
+                                <form onSubmit={handleSubmit} className={styles.general_form}>
+                                <div>
+                                {userData.profile_picture ? (
+                                  <div>
+                                    {/* <img className={styles.user_img} src={`http://134.209.250.123:8000${userData.profile_picture}`} alt="hello" /> */}
+                                    <img className={styles.user_img} src={decodeURIComponent(userData.profile_picture)} alt="Profile" />
+                                    <button onClick={handleDeleteImage} className={styles.delete_profile_picture}>Удалить</button>
+                                  </div>
+                                ) : (
+                                  <>   
+                                  <img className={styles.user_img} src={profileImg} alt="hello" />                         
+                                      <input
+                                        id="fileInput"
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageChange}
+                                        className={styles.imageInput}
+                                      />
+                                  </>
+                                )}
+                                </div>
+                                      <div className={styles.edit_profile_form}>
                                         <div className={styles.column}>
                                             <div className={styles.group}>
                                                 <label htmlFor='first_name'>
@@ -211,6 +243,7 @@ const handleSubmit = async (e) => {
                                         <div className={styles.edit_profile_btns}>
                                             <Link to='/student-profile'><button  className={styles.cancel}>Отменить</button></Link>
                                             <button className={styles.editBtn} disabled={isSubmitting} >Сохранить</button>
+                                        </div>
                                         </div>
                                 </form>
                             </div>

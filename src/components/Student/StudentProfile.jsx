@@ -44,7 +44,11 @@ const StudentProfile = () => {
                     <h2 className={styles.profile_title}>Мой профиль</h2>
                     <div className={styles.profile_content}>
                         <div className={styles.profile_content_info}>
+                        {studentData && studentData.profile_picture ? (
+                            <img className={styles.user_img} src={`http://134.209.250.123:8000${studentData.profile_picture}`} alt="Profile" />
+                        ) : (
                             <img className={styles.user_img} src={profileImg} alt="profile_img" />
+                        )}
                             <img src={line} alt="line" />
                             <div className={styles.profile_user_data}>
                                 <h2 className={styles.user_name}>{studentData && studentData.first_name} {studentData && studentData.last_name}</h2>

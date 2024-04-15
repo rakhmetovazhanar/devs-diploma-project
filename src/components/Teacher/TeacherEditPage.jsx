@@ -115,7 +115,6 @@ const handleExperienceChange = (e) => {
       }); 
       if(response.status === 200){
         // console.log(formData)
-        console.log(userData.profile_picture)
         console.log('Successfully updated!');
         history('/teacher-profile')
         
@@ -173,10 +172,8 @@ const handleExperienceChange = (e) => {
                                     <button onClick={handleDeleteImage} className={styles.delete_profile_picture}>Удалить</button>
                                   </div>
                                 ) : (
-                                  <>
-                                  
-                                  <img className={styles.user_img} src={profileImg} alt="hello" />
-                                     
+                                  <>   
+                                  <img className={styles.user_img} src={profileImg} alt="hello" />                         
                                       <input
                                         id="fileInput"
                                         type="file"

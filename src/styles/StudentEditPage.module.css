@@ -76,11 +76,12 @@ text-decoration: none;
 }
 
 .user_img{
-    width: 120px;
-    height: 120px;
+    min-width: 120px;
+    max-width: 120px;
+    min-height: 120px;
+    max-height: 120px;
     border-radius:80px;
     border: 2px solid rgba(33, 236, 0, 1);
-
 }
 
 /* FORM */
@@ -143,6 +144,13 @@ label{
     font-weight: 600;
     font-family: travels;
     font-size: 16px;
+}
+
+.general_form{
+    display: flex;
+    gap: 100px;
+    /* position: absolute;
+    left: 0; */
 }
 
 .cancel{
