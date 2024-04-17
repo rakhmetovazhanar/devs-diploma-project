@@ -3,14 +3,17 @@ import React, { createContext, useState, useContext } from 'react';
 const PaymentButtonContext = createContext();
 
 export const PaymentButtonProvider = ({ children }) => {
-  const [isClickedPayment, setIsClickedPayment] = useState(false);
+  const [clientPaymentStates, setClientPaymentStates] = useState({});
 
-  const togglePayment = () => {
-    setIsClickedPayment(!isClickedPayment);
+  const togglePayment = (clientId) => {
+    setClientPaymentStates(prevStates => ({
+      ...prevStates,
+      [clientId]: !prevStates[clientId]
+    }));
   };
 
   return (
-    <PaymentButtonContext.Provider value={{ isClickedPayment, togglePayment }}>
+    <PaymentButtonContext.Provider value={{ clientPaymentStates, togglePayment }}>
       {children}
     </PaymentButtonContext.Provider>
   );

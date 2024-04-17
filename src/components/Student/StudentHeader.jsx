@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 import {UserContext } from '../../components/UserContext';
 import line2 from '../../images/line2.svg';
 import SideBar from '../Teacher/SideBar';
+import ProfilePicture from '../ProfilePicture';
+
 
 
 const TeacherHeader = ({headerTitle}) => {
@@ -50,6 +52,7 @@ const TeacherHeader = ({headerTitle}) => {
 
         <div onClick={handleDropdownClick} className={styles.users_profile}>
             <div className={styles.users_profile_info}>
+              <ProfilePicture/>
                 <div className={styles.users_name_role}>
                 <div className={styles.users_name_surname}>
                     <div className={styles.users_name}>{user.first_name}</div>
@@ -67,7 +70,7 @@ const TeacherHeader = ({headerTitle}) => {
                 <Link to='/student-profile'>Мой профиль</Link>
                 </li>
                 <li>
-                <Link to='/student-edit-page'>Редактировать </Link>
+                <Link to='/student-edit-profile'>Редактировать </Link>
                 </li>
                 <li>
                 <Link to='/student-delete-account'>Удалить аккаунт</Link>

@@ -1,7 +1,7 @@
 import React, {useEffect, useContext, useState} from 'react';
 import styles from '../../styles/StudentProfile.module.css';
 import StudentHeader from './StudentHeader';
-import profileImg from '../../images/studentsImg.svg';
+import def from '../../images/defaultProfImg.jpg';
 import line from '../../images/Line 136.svg';
 import {Link} from 'react-router-dom';
 import Footer from '../../ui/Footer';
@@ -11,7 +11,7 @@ import { UserContext } from '../../components/UserContext';
 
 
 const StudentProfile = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [studentData, setStudentData] = useState(null);
   const token = localStorage.getItem('token');
 
@@ -25,6 +25,11 @@ const StudentProfile = () => {
           }
         });
         setStudentData(response.data);
+        setUser(prevUser => ({
+          ...prevUser,
+          // ...response.data,
+          profile_picture: response.data.profile_picture ? decodeURIComponent(response.data.profile_picture) : null
+        }));
       } catch (error) {
         console.error('Error fetching teacher profile:', error);
       }
@@ -47,7 +52,7 @@ const StudentProfile = () => {
                         {studentData && studentData.profile_picture ? (
                             <img className={styles.user_img} src={`http://134.209.250.123:8000${studentData.profile_picture}`} alt="Profile" />
                         ) : (
-                            <img className={styles.user_img} src={profileImg} alt="profile_img" />
+                            <img className={styles.user_img} src={def} alt="profile_img" />
                         )}
                             <img src={line} alt="line" />
                             <div className={styles.profile_user_data}>

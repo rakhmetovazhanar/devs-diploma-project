@@ -6,7 +6,7 @@ import { Link as ScrollLink } from 'react-scroll';
 import Logo from '../ui/Logo';
 import line2 from '../images/line2.svg';
 import up from '../images/Up.svg';
-
+import ProfilePicture from './ProfilePicture';
 
 
 const NotLoginHeader = ({showNavLinks}) => {
@@ -61,13 +61,13 @@ const NotLoginHeader = ({showNavLinks}) => {
                 <>
                   <div onClick={handleDropdownClick} className={styles.users_profile}>
                     <div className={styles.users_profile_info}>
+                    <ProfilePicture/>
                       <div className={styles.users_name_role}>
                         <div className={styles.users_name_surname}>
                           <div className={styles.users_name}>{user.first_name}</div>
                           <div>{user.last_name}</div>
                         </div>
                         <div className={styles.users_role}>{user.role}</div>
-                        <div>{user.profile_picture}</div>
                       </div> 
                     
                     <img style={{ transform: isRotated ? 'rotate(180deg)' : 'none' }} src={line2} alt='line2'/>

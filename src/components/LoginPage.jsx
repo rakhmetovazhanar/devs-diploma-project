@@ -6,11 +6,14 @@ import { useForm  } from 'react-hook-form'
 import Logo from '../ui/Logo';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
+import axios from 'axios';
 
 const LoginPage = () =>{
+  const {user} = useContext(UserContext);
     const [errorMessage, setErrorMessage] = useState('');
     const [userType, setUserType] = useState('t');
     const {setUser } = useContext(UserContext);
+    const token = localStorage.getItem('token');
     const form = useForm({
         mode: "onBlur",
     });
@@ -39,6 +42,18 @@ const LoginPage = () =>{
         const responseData = await response.json();
         localStorage.setItem("token", responseData.token);
 
+        const profileResponse = await axios.get(
+          `http://134.209.250.123:8000/api/teacher-profile/${responseData.data.id}`,
+          {
+            headers: {
+              Authorization: `Token ${responseData.token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+  
+        const profileData = profileResponse.data;
+
         const translateRoleToRussian = (role) => {
           switch (role) {
             case 'student':
@@ -50,6 +65,10 @@ const LoginPage = () =>{
           }
         };
 
+
+
+       
+
         const translatedRole = translateRoleToRussian(responseData.role);
         setUser({
           loggedIn: true,
@@ -57,7 +76,10 @@ const LoginPage = () =>{
           last_name : responseData.data.last_name,
           token: responseData.token,
           role: translatedRole,
-          user_id: responseData.data.id
+          user_id: responseData.data.id,
+          profile_picture: profileData.profile_picture
+          ? decodeURIComponent(profileData.profile_picture)
+          : null,
         });
         history('/');
       } else {

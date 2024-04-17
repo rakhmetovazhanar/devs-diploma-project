@@ -730,9 +730,7 @@ text-decoration: none;
     align-items: center;
 }
 
-.users_profile img{
-    transform: rotate(180deg);
-}
+
 
 .users_name_surname{
     display: flex;

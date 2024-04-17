@@ -96,7 +96,7 @@ const handleExperienceChange = (e) => {
     try {
       const formData = new FormData();
       if (profileImage) {
-        formData.append('profile_picture', profileImage);
+        formData.append('profile_picture', decodeURIComponent(profileImage));
       } 
       formData.append('first_name', userData.first_name);
       formData.append('last_name', userData.last_name);
@@ -168,7 +168,7 @@ const handleExperienceChange = (e) => {
                                 {userData.profile_picture ? (
                                   <div>
                                     {/* <img className={styles.user_img} src={`http://134.209.250.123:8000${userData.profile_picture}`} alt="hello" /> */}
-                                    <img className={styles.user_img} src={decodeURIComponent(userData.profile_picture)} alt="Profile" />
+                                    <img className={styles.user_img} src={userData.profile_picture} alt="Profile" />
                                     <button onClick={handleDeleteImage} className={styles.delete_profile_picture}>Удалить</button>
                                   </div>
                                 ) : (
@@ -179,10 +179,8 @@ const handleExperienceChange = (e) => {
                                         type="file"
                                         accept="image/*"
                                         onChange={handleImageChange}
-                                        className={styles.imageInput}
-                                        
+                                        className={styles.imageInput}        
                                       />
-                                    
                                   </>
                                 )}
                                 </div>

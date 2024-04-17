@@ -147,9 +147,9 @@
     align-items: center;
 }
 
-.users_profile img{
+/* .users_profile img{
     transform: rotate(180deg);
-}
+} */
 
 .users_name_surname{
     display: flex;
@@ -195,6 +195,19 @@
     z-index: 100;
     transition: left 0.3s ease; 
 
+}
+
+
+.profilePic{
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    border-radius:20px;
+    border: 2px solid #21EC00;
+    margin-left: -40px;
+    margin-right: 10px;
+    /* transform: rotate(200deg); */
 }
 
 

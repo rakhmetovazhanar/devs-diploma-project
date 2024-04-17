@@ -4,9 +4,10 @@ import { usePaymentButton } from './PaymentContext';
 import axios from 'axios';
 
 const ClientItem = ({client, courseId,setClientsList,clientsList}) => {
-    const { isClickedPayment, togglePayment } = usePaymentButton();
+  const { clientPaymentStates, togglePayment } = usePaymentButton();
     const course_id = parseInt(courseId);
 
+    const isClickedPayment = clientPaymentStates[client.id] || false;
    
       const deleteClient = async (clientId) => {
         try {
@@ -30,7 +31,7 @@ const ClientItem = ({client, courseId,setClientsList,clientsList}) => {
         <p className={styles.client_name}>{client.first_name} {client.last_name}</p>
         <p className={styles.client_email}>{client.username}</p>
         <p className={styles.client_number}>{client.phone_number}</p>
-        <button className={`${styles.client_payment} ${isClickedPayment ? styles.paid : styles.notPaid}`} onClick={togglePayment}>
+        <button className={`${styles.client_payment} ${isClickedPayment ? styles.paid : styles.notPaid}`} onClick={() => togglePayment(client.id)}>
           {isClickedPayment ? 'Оплачено' : 'Не оплачено'}
         </button>        
         <button onClick={()=> deleteClient(client.id)} className={styles.client_remove}>Удалить</button>

@@ -5,7 +5,7 @@ import { UserContext } from '../../components/UserContext';
 import Footer from '../../ui/Footer';
 import axios from 'axios';
 import TeacherHeader from './TeacherHeader';
-import profileImg from '../../images/studentsImg.svg';
+import def from '../../images/defaultProfImg.jpg';
 import profileLine from '../../images/profileLine.svg';
 import student from '../../images/student.svg';
 import computer from '../../images/computer.svg';
@@ -28,11 +28,14 @@ const TeacherProfile = () => {
           }
         });
         setTeacherData(response.data);
-        // setUser(prevUser => ({
-        //   ...prevUser,
-        //   profile_picture: response.data.profile_picture
-        // }));
         console.log(response.data)
+        setUser(prevUser => ({
+          ...prevUser,
+          // ...response.data,
+          profile_picture: response.data.profile_picture ? decodeURIComponent(response.data.profile_picture) : null
+        }));
+      console.log("Фотография профиля:", teacherData && teacherData.profile_picture ? "Есть" : "Отсутствует");
+        console.log(decodeURIComponent(response.data.profile_picture))
       } catch (error) {
         console.error('Error fetching teacher profile:', error);
       }
@@ -49,7 +52,7 @@ const TeacherProfile = () => {
     <div className={styles.wrap_inner}>
         <div className={styles.header}>
             <div className={styles.container}>
-                <TeacherHeader headerTitle={`Привет ${user.first_name}`}/>    
+                <TeacherHeader headerTitle={`Привет ${user.first_name}`}  />    
                 {/* MAIN CONTENT */}
                 <div className={styles.profile}>
                   <h2 className={styles.profile_title}>Мой профиль</h2>
@@ -59,7 +62,7 @@ const TeacherProfile = () => {
                     {teacherData && teacherData.profile_picture ? (
                           <img className={styles.user_img} src={`http://134.209.250.123:8000${teacherData.profile_picture}`} alt="Profile" />
                       ) : (
-                          <img className={styles.user_img} src={profileImg} alt="profile_img" />
+                          <img className={styles.user_img} src={def} alt="profile_img" />
                       )}
                       <div className={styles.profile_user_data}>
                         <h2 className={styles.user_name}>{teacherData && teacherData.first_name} {teacherData && teacherData.last_name}</h2>
