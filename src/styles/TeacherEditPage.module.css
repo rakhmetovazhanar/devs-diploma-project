@@ -36,6 +36,12 @@ text-decoration: none;
     width: 100%;
 }
 
+.edit_wrap{
+    margin-top: 62px;
+    margin-left: 110px;
+    padding-bottom: 76px;
+}
+
 .edit_profile{
     margin-top :84px;
     margin-bottom: 148px;

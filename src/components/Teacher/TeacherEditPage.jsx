@@ -96,7 +96,7 @@ const handleExperienceChange = (e) => {
     try {
       const formData = new FormData();
       if (profileImage) {
-        formData.append('profile_picture', decodeURIComponent(profileImage));
+        formData.append('profile_picture', profileImage);
       } 
       formData.append('first_name', userData.first_name);
       formData.append('last_name', userData.last_name);
