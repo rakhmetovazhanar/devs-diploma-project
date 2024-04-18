@@ -41,7 +41,6 @@ const StudentEditPage = () => {
         console.error('Error fetching user data:', error);
       }
     };
-
     fetchData();
   }, [user.user_id]);
 

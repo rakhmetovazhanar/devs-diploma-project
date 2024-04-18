@@ -26,6 +26,7 @@ import CoursesByCategory from './CoursesByCategory';
 import CourseClients from './Teacher/CourseClients';
 import MyClients from './Teacher/MyClients';
 import TeacherSettings from './Teacher/TeacherSettings';
+import StudentSettings from './Student/StudentSettings';
 
 const AppRoutes = () =>{
     return(
@@ -56,7 +57,7 @@ const AppRoutes = () =>{
             <Route path='/teacher-course-clients/:courseId' element={<CourseClients/>} />
             <Route path='/teacher-clients' element={<MyClients/>} />
             <Route path='/teacher-settings' element={<TeacherSettings/>} />
-            {/* <Route path='/student-settings' element={<StudentSettings/>} /> */}
+            <Route path='/student-settings' element={<StudentSettings/>} />
 
         </Routes>
     )

@@ -5,9 +5,9 @@ import def from '../../images/defaultProfImg.jpg';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 
-const SettingsProfileTeacher = () => {
+const SettingsProfileStudent = () => {
     const { user, setUser } = useContext(UserContext);
-    const [teacherData, setTeacherData] = useState(null);
+    const [studentData, setStudentData] = useState(null);
     const token = localStorage.getItem('token');
     const history = useNavigate();
 
@@ -20,10 +20,9 @@ const SettingsProfileTeacher = () => {
                 'Content-Type': 'application/json'
               }
             });
-            setTeacherData(response.data);
+            setStudentData(response.data);
             setUser(prevUser => ({
               ...prevUser,
-              // ...response.data,
               profile_picture: response.data.profile_picture ? decodeURIComponent(response.data.profile_picture) : null
             }));
           } catch (error) {
@@ -61,19 +60,19 @@ const SettingsProfileTeacher = () => {
         }
       };
 
-      const deleteTeacher = async () => {
+      const deleteStudent = async () => {
         try {
-          const response = await axios.delete(`http://134.209.250.123:8000/api/delete-teacher-profile/${user.user_id}`, {
+          const response = await axios.delete(`http://134.209.250.123:8000/api/delete-student-profile/${user.user_id}`, {
             headers: {
               Authorization: `Token ${token}`,
              'Content-Type' : 'application/json'
             }
           });
-          console.log('Teacher deleted successfully');
+          console.log('Student deleted successfully');
           setUser(null);
           history('/login')
         } catch (error) {
-          console.error('Error deleting teacher:', error);
+          console.error('Error deleting student:', error);
         }
       };
 
@@ -81,35 +80,34 @@ const SettingsProfileTeacher = () => {
   return (
     <div className={styles.profile_content}>
         <div className={styles.profile_content_info}>
-        {teacherData && teacherData.profile_picture ? (
-            <img className={styles.user_img} src={`http://134.209.250.123:8000${teacherData.profile_picture}`} alt="Profile" />
+        {studentData && studentData.profile_picture ? (
+            <img className={styles.user_img} src={`http://134.209.250.123:8000${studentData.profile_picture}`} alt="Profile" />
         ) : (
             <img className={styles.user_img} src={def} alt="profile_img" />
         )}
 
         <div className={styles.profile_user_data}>
             <div className={styles.user_name_email}>
-                <h2 className={styles.user_name}>{teacherData && teacherData.first_name} {teacherData && teacherData.last_name}</h2>
-                <p className={styles.user_email}>{teacherData && teacherData.username}</p>
+                <h2 className={styles.user_name}>{studentData && studentData.first_name} {studentData && studentData.last_name}</h2>
+                <p className={styles.user_email}>{studentData && studentData.username}</p>
             </div>
-            {teacherData && (
+            {studentData && (
             <>
             <div className={styles.user_contacts_message}>
                 <div className={styles.user_age_exp}>
-                    <h4>Возраст: {teacherData.age}</h4>
-                    <h4>Опыт: {teacherData.experience}</h4>
+                    <h4>Возраст: {studentData.age}</h4>
+                    <h4>{user.role}</h4>
                 </div>
                 <div className={styles.user_city_contacts}>
-                    <h4>Город:  {teacherData.city}</h4>
-                    <h4>Контакты:   {teacherData.phone_number}</h4>
+                    <h4>Город:  {studentData.city}</h4>
+                    <h4>Контакты:   {studentData    .phone_number}</h4>
                 </div>
             </div>
-            <p className={styles.user_message}>{teacherData.bio}</p>
             </>
         )}
             <div className={styles.btns}>
                 <button onClick={handleLogout} className={styles.logoutBtn}>Выйти</button>
-                <button onClick={deleteTeacher} className={styles.deleteAccBtn}>Удалить аккаунт</button>
+                <button onClick={deleteStudent} className={styles.deleteAccBtn}>Удалить аккаунт</button>
             </div>
         </div>
         </div>
@@ -117,4 +115,4 @@ const SettingsProfileTeacher = () => {
   )
 }
 
-export default SettingsProfileTeacher;
+export default SettingsProfileStudent;

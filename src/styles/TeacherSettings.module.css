@@ -101,7 +101,8 @@ text-decoration: none;
     border: 2px solid rgba(33, 236, 0, 1);
 }
 
-.user_name_email{
+.user_name_email,
+.user_contacts_message{
     display: flex;
     /* gap: 180px; */
     justify-content: space-between;
@@ -113,6 +114,10 @@ text-decoration: none;
     line-height: 24px;
     font-family: travels;
     font-weight: 500;
+}
+
+.profile_user_data{
+    width: 637px;
 }
 
 .user_email{
@@ -136,9 +141,7 @@ text-decoration: none;
 }
 
 .user_contacts_message{
-    display: flex;
-    /* gap: 180px; */
-    justify-content: space-between;
+    
     margin-bottom: 25px;
 }
 
