@@ -87,7 +87,7 @@ text-decoration: none;
 /* FORM */
 .group{
     position: relative;
-    height: 60px;
+    height: 63px;
     display: flex; 
     flex-direction: column; 
     justify-content: flex-end; 
@@ -128,7 +128,7 @@ label{
 }
 
 .column .group{
-    flex-basis: 46%;
+    flex-basis: 48%;
 }
 
 

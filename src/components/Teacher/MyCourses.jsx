@@ -7,10 +7,13 @@ import Footer from '../../ui/Footer';
 import CourseItem from './CourseItem';
 import axios from 'axios';
 import TeacherHeader from './TeacherHeader';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
  
 const MyCourses = () => {
   const [courses, setCourses] = useState([]);
   const [searchText, setSearchText] = useState('');
+  const [loading, setLoading] = useState(true);
     
 
   useEffect(() => {
@@ -25,9 +28,10 @@ const MyCourses = () => {
 
         const sortedCourses = response.data.slice().reverse();
         setCourses(sortedCourses)
-        
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching courses:', error);
+        setLoading(false);
       }
     };
 
@@ -70,7 +74,11 @@ const MyCourses = () => {
                 </div>
 
                 {/* COURSE LIST */}
-
+                {loading ? ( // Если идет загрузка, отображаем анимацию загрузки
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                    <CircularProgress />
+                  </Box>
+                ) : ( 
                 <div className={styles.my_courses_list}>
                 {courses.length === 0 ? (
                   <h3 className={styles.no_courses}>У вас пока нет курсов</h3>
@@ -80,6 +88,7 @@ const MyCourses = () => {
                   ))
                 )}
                 </div>
+                )}
             </div>
             <Footer/>
         </div>

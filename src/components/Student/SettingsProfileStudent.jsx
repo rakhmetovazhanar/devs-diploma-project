@@ -4,12 +4,16 @@ import { UserContext } from '../UserContext';
 import def from '../../images/defaultProfImg.jpg';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 const SettingsProfileStudent = () => {
     const { user, setUser } = useContext(UserContext);
     const [studentData, setStudentData] = useState(null);
     const token = localStorage.getItem('token');
     const history = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchTeacherProfile = async () => {
@@ -21,12 +25,14 @@ const SettingsProfileStudent = () => {
               }
             });
             setStudentData(response.data);
+            setLoading(false);
             setUser(prevUser => ({
               ...prevUser,
               profile_picture: response.data.profile_picture ? decodeURIComponent(response.data.profile_picture) : null
             }));
           } catch (error) {
             console.error('Error fetching teacher profile:', error);
+            setLoading(false);
           }
         };
     
@@ -79,6 +85,11 @@ const SettingsProfileStudent = () => {
 
   return (
     <div className={styles.profile_content}>
+       {loading ? ( // Если идет загрузка, отображаем анимацию загрузки
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+            <CircularProgress />
+          </Box>
+        ) : ( 
         <div className={styles.profile_content_info}>
         {studentData && studentData.profile_picture ? (
             <img className={styles.user_img} src={`http://134.209.250.123:8000${studentData.profile_picture}`} alt="Profile" />
@@ -111,6 +122,7 @@ const SettingsProfileStudent = () => {
             </div>
         </div>
         </div>
+        )}
     </div>
   )
 }

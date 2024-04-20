@@ -10,6 +10,8 @@ import profileLine from '../../images/profileLine.svg';
 import student from '../../images/student.svg';
 import computer from '../../images/computer.svg';
 import doc from '../../images/doc.svg';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 
@@ -17,6 +19,7 @@ const TeacherProfile = () => {
   const { user, setUser } = useContext(UserContext);
   const [teacherData, setTeacherData] = useState(null);
   const token = localStorage.getItem('token');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTeacherProfile = async () => {
@@ -28,16 +31,15 @@ const TeacherProfile = () => {
           }
         });
         setTeacherData(response.data);
-        console.log(response.data)
+        setLoading(false);
         setUser(prevUser => ({
           ...prevUser,
           // ...response.data,
           profile_picture: response.data.profile_picture ? decodeURIComponent(response.data.profile_picture) : null
         }));
-      console.log("Фотография профиля:", teacherData && teacherData.profile_picture ? "Есть" : "Отсутствует");
-        console.log(decodeURIComponent(response.data.profile_picture))
       } catch (error) {
         console.error('Error fetching teacher profile:', error);
+        setLoading(false);
       }
     };
 
@@ -54,6 +56,11 @@ const TeacherProfile = () => {
             <div className={styles.container}>
                 <TeacherHeader headerTitle={`Привет ${user.first_name}`}  />    
                 {/* MAIN CONTENT */}
+                {loading ? ( // Если идет загрузка, отображаем анимацию загрузки
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                    <CircularProgress />
+                  </Box>
+                ) : ( 
                 <div className={styles.profile}>
                   <h2 className={styles.profile_title}>Мой профиль</h2>
                   <div className={styles.profile_content}>
@@ -111,6 +118,7 @@ const TeacherProfile = () => {
                         </div>
                   </div>
                 </div>
+                )}
             </div>
             <Footer/>
         </div>

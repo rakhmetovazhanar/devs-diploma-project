@@ -7,6 +7,8 @@ import {Link} from 'react-router-dom';
 import Footer from '../../ui/Footer';
 import axios from 'axios';
 import { UserContext } from '../../components/UserContext';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 
 
@@ -14,6 +16,7 @@ const StudentProfile = () => {
   const { user, setUser } = useContext(UserContext);
   const [studentData, setStudentData] = useState(null);
   const token = localStorage.getItem('token');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTeacherProfile = async () => {
@@ -25,6 +28,7 @@ const StudentProfile = () => {
           }
         });
         setStudentData(response.data);
+        setLoading(false);
         setUser(prevUser => ({
           ...prevUser,
           // ...response.data,
@@ -32,6 +36,7 @@ const StudentProfile = () => {
         }));
       } catch (error) {
         console.error('Error fetching teacher profile:', error);
+        setLoading(false);
       }
     };
 
@@ -45,6 +50,11 @@ const StudentProfile = () => {
             <div className={styles.container}>
                 <StudentHeader headerTitle={'Hi Zhanel'}/>
                 {/* MAIN CONTENT */}
+                {loading ? ( // Если идет загрузка, отображаем анимацию загрузки
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                    <CircularProgress />
+                  </Box>
+                ) : ( 
                 <div className={styles.profile}>
                     <h2 className={styles.profile_title}>Мой профиль</h2>
                     <div className={styles.profile_content}>
@@ -75,6 +85,7 @@ const StudentProfile = () => {
                         </div>  
                     </div>
                 </div>
+                )}
             </div>
             <Footer/>
         </div>

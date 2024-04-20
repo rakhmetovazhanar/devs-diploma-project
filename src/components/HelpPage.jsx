@@ -5,16 +5,39 @@ import { useNavigate } from 'react-router-dom';
 
 
 const HelpPage = () => {
+    const token = localStorage.getItem('token');
 
     const form = useForm({
         mode: "onBlur",
     });
     const history = useNavigate()
     const {register , handleSubmit, formState: { errors  } , reset} = form;
+    const onSubmit =  async(data,e)=>{
+        e.preventDefault()
+        try{
+            const response = await fetch('http://134.209.250.123:8000/api/support/', {
+                method: "POST",
+                headers :{
+                    Authorization: `Token ${token}`,
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            if(response.ok){
+                console.log('Your message send successfully!')
+                reset()
+            }
+        }catch(error){
+            console.log('Error:', error)
+            reset()
+        }
+    }
+
   return (
     <div className={styles.helpPage_inner}>
         <div className={styles.helpPage_content}>
-            <form className={styles.helpForm}>
+            <form className={styles.helpForm} onSubmit={handleSubmit(onSubmit)}>
                 <h2>Нужна Помощь</h2>
                 <p>Обратитесь за консультацией к профессионалам</p>
                 <div className={styles.group}>  

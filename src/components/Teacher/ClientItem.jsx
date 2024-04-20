@@ -1,12 +1,15 @@
-import React ,{useState, useEffect} from 'react';
+import React ,{useState, useEffect, useContext} from 'react';
 import styles from '../../styles/MyClients.module.css';
 import { usePaymentButton } from './PaymentContext';
 import axios from 'axios';
+import def from '../../images/defaultProfImg.jpg';
+import UserContext from '../../components/UserContext';
+import ProfilePicture from '.././ProfilePicture';
+
 
 const ClientItem = ({client, courseId,setClientsList,clientsList}) => {
   const { clientPaymentStates, togglePayment } = usePaymentButton();
-    const course_id = parseInt(courseId);
-
+  const course_id = parseInt(courseId);
     const isClickedPayment = clientPaymentStates[client.id] || false;
    
       const deleteClient = async (clientId) => {
@@ -28,6 +31,7 @@ const ClientItem = ({client, courseId,setClientsList,clientsList}) => {
   
   return (
     <div className={styles.clientInfo}>
+        
         <p className={styles.client_name}>{client.first_name} {client.last_name}</p>
         <p className={styles.client_email}>{client.username}</p>
         <p className={styles.client_number}>{client.phone_number}</p>

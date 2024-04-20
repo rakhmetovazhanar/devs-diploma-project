@@ -9,6 +9,9 @@ import { useParams , useNavigate } from 'react-router-dom';
 import randomPhotos from '../../ui/randomPhotos';
 import { MdOutlineStar } from "react-icons/md";
 import { UserContext } from '../UserContext';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 const colors = {
   orange: "#FD8E1F",
@@ -28,6 +31,7 @@ const StudentCourseItem = () => {
   const [commentSaved, setCommentSaved] = useState(false);
   const [ratingSaved, setRatingSaved]= useState(false);
   const [ratingSet, setRatingSet] = useState(false);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -72,8 +76,10 @@ const StudentCourseItem = () => {
       try {
         const response = await axios.get(`http://134.209.250.123:8000/api/course-details/${courseId}`);
         setCourseData(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching course:', error);
+        setLoading(false);
       }
     };
 
@@ -138,6 +144,11 @@ const StudentCourseItem = () => {
             <div className={styles.container}>
                 <StudentHeader headerTitle={'Мои курсы'}/>
                   {/* MAIN CONTENT */}
+                  {loading ? ( // Если идет загрузка, отображаем анимацию загрузки
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                      <CircularProgress />
+                    </Box>
+                  ) : ( 
                   <div className={styles.main_content}>
                     <div className={styles.pages_links}>
                       <Link to='/'>Главная страница / </Link>
@@ -205,7 +216,7 @@ const StudentCourseItem = () => {
                     <Link to='/student-courses'><button className={styles.prevPage}>Назад</button></Link>
                     
                   </div>
-                
+                  )}
             </div>
             <Footer/>
         </div>

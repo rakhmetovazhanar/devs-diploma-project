@@ -7,6 +7,9 @@ import axios from 'axios';
 import categories from '../courseCategories';
 import { useParams , useNavigate } from 'react-router-dom';
 import randomPhotos from '../../ui/randomPhotos';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 const CoursePage = () => {
   const { courseId } = useParams();
@@ -14,7 +17,7 @@ const CoursePage = () => {
   const randomPhotoUrl = randomPhotos[randomPhotoIndex];
   const [courseData, setCourseData] = useState(null);
   const history = useNavigate();
-
+  const [loading, setLoading] = useState(true);
 
   const getCategoryNameById = (categoryId) => {
     const category = categories.find(cat => cat.id === categoryId);
@@ -25,9 +28,11 @@ const CoursePage = () => {
     const fetchCourse = async () => {
       try {
         const response = await axios.get(`http://134.209.250.123:8000/api/course-details/${courseId}`);
+        setLoading(false);
         setCourseData(response.data);
       } catch (error) {
         console.error('Error fetching course:', error);
+        setLoading(false);
       }
     };
 
@@ -62,6 +67,11 @@ const CoursePage = () => {
             <div className={styles.container}>
                 <TeacherHeader headerTitle={'Мои курсы'}/>
                   {/* MAIN CONTENT */}
+                  {loading ? ( // Если идет загрузка, отображаем анимацию загрузки
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                    <CircularProgress />
+                  </Box>
+                  ) : ( 
                   <div className={styles.main_content}>
                     <div className={styles.pages_links}>
                       <Link to='/'>Главная страница / </Link>
@@ -108,6 +118,7 @@ const CoursePage = () => {
                     <Link to='/my-courses'><button className={styles.prevPage}>Назад</button></Link>
                     
                   </div>
+                  )}
                 
             </div>
             <Footer/>

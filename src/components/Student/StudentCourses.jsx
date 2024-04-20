@@ -6,11 +6,14 @@ import {Link, useNavigate} from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import CourseItem from '../Teacher/CourseItem';
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 const StudentCourses = () => {
     const [courses, setCourses] = useState([]);
     const {user} = useContext(UserContext);
-    const history = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchCourses = async () => {
@@ -25,10 +28,10 @@ const StudentCourses = () => {
             const sortedCourses = response.data.slice().reverse();
             setCourses(sortedCourses)
             const courseIds = sortedCourses.map(course => course.id);
-            console.log(sortedCourses)
-            
+            setLoading(false);            
           } catch (error) {
             console.error('Error fetching courses:', error);
+            setLoading(false);
           }
         };
     
@@ -64,6 +67,11 @@ const StudentCourses = () => {
                   </div> */}
                 </div>
                 {/* COURSE LIST */}
+                {loading ? ( // Если идет загрузка, отображаем анимацию загрузки
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                    <CircularProgress />
+                  </Box>
+                ) : ( 
                 <div className={styles.my_courses_list}>
                 {courses.length === 0 ? (
                   <h3 className={styles.no_courses}>У вас пока нет курсов</h3>
@@ -75,6 +83,7 @@ const StudentCourses = () => {
                   ))
                 )}
                 </div>
+                )}
             </div>
             <Footer/>
         </div>

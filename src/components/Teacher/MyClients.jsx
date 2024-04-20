@@ -1,16 +1,19 @@
-import React , {useState, useContext, useEffect} from 'react';
+import React , {useState, useContext, useEffect, CSSProperties} from 'react';
 import styles from '../../styles/MyClients.module.css';
 import TeacherHeader from './TeacherHeader';
 import { UserContext } from '../UserContext';
 import axios from 'axios';
 import randomPhotos from '../../ui/randomPhotos';
 import {Link} from 'react-router-dom';
-// import { CircleLoader } from "react-awesome-loaders";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 
 const MyClients = () => {
   const [courses, setCourses] = useState([]);
   const {user} = useContext(UserContext);
   const [randomPhotoIndexes, setRandomPhotoIndexes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const generateRandomIndexes = () => {
@@ -38,9 +41,11 @@ const MyClients = () => {
 
         const sortedCourses = response.data.slice().reverse();
         setCourses(sortedCourses)
+        setLoading(false);
         
       } catch (error) {
         console.error('Error fetching courses:', error);
+        setLoading(false);
       }
     };
 
@@ -54,16 +59,17 @@ const MyClients = () => {
             <div className={styles.header}>
                 <div className={styles.container}>
                     <TeacherHeader headerTitle={`Привет ${user.first_name}`}/>
+                    {loading ? ( // Если идет загрузка, отображаем анимацию загрузки
+                      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
+                        <CircularProgress />
+                      </Box>
+                    ) : ( 
                     <div className={styles.my_clients}>
                         <h2 className={styles.my_clients_title}>Мои клиенты</h2>
+                        {courses.length === 0 &&(
+                              <h3 className={styles.no_courses}>У вас пока нет курсов</h3>
+                            )}
                         <div className={styles.courses}>
-                        {/* <CircleLoader
-                            meshColor={"#6366F1"}
-                            lightColor={"#E0E7FF"}
-                            duration={1.5}
-                            desktopSize={"90px"}
-                            mobileSize={"64px"}
-                        /> */}
                             {courses.map((course,index)=>(
                                  <div className={styles.course} key={course.id}>
                                     <Link to={`/teacher-course-clients/${course.id}`}>
@@ -74,6 +80,7 @@ const MyClients = () => {
                             ))}                         
                         </div>
                     </div>
+                    )}
                 </div>
             </div>
         </div>

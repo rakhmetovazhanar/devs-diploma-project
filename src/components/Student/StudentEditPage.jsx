@@ -92,6 +92,10 @@ const handleSubmit = async (e) => {
         }); 
         if(response.status ===200){
           console.log('Successfully updated!');
+          setUserData(prevUserData => ({
+            ...prevUserData,
+            profile_picture: decodeURIComponent(response.data.profile_picture) // Предполагается, что API возвращает обновленные данные пользователя с новым URL изображения
+          }));
           history('/student-profile')
         }else{
           console.log('wrong!')
@@ -139,7 +143,7 @@ const handleDeleteImage = async () => {
                                 <div>
                                 {userData.profile_picture ? (
                                   <div>
-                                    {/* <img className={styles.user_img} src={`http://134.209.250.123:8000${userData.profile_picture}`} alt="hello" /> */}
+                                    {/* <img className={styles.user_img} src={userData.profile_picture} alt="hello" /> */}
                                     <img className={styles.user_img} src={decodeURIComponent(userData.profile_picture)} alt="Profile" />
                                     <button onClick={handleDeleteImage} className={styles.delete_profile_picture}>Удалить</button>
                                   </div>
