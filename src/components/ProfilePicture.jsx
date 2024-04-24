@@ -6,7 +6,6 @@ import def from '../images/defaultProfImg.jpg';
 
 const ProfilePicture = () => {
   const { user } = useContext(UserContext);
-  console.log(user.profile_picture)
 
   return (
     

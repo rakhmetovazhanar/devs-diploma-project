@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useMemo} from 'react';
 import styles from '../../styles/StudentCourseItem.module.css';
 import StudentHeader from './StudentHeader';
 import {Link} from 'react-router-dom';
@@ -11,7 +11,9 @@ import { MdOutlineStar } from "react-icons/md";
 import { UserContext } from '../UserContext';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-
+import CommentItem from '../../ui/CommentItem';
+import leftSide from '../../images/leftSide.svg';
+import rightSide from '../../images/rightSide.svg';
 
 const colors = {
   orange: "#FD8E1F",
@@ -29,10 +31,14 @@ const StudentCourseItem = () => {
   const [hoverValueStar ,setHoverValueStar] = useState(undefined);
   const [comment, setComment] = useState('');
   const [commentSaved, setCommentSaved] = useState(false);
-  const [ratingSaved, setRatingSaved]= useState(false);
   const [ratingSet, setRatingSet] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [courseComments, setCourseComments] = useState(null);
+  const [visibleComments, setVisibleComments] = useState(2);
 
+  const showMoreComments = () => {
+    setVisibleComments(visibleComments + 2); // Увеличиваем количество показываемых комментариев на 2
+  };
 
   useEffect(() => {
     const index = Math.floor(Math.random() * randomPhotos.length);
@@ -100,15 +106,34 @@ const StudentCourseItem = () => {
         rating: value
       }, config);
   
-      console.log('Рейтинг успешно сохранен!');
-      setRatingSaved(true);
       setTimeout(() => {
-        setRatingSaved(false);
       }, 3000);
     } catch (error) {
       console.error('Error rating course:', error);
     }
   };
+
+  
+    const fetchComments = async () => {
+      try {
+        const response = await axios.get(`http://134.209.250.123:8000/api/comments/${courseId}`);
+        setCourseComments(response.data);
+        
+        console.log('comments:', response.data)
+      } catch (error) {
+        console.error('Error fetching comment:', error);
+        
+      }
+    };
+
+    useEffect(() => {
+      fetchComments();
+  }, [courseId]); 
+
+  const sortedComments = useMemo(() => {
+    if (!courseComments) return [];
+    return [...courseComments].reverse();
+}, [courseComments]);
 
   const postComment = async () => {
     try {
@@ -120,6 +145,8 @@ const StudentCourseItem = () => {
           Authorization: `Token ${token}`
         }
       });
+
+      fetchComments();
       setCommentSaved(true);
       setTimeout(() => {
         setCommentSaved(false);
@@ -155,8 +182,11 @@ const StudentCourseItem = () => {
                       <Link to='/student-courses'> Мои курсы / </Link>
                       <p>{courseData && courseData.name}</p>
                     </div>
+                    
 
                     <div className={styles.course_content}>
+                    <img className={styles.leftSide} src={leftSide} alt="" />
+                    <img className={styles.rightSide} src={rightSide} alt="" />
                       <div className={styles.course_content_inner}>
                         <img src={randomPhotoUrl} alt="course" />
 
@@ -200,7 +230,7 @@ const StudentCourseItem = () => {
                                 )
                               })}
                             </div>
-                            {ratingSaved && <p className={styles.ratingSaved}>Спасибо за оценку!</p>}
+                           
                           </div>
                           <textarea 
                           placeholder='Добавляйте свои комментарии...'
@@ -209,6 +239,25 @@ const StudentCourseItem = () => {
                           {commentSaved && <p className={styles.commentSaved}>Комментарий успешно сохранен!</p>}
                           <button onClick={handleSaveComment}>Сохранить</button>
                         </div>
+
+                        <div className={styles.comments}>
+                          {sortedComments && sortedComments.length > 0 && (
+                              <h3 className={styles.comments_title}>Другие комментарии</h3>
+                          )}
+                          {sortedComments && sortedComments.length > 0 ? (
+                              sortedComments.slice(0, visibleComments).reverse().map((comment, index) => (
+                                  <CommentItem key={index} comment={comment} />
+                              ))
+                          ) : (
+                              <p className={styles.noComments}>Нет комментариев</p>
+                          )}
+                          {sortedComments && sortedComments.length > visibleComments && (
+                              <button onClick={showMoreComments} className={styles.showMoreButton}>
+                                Загружайте больше
+                              </button>
+                          )}
+                
+                        </div>  
                         </div>
                         
                       </div>
