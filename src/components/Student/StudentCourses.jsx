@@ -27,6 +27,7 @@ const StudentCourses = () => {
     
             const sortedCourses = response.data.slice().reverse();
             setCourses(sortedCourses)
+            console.log(sortedCourses)
             const courseIds = sortedCourses.map(course => course.id);
             setLoading(false);            
           } catch (error) {

@@ -20,6 +20,9 @@ const TeacherProfile = () => {
   const [teacherData, setTeacherData] = useState(null);
   const token = localStorage.getItem('token');
   const [loading, setLoading] = useState(true);
+  const [students, setStudents] = useState(null);
+  const [courses , setCourses] = useState(null);
+  const [feedbacks, setFeedbacks] = useState(null);
 
   useEffect(() => {
     const fetchTeacherProfile = async () => {
@@ -31,10 +34,10 @@ const TeacherProfile = () => {
           }
         });
         setTeacherData(response.data);
+        // console.log(response.data)
         setLoading(false);
         setUser(prevUser => ({
           ...prevUser,
-          // ...response.data,
           profile_picture: response.data.profile_picture ? decodeURIComponent(response.data.profile_picture) : null
         }));
       } catch (error) {
@@ -46,7 +49,43 @@ const TeacherProfile = () => {
     fetchTeacherProfile();
   }, [user.user_id]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [studentsResponse, coursesResponse, feedbacksResponse] = await Promise.all([
+          axios.get(`http://134.209.250.123:8000/api/students/${user.user_id}`, {
+            headers: {
+              Authorization: `Token ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }),
+          axios.get(`http://134.209.250.123:8000/api/courses/${user.user_id}`, {
+            headers: {
+              Authorization: `Token ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }),
+          axios.get(`http://134.209.250.123:8000/api/feedback/${user.user_id}`, {
+            headers: {
+              Authorization: `Token ${token}`,
+              'Content-Type': 'application/json'
+            }
+          })
+        ]);
+        
+        setStudents(studentsResponse.data);
+        setCourses(coursesResponse.data);
+        setFeedbacks(feedbacksResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
   
+    fetchData();
+  }, [user.user_id]);
+  
+
 
  
   return (
@@ -95,7 +134,7 @@ const TeacherProfile = () => {
                           <div className={styles.user_students}>
                             <img src={student} alt="student" />
                             <div>
-                              <h3>70</h3>
+                              <h3>{students}</h3>
                               <h4>Студенты</h4>
                             </div>
                           </div>
@@ -103,7 +142,7 @@ const TeacherProfile = () => {
                           <div className={styles.user_courses}>
                             <img src={computer} alt="student" />
                             <div>
-                              <h3>10</h3>
+                              <h3>{courses}</h3>
                               <h4>Курсы</h4>
                             </div>
                           </div>
@@ -111,7 +150,7 @@ const TeacherProfile = () => {
                           <div className={styles.user_feedbacks}>
                             <img src={doc} alt="student" />
                             <div>
-                              <h3>60</h3>
+                              <h3>{feedbacks}</h3>
                               <h4>Отзывы</h4>
                             </div>
                           </div>

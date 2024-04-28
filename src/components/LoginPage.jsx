@@ -64,11 +64,6 @@ const LoginPage = () =>{
               return role;
           }
         };
-
-
-
-       
-
         const translatedRole = translateRoleToRussian(responseData.role);
         setUser({
           loggedIn: true,

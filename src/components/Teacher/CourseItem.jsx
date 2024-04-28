@@ -21,7 +21,7 @@ const CourseItem = ({course, handleDelete, deleteCourse}) => {
     }
     history(`/teacher-course-page/${course.id}`); 
     } else if(user.role==='Студент'){
-      if (event.target.classList.contains(styles.course_item_edit) || event.target.classList.contains(styles.course_item_delete)) {
+      if (event.target.classList.contains(styles.course_item_video) || event.target.classList.contains(styles.course_item_delete)) {
         return; 
     }
     history(`/student-course-page/${course.id}`); 
@@ -63,7 +63,7 @@ const CourseItem = ({course, handleDelete, deleteCourse}) => {
             )}
             {user.role ==='Студент' && (
               <>
-              <Link to={'/'}><button className={styles.course_item_video}>Присоединение к уроку</button></Link>
+              <Link to={`/join-meet-page/${course.id}`}><button className={styles.course_item_video}>Присоединение к уроку</button></Link>
               <button  onClick={()=>deleteCourse(course.id)}  className={styles.course_item_delete}>Удалить</button>
 
               </>

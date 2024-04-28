@@ -69,6 +69,7 @@ const MyCourses = () => {
                   {/* MAIN CONTENT */}
                 <div className={styles.main_content}>
                   <div className={styles.my_courses_actions}>
+                    <Link to='/create-meeting'><button className={styles.openMeetPage}>Создать Видеоконференцию</button></Link>
                     <Link to='/add-course'><button className={styles.to_add_course_btn}>Добавить курс</button></Link>
                   </div>
                 </div>

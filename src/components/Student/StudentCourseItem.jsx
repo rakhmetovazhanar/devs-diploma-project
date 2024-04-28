@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import CommentItem from '../../ui/CommentItem';
 import leftSide from '../../images/leftSide.svg';
 import rightSide from '../../images/rightSide.svg';
+import def from '../../images/defaultProfImg.jpg';
 
 const colors = {
   orange: "#FD8E1F",
@@ -59,7 +60,7 @@ const StudentCourseItem = () => {
     const savedRating = localStorage.getItem(`courseRating_${courseId}_${user.user_id}`);
     if (savedRating !== null) {
       setCurrentValueStar(parseInt(savedRating));
-      console.log(parseInt(savedRating))
+      // console.log(parseInt(savedRating))
       setRatingSet(true)
     }
   }, [courseId]);
@@ -83,6 +84,7 @@ const StudentCourseItem = () => {
         const response = await axios.get(`http://134.209.250.123:8000/api/course-details/${courseId}`);
         setCourseData(response.data);
         setLoading(false);
+        // console.log(response.data)
       } catch (error) {
         console.error('Error fetching course:', error);
         setLoading(false);
@@ -118,7 +120,7 @@ const StudentCourseItem = () => {
       try {
         const response = await axios.get(`http://134.209.250.123:8000/api/comments/${courseId}`);
         setCourseComments(response.data);
-        
+        // console.log(response.data)
         console.log('comments:', response.data)
       } catch (error) {
         console.error('Error fetching comment:', error);
@@ -203,6 +205,7 @@ const StudentCourseItem = () => {
                             <div className={styles.course_teacher}>
                               <p className={styles.created}>Созданный: </p>
                               <div className={styles.course_teacher_name_sur}>
+                              {/* <img className={styles.user_img} src={`http://134.209.250.123:8000${courseData.profile_picture}`} alt="Profile" /> */}
                                 <p className={styles.course_teacher_name}>{courseData && courseData.first_name}</p>
                                 <p className={styles.course_teacher_surname}>{courseData && courseData.last_name}</p>
                               </div>

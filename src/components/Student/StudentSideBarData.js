@@ -17,6 +17,11 @@ const StudentSideBarData = [
       link: '/',
     },
     {
+      title: 'Дашборд',
+      icon: mainPage,
+      link: '/dashboard',
+    },
+    {
       title: 'Настройки',
       icon: settings,
       link: '/student-settings',

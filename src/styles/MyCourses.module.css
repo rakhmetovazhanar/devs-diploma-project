@@ -47,7 +47,19 @@ text-decoration: none;
 }
 .my_courses_actions{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+}
+
+.openMeetPage{
+    background: linear-gradient(90.15deg, #4072EE 0.13%, #254188 124.55%);
+    width: 255px;
+    height: 38px;
+    border-radius:20px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    border:none;
 }
 
 .my_courses_filter{

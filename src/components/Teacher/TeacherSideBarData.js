@@ -8,11 +8,6 @@ import mainPage from '../../images/mainPage.svg';
 
 const SideBarData = [
     {
-      title: 'Панель',
-      icon: panel,
-      link: '/teacher-panel',
-    },
-    {
       title: 'Мои курсы',
       icon: course,
       link: '/my-courses',
@@ -26,6 +21,11 @@ const SideBarData = [
       title: 'Главная страница',
       icon: mainPage,
       link: '/',
+    },
+    {
+      title: 'Дашборд',
+      icon: mainPage,
+      link: '/dashboard',
     },
     {
       title: 'Настройки',

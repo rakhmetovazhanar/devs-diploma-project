@@ -27,6 +27,10 @@ import CourseClients from './Teacher/CourseClients';
 import MyClients from './Teacher/MyClients';
 import TeacherSettings from './Teacher/TeacherSettings';
 import StudentSettings from './Student/StudentSettings';
+import CreateMeeting from './Teacher/CreateMeeting';
+import JoinMeetPage from './Student/JoinMeetPage';
+import MeetingPage from './MeetingPage';
+import Dashboard from './Dashboard';
 
 const AppRoutes = () =>{
     return(
@@ -58,6 +62,11 @@ const AppRoutes = () =>{
             <Route path='/teacher-clients' element={<MyClients/>} />
             <Route path='/teacher-settings' element={<TeacherSettings/>} />
             <Route path='/student-settings' element={<StudentSettings/>} />
+            <Route path='/create-meeting' element={<CreateMeeting/>} />
+            <Route path='/join-meet-page/:courseId' element={<JoinMeetPage/>} />
+            <Route path='/meeting' element={<MeetingPage/>} />
+            <Route path='/dashboard' element={<Dashboard/>} />
+
 
         </Routes>
     )
