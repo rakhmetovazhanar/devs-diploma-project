@@ -60,7 +60,6 @@ const StudentCourseItem = () => {
     const savedRating = localStorage.getItem(`courseRating_${courseId}_${user.user_id}`);
     if (savedRating !== null) {
       setCurrentValueStar(parseInt(savedRating));
-      // console.log(parseInt(savedRating))
       setRatingSet(true)
     }
   }, [courseId]);
@@ -120,7 +119,6 @@ const StudentCourseItem = () => {
       try {
         const response = await axios.get(`http://134.209.250.123:8000/api/comments/${courseId}`);
         setCourseComments(response.data);
-        // console.log(response.data)
         console.log('comments:', response.data)
       } catch (error) {
         console.error('Error fetching comment:', error);
