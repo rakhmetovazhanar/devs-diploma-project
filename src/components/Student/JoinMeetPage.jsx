@@ -38,9 +38,8 @@ const JoinMeetPage = () => {
           const token = localStorage.getItem('token');
           console.log(token);
           
-          // Отправляем введенную ссылку на сервер в теле запроса
           const response = await axios.post(`http://134.209.250.123:8000/api/join-to-video-conference/${courseId}`, 
-              { url: enteredLink }, // Поместите введенную ссылку в тело запроса
+              { url: enteredLink }, 
               {
                   headers: {
                       Authorization: `Token ${token}`,
@@ -52,7 +51,6 @@ const JoinMeetPage = () => {
           
          
           if (response.status === 200 && response.data.message === "You are joined to videoconference!") {
-            // Перенаправляем на страницу митинга
             history('/meeting');
         } else {
             console.error('Ошибка: Неверная ссылка для присоединения к митингу.');
