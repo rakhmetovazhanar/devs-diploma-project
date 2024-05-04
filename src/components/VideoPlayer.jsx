@@ -16,7 +16,6 @@ const VideoPlayer = () => {
 
 return (
     <Grid justifyContent="center" templateColumns='repeat(2, 1fr)' mt="12">
-            {/* my video */}
         {
             stream && (
                 <Box>
@@ -29,7 +28,6 @@ return (
                 </Box>
             )
         }
-              {/* user's video */}
         {
             callAccepted && !callEnded && (
                 <Box>

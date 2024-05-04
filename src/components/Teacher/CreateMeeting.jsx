@@ -74,13 +74,13 @@ const CreateMeeting = () => {
         try {
           const token = localStorage.getItem('token');
           const response = await axios.post(`http://134.209.250.123:8000/api/create-video-conference/${selectedCourse}`, {
-            courseId: selectedCourse // Или другие параметры, необходимые для создания конференции
+            courseId: selectedCourse 
           }, {
             headers: {
               Authorization: `Token ${token}`,
             },
           });
-          const sessionId = response.data.conference; // Получение room_name из ответа API
+          const sessionId = response.data.conference; 
             setRoomName(sessionId);
             setIsLinkVisible(true)
           

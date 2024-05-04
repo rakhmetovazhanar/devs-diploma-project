@@ -31,8 +31,6 @@ const MeetingPage = () => {
                     <StudentHeader headerTitle={'Видеоконференция'}/>
                 )}
 
-                {/* <VideoPlayer/> */}
-
                 <div className={styles.meeting_content}>
                     <div className={styles.inner_meeting}>
                     <Box>
