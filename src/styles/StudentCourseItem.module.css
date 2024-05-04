@@ -93,7 +93,7 @@ text-decoration: none;
     margin-bottom:51px;
 }
 
-.course_content_inner img{
+.course_img{
     width: 160px;
     height: 180px;
     border-radius:10px;
@@ -162,6 +162,11 @@ text-decoration: none;
     font-family: travelsRegular;
     color: rgba(105, 105, 132, 1);
 
+}
+
+.course_teacher{
+    display: flex;
+    gap: 10px;
 }
 
 .course_teacher_name_sur p{
@@ -423,4 +428,11 @@ textarea:focus{
     line-height: 16.8px;
     margin-top: 40px;
 
+}
+
+.teacher_img{
+    width: 40px;
+    height: 40px;
+    border-radius:20px;
+    border: 2px solid #15FB01;
 }

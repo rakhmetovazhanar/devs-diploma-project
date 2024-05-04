@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import styles from '../../styles/CreateMeeting.module.css';
 import TeacherHeader from './TeacherHeader';
 import Footer from '../../ui/Footer';
@@ -10,6 +10,8 @@ const CreateMeeting = () => {
     const [selectedCourse, setSelectedCourse] = useState("");
     const [meetingLink, setMeetingLink] = useState("");
     const [isLinkVisible, setIsLinkVisible] = useState(false);
+    const webSocketRef = useRef(null);
+    const [roomName, setRoomName] = useState("");
 
     useEffect(() => {
         const fetchCourseNames = async () => {
@@ -29,7 +31,36 @@ const CreateMeeting = () => {
         };
     
         fetchCourseNames();
+
+        
       }, []); 
+
+      useEffect(() => {
+        if (roomName && !webSocketRef.current) {
+            const wsUrl = `ws://134.209.250.123/ws/conference/${roomName}/`;
+            const ws = new WebSocket(wsUrl);
+            webSocketRef.current = ws;
+
+            ws.onopen = () => {
+                console.log('WebSocket connection is open');
+                ws.send(JSON.stringify({ type: 'create_room', roomName: roomName }));
+            };
+
+            ws.onmessage = (event) => {
+                console.log('Received message:', event.data);
+            };
+
+            ws.onclose = () => {
+                console.log('WebSocket connection is closed');
+            };
+
+            return () => {
+                ws.close();
+                webSocketRef.current = null;
+            };
+        }
+    }, [roomName]);
+
 
       const handleClickOutside = () => {
         setIsLinkVisible(false); 
@@ -49,24 +80,18 @@ const CreateMeeting = () => {
               Authorization: `Token ${token}`,
             },
           });
-          const sessionId = response.data.conference; // Идентификатор сессии
-          const meetingLink = `http://134.209.250.123:8000/meeting/${sessionId}`;
-          setMeetingLink(meetingLink);
-          setIsLinkVisible(true)
-          console.log(meetingLink)
+          const sessionId = response.data.conference; // Получение room_name из ответа API
+            setRoomName(sessionId);
+            setIsLinkVisible(true)
+          
         } catch (error) {
           console.error('Error creating meeting:', error);
         }
       };
 
-      const handleCopyLink = () => {
-        navigator.clipboard.writeText(meetingLink)
-          .then(() => {
-            alert('Ссылка скопирована!');
-          })
-          .catch((error) => {
-            console.error('Ошибка копирования ссылки:', error);
-          });
+      const handleCopyLink = (event) => {
+        event.stopPropagation(); // Предотвращаем всплытие события до родительских элементов
+        navigator.clipboard.writeText(roomName);
       };
 
   return (
@@ -98,11 +123,11 @@ const CreateMeeting = () => {
                                 <button className={styles.createBtn} 
                                 onClick={handleCreateMeeting}
                                 >Создать совещание</button>
-                                {meetingLink && isLinkVisible &&  (
+                                {roomName && isLinkVisible &&  (
                                 <div className={styles.link}>
                                     <p className={styles.text1}>Отправьте людям, с которыми хотите встретиться</p>
                                     <p className={styles.text2}>Обязательно сохраните его, чтобы вы могли исползовать его позже</p>
-                                    <p className={styles.getLink} onClick={handleCopyLink}>{meetingLink}</p>
+                                    <p className={styles.getLink} onClick={handleCopyLink}>{roomName}</p>
                                     <Link to='/meeting'><button className={styles.joinBtn}>Присоединиться</button></Link>
                                 </div>
                                 )}

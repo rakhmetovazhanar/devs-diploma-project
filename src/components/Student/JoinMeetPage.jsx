@@ -5,12 +5,15 @@ import styles from '../../styles/JoinMeetPage.module.css';
 import joinMeet from '../../images/joinMeet.svg';
 import def from '../../images/defaultProfImg.jpg';
 import Footer from '../../ui/Footer';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import ProfilePicture from '../ProfilePicture';
 
 const JoinMeetPage = () => {
     const [teacher , setTeacher] = useState(null);
     const {courseId} = useParams();
+    // const [meetingLink, setMeetingLink] = useState('');
+    const history = useNavigate();
+    const [enteredLink, setEnteredLink] = useState('');
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -25,6 +28,40 @@ const JoinMeetPage = () => {
     
         fetchCourse();
       }, [courseId]); 
+
+      const handleLinkChange = (event) => {
+        setEnteredLink(event.target.value);
+    };
+
+    const handleJoinMeeting = async () => {
+      try {
+          const token = localStorage.getItem('token');
+          console.log(token);
+          
+          // Отправляем введенную ссылку на сервер в теле запроса
+          const response = await axios.post(`http://134.209.250.123:8000/api/join-to-video-conference/${courseId}`, 
+              { url: enteredLink }, // Поместите введенную ссылку в тело запроса
+              {
+                  headers: {
+                      Authorization: `Token ${token}`,
+                  },
+              }
+          );
+          const meetingLink  = response.data; 
+          console.log(meetingLink)
+          
+         
+          if (response.status === 200 && response.data.message === "You are joined to videoconference!") {
+            // Перенаправляем на страницу митинга
+            history('/meeting');
+        } else {
+            console.error('Ошибка: Неверная ссылка для присоединения к митингу.');
+        }
+      } catch (error) {
+          console.error('Ошибка при проверке ссылки:', error);
+      }
+  };
+  
 
   return (
     <div className={styles.wrapper}>
@@ -48,8 +85,12 @@ const JoinMeetPage = () => {
                             className={styles.pasteLink} 
                             type="text" 
                             placeholder='Введите ссылку'
+                            value={enteredLink}   
+                            onChange={handleLinkChange}
                             />
-                            <Link to='/meeting'><button>Присоединиться</button></Link>
+                            <button 
+                            onClick={handleJoinMeeting}
+                            >Присоединиться</button>
                         </div>
                     </div>
 

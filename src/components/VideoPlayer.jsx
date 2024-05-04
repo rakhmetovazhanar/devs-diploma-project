@@ -1,52 +1,48 @@
-import React, { useContext } from 'react';
-import { Grid, Typography, Paper, makeStyles } from '@material-ui/core';
-
-import { SocketContext } from '../SocketContext';
-
-const useStyles = makeStyles((theme) => ({
-  video: {
-    width: '550px',
-    [theme.breakpoints.down('xs')]: {
-      width: '300px',
-    },
-  },
-  gridContainer: {
-    justifyContent: 'center',
-    [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column',
-    },
-  },
-  paper: {
-    padding: '10px',
-    border: '2px solid black',
-    margin: '10px',
-  },
-}));
+    
+import { Grid, Box, Heading } from "@chakra-ui/react"
+import { useContext } from "react"
+import { SocketContext } from "./SocketContext"
+import {useEffect} from 'react';
 
 const VideoPlayer = () => {
-  const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } = useContext(SocketContext);
-  const classes = useStyles();
+    const { name, callAccepted, myVideo, userVideo, callEnded, stream, call } = useContext(SocketContext)
 
-  return (
-    <Grid container className={classes.gridContainer}>
-      {stream && (
-        <Paper className={classes.paper}>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>{name || 'Name'}</Typography>
-            <video playsInline muted ref={myVideo} autoPlay className={classes.video} />
-          </Grid>
-        </Paper>
-      )}
-      {callAccepted && !callEnded && (
-        <Paper className={classes.paper}>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h5" gutterBottom>{call.name || 'Name'}</Typography>
-            <video playsInline ref={userVideo} autoPlay className={classes.video} />
-          </Grid>
-        </Paper>
-      )}
+
+    useEffect(() => {
+      if (stream) {
+          myVideo.current.srcObject = stream;
+      }
+  }, [stream, myVideo]);
+
+return (
+    <Grid justifyContent="center" templateColumns='repeat(2, 1fr)' mt="12">
+            {/* my video */}
+        {
+            stream && (
+                <Box>
+                    <Grid colSpan={1}>
+                        <Heading as="h5">
+                            {name || 'Name'}
+                        </Heading>
+                          <video playsInline muted ref={myVideo} autoPlay width="600" style={{ transform: 'scaleX(-1)' }} />
+                    </Grid>
+                </Box>
+            )
+        }
+              {/* user's video */}
+        {
+            callAccepted && !callEnded && (
+                <Box>
+                    <Grid colSpan={1}>
+                        <Heading as="h5">
+                            {call.name || 'Name'}
+                        </Heading>
+                        <video playsInline ref={userVideo} autoPlay width="600" />
+                    </Grid>
+                </Box>
+            )
+        }
     </Grid>
-  );
-};
-
-export default VideoPlayer;
+)
+}
+    export default VideoPlayer

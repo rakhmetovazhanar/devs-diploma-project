@@ -84,7 +84,7 @@ const StudentCourseItem = () => {
         const response = await axios.get(`http://134.209.250.123:8000/api/course-details/${courseId}`);
         setCourseData(response.data);
         setLoading(false);
-        // console.log(response.data)
+        console.log(response.data)
       } catch (error) {
         console.error('Error fetching course:', error);
         setLoading(false);
@@ -190,9 +190,10 @@ const StudentCourseItem = () => {
                     <img className={styles.leftSide} src={leftSide} alt="" />
                     <img className={styles.rightSide} src={rightSide} alt="" />
                       <div className={styles.course_content_inner}>
-                        <img src={randomPhotoUrl} alt="course" />
+                        <img className={styles.course_img} src={randomPhotoUrl} alt="course" />
 
                         <div className={styles.course_info}>
+                        
                           <h2 className={styles.course_name}>{courseData && courseData.name}</h2>
                           <p className={styles.course_desc}>{courseData && courseData.description}</p>
                           <div className={styles.course_info_details1}>
@@ -203,11 +204,13 @@ const StudentCourseItem = () => {
                           <span className={styles.line}></span>
                           <div className={styles.course_info_details2}>
                             <div className={styles.course_teacher}>
+                            <img className={styles.teacher_img} src={courseData.profile_picture ? `http://134.209.250.123:8000${courseData.profile_picture}` : def} alt="prof" />
+                            <div className={styles.created_name_sur}>
                               <p className={styles.created}>Созданный: </p>
                               <div className={styles.course_teacher_name_sur}>
-                              {/* <img className={styles.user_img} src={`http://134.209.250.123:8000${courseData.profile_picture}`} alt="Profile" /> */}
                                 <p className={styles.course_teacher_name}>{courseData && courseData.first_name}</p>
                                 <p className={styles.course_teacher_surname}>{courseData && courseData.last_name}</p>
+                              </div>
                               </div>
                             </div>
                             <div className={styles.course_rating_cost}>
