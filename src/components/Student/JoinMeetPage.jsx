@@ -16,7 +16,7 @@ const JoinMeetPage = () => {
     const {courseId} = useParams();
     const history = useNavigate();
     const [enteredLink, setEnteredLink] = useState('');
-    const {roomName, stream, setStudentStream, userVideo} = useContext(SocketContext)
+    const {roomName, stream,  setStudentStream, userVideo} = useContext(SocketContext)
     const [peer, setPeer] = useState(null);
 
     useEffect(()=>{

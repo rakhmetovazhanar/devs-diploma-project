@@ -135,11 +135,21 @@
     };
 
 
-        const handleCopyLink = (event) => {
-          event.stopPropagation(); // Предотвращаем всплытие события до родительских элементов
-          navigator.clipboard.writeText(roomName);
-        };
-
+    const handleCopyLink = (event) => {
+      event.stopPropagation(); // Предотвращаем всплытие события до родительских элементов
+  
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(roomName)
+              .then(() => {
+                  console.log('Ссылка скопирована успешно');
+              })
+              .catch((error) => {
+                  console.error('Ошибка при копировании ссылки:', error);
+              });
+      } else {
+          console.error('API navigator.clipboard недоступно');
+      }
+  };
     return (
       <div className={styles.wrapper} onClick={handleClickOutside}>
           <div className={styles.wrap_inner}>

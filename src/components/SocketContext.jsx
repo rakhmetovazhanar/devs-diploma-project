@@ -4,7 +4,7 @@ import Peer from 'simple-peer';
 import { UserContext } from './UserContext';
 
 const SocketContext = createContext();
-const socket = io('http://localhost:3000');
+const socket = io('http://genuis.tech');
 const ContextProvider = ({ children }) => {
     const [callAccepted, setCallAccepted] = useState(false);
     const [callEnded, setCallEnded] = useState(false);
@@ -15,9 +15,7 @@ const ContextProvider = ({ children }) => {
     const [roomName, setRoomName] = useState('');
     const [videoStreamRequested, setVideoStreamRequested] = useState(false);
     const myVideo = useRef();
-    const userVideo = useRef();
-    const connectionRef = useRef();
-    
+    const userVideo = useRef();    
     const {user} = useContext(UserContext);
     const [teacherStream, setTeacherStream] = useState();
     const [studentStream, setStudentStream] = useState();
@@ -34,6 +32,7 @@ const ContextProvider = ({ children }) => {
                         setStudentStream(currentStream); 
                     }
                     console.log(stream, "stream")
+                    // setStream(currentStream)
                     myVideo.current.srcObject = currentStream;
                 })
                 .catch(error => console.error('Error accessing media devices:', error));

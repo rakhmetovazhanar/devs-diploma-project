@@ -55,7 +55,7 @@ text-decoration: none;
 } */
 
 .video_content{
-    padding: 60px;
+    padding: 100px;
     display: flex;
     gap: 100px;
 }
@@ -65,9 +65,9 @@ text-decoration: none;
     position: relative;
 }
 
-.student_video{
+/* .student_video{
     margin-left: 600px;
-}
+} */
 
 
 
@@ -83,13 +83,13 @@ text-decoration: none;
     left: 260px;
 }
 
-.videoToggleStud{
+/* .videoToggleStud{
     position: absolute;
 }
 
 .audioToggleStud{
     position: absolute;
-}
+} */
 
 
 

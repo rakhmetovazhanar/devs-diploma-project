@@ -29,11 +29,6 @@
             const [audioEnabled, setAudioEnabled] = useState(true);
             
 
-            // useEffect(() => {
-            //     if (stream && myVideo.current) {
-            //         myVideo.current.srcObject = stream.clone(); // Создаем копию stream для myVideo
-            //     }
-            // }, [stream, myVideo]);
 
             useEffect(() => {
                 if (teacherStream && myVideo.current) {
