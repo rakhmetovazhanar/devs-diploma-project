@@ -11,7 +11,7 @@ export const UserContext=createContext({
         user_id: '',
         profile_picture: '', 
       },
-      setUser: () => {} // Placeholder function
+      setUser: () => {}
 });
 
 const Context = ({children}) =>{

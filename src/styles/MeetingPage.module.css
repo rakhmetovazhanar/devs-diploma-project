@@ -53,3 +53,55 @@ text-decoration: none;
     height: 100%;
     transform: "scaleX(-1)"
 } */
+
+.video_content{
+    padding: 60px;
+    display: flex;
+    gap: 100px;
+}
+
+.teacher_video,
+.student_video{
+    position: relative;
+}
+
+.student_video{
+    margin-left: 600px;
+}
+
+
+
+.videoToggle{
+    position: absolute;
+    bottom: 10px;
+    left: 200px;
+}
+
+.audioToggle{
+    position: absolute;
+    bottom: 10px;
+    left: 260px;
+}
+
+.videoToggleStud{
+    position: absolute;
+}
+
+.audioToggleStud{
+    position: absolute;
+}
+
+
+
+.first_user,
+.second_user{
+    width: 500px;
+    border-radius:20px;
+    margin: 0 auto;
+}
+
+.teacher_video{
+    margin: 0 auto;
+    text-align: center;
+}
+

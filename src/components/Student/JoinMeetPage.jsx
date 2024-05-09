@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 import StudentHeader from './StudentHeader';
 import styles from '../../styles/JoinMeetPage.module.css';
@@ -7,13 +7,24 @@ import def from '../../images/defaultProfImg.jpg';
 import Footer from '../../ui/Footer';
 import {Link, useNavigate, useParams} from 'react-router-dom';
 import ProfilePicture from '../ProfilePicture';
+import Peer from 'simple-peer';
+import { SocketContext } from '../SocketContext';
+
 
 const JoinMeetPage = () => {
     const [teacher , setTeacher] = useState(null);
     const {courseId} = useParams();
-    // const [meetingLink, setMeetingLink] = useState('');
     const history = useNavigate();
     const [enteredLink, setEnteredLink] = useState('');
+    const {roomName, stream, setStudentStream, userVideo} = useContext(SocketContext)
+    const [peer, setPeer] = useState(null);
+
+    useEffect(()=>{
+        console.log("usereffect join")
+        if (stream && userVideo.current) {
+            userVideo.current.srcObject = stream;
+        }
+    }, [stream, userVideo])
 
     useEffect(() => {
         const fetchCourse = async () => {
@@ -47,14 +58,64 @@ const JoinMeetPage = () => {
               }
           );
           const meetingLink  = response.data; 
-          console.log(meetingLink)
+          console.log(meetingLink.url)
+
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+          setStudentStream(stream);
+
+          const ws = new WebSocket(`ws://134.209.250.123:8080/ws/conference/${meetingLink.url}`);
+
+            ws.onopen = () => {
+                console.log('WebSocket connection is open');
+            };
+
+            ws.onmessage = (event) => {
+                console.log('Received message:', event.data); 
+                const message = JSON.parse(event.data);
+                console.log(message);
+                if (message.type === 'offer') {
+                    if (message.roomName === roomName) { // Проверяем, что полученный оффер относится к текущей комнате
+                        if (!peer) { // Проверяем, что объект Peer еще не создан
+                            const newPeer = new Peer({ initiator: false, trickle: false, stream: stream });
+            
+                            newPeer.on('signal', (data) => {
+                                ws.send(JSON.stringify({ type: 'answer', data }));
+                            });
+            
+                            newPeer.on('stream', (stream) => {
+                                // Update the user's video stream
+                                setStudentStream(stream);
+                            });
+            
+                            // Respond to the offer by sending back an answer
+                            newPeer.signal(message.data);
+            
+                            setPeer(newPeer);
+                        }
+                    } else {
+                        console.log('Received offer for a different room. Ignoring.');
+                    }
+                } else if (message.type === 'answer' && peer) {
+                    // Обработка ответа
+                    console.log('Received answer:', message);
+                    // Получаем SDP ответ от другой стороны и устанавливаем его
+                    peer.signal(message.answer);
+                } else if (message.type === 'chat.message') {
+                    // Обработка сообщения чата
+                    console.log('Received chat message:', message.message_sdp);
+                    // Обрабатываем сообщение типа "chat.message"
+                } 
+            };  
+            
+            ws.onclose = () => {
+                console.log('WebSocket connection is closed');
+            };
+
+            history('/meeting');
+
           
          
-          if (response.status === 200 && response.data.message === "You are joined to videoconference!") {
-            history('/meeting');
-        } else {
-            console.error('Ошибка: Неверная ссылка для присоединения к митингу.');
-        }
+         
       } catch (error) {
           console.error('Ошибка при проверке ссылки:', error);
       }
@@ -103,3 +164,4 @@ const JoinMeetPage = () => {
 }
 
 export default JoinMeetPage;
+

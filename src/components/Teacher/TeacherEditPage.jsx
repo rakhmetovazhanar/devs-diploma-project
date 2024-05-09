@@ -7,7 +7,7 @@ import axios from 'axios';
 import TeacherHeader from './TeacherHeader';
 import Logo from '../../ui/Logo';
 import profileImg from '../../images/studentsImg.svg';
-
+import def from '../../images/defaultProfImg.jpg';
 
 
 const TeacherEditPage = () => {
@@ -168,12 +168,15 @@ const handleExperienceChange = (e) => {
                                 {userData.profile_picture ? (
                                   <div>
                                     {/* <img className={styles.user_img} src={`http://134.209.250.123:8000${userData.profile_picture}`} alt="hello" /> */}
-                                    <img className={styles.user_img} src={userData.profile_picture} alt="Profile" />
+                                    <img className={styles.user_img} src={`http://134.209.250.123:8000${userData.profile_picture}?${Date.now()}`} alt="hello" />
+
+                                    {/* <img className={styles.user_img} src={userData.profile_picture} alt="Profile" /> */}
+                                    
                                     <button onClick={handleDeleteImage} className={styles.delete_profile_picture}>Удалить</button>
                                   </div>
                                 ) : (
                                   <>   
-                                  <img className={styles.user_img} src={profileImg} alt="hello" />                         
+                                  <img className={styles.user_img} src={def} alt="hello" />                         
                                       <input
                                         id="fileInput"
                                         type="file"

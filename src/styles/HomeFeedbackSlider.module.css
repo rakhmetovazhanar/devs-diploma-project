@@ -47,7 +47,7 @@
     letter-spacing: 2%;
     font-weight: 400;
     color: rgba(45, 45, 45, 1);
-
+    margin-bottom: 11px;
 }
 
 .feedback_slider_item_info{
@@ -60,5 +60,11 @@
 .slick-prev:before,
 .slick-next:before {
   color: red !important;
+}
+
+.profilePic{
+    width: 85.84px;
+    height: 79.53px;
+    border-radius:500px;
 }
 

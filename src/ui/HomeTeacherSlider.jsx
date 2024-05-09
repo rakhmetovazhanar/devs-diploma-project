@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import tutor1 from '../images/tutor1.svg';
 import tutor2 from '../images/tutor2.svg';
 import tutor3 from '../images/tutor3.svg';
@@ -7,31 +7,34 @@ import styles from '../styles/HomeTeacherSlider.module.css';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import axios from 'axios';
+import def from '../images/defaultProfImg.jpg'
 
-const data = [
-    {
-        img: tutor1,
-        name: `Арман Исаев`,
-        position : `Frontend Developer`
-    },
-    {
-        img: tutor2,
-        name: `Аселья Мансурова`,
-        position : `UI-UX Design Expart`
-    },
-    {
-        img: tutor3,
-        name: `Данияр Ахмет`,
-        position : `Английский специалист`
-    },
-    {
-        img: tutor4,
-        name: `Кайрат Нуртас`,
-        position : `Математика`
-    }
-    
-]
 const HomeTeacherSlider = () => {
+  const [topTeachers, setTopTeachers] = useState([]);
+
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get('http://134.209.250.123:8000/api/top-teacher/', {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+  
+        const teachers = response.data;
+        setTopTeachers(teachers)
+        console.log(teachers)
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+        
+      }
+    };
+  
+    fetchTeachers();
+  }, []); 
+  
     var settings = {
         dots: true,
         infinite: true ,
@@ -71,15 +74,15 @@ const HomeTeacherSlider = () => {
     <div className={styles.slider}>
         <div className={styles.slider_inner}>
             <Slider {...settings}>
-                {data.map((d,index) =>(
+                {topTeachers.map((d,index) =>(
                     <div key={index} className={styles.slider_item}>
                          <div className={styles.slider_item_img}>
-                            <img src={d.img} alt="tutorPhoto" />
+                         <img className={styles.profilePic} src={d.profile_picture ? `http://134.209.250.123:8000${d.profile_picture}` : def} alt="prof" />
                         </div>
                         
                         <div className={styles.slider_item_info}>
-                            <p className={styles.slider_item_name}>{d.name}</p>
-                            <p className={styles.slider_item_position}>{d.position}</p>
+                            <p className={styles.slider_item_name}>{d.first_name} {d.last_name}</p>
+                            <p className={styles.slider_item_position}>{d.course_name}</p>
                         </div>
                     </div>
                 ))}

@@ -23,7 +23,7 @@ const TeacherProfile = () => {
   const [students, setStudents] = useState(null);
   const [courses , setCourses] = useState(null);
   const [feedbacks, setFeedbacks] = useState(null);
-
+  // console.log(teacherData.profile_picture)
   useEffect(() => {
     const fetchTeacherProfile = async () => {
       try {

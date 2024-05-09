@@ -8,8 +8,7 @@ const ProfilePicture = () => {
   const { user } = useContext(UserContext);
 
   return (
-    
-    <img className={styles.profilePic} 
+    <img className={styles.profilePic}
     src={user.profile_picture ? `http://134.209.250.123:8000${user.profile_picture}` : def}
     alt="prof" />
   );

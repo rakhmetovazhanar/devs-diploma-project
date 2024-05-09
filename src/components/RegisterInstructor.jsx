@@ -16,6 +16,7 @@ const form = useForm({
 });
 const {register , control ,watch, getValues, handleSubmit, formState: { errors , isValid } , reset} = form;
 const history = useNavigate();
+const [apiErrors, setApiErrors] = useState(null);
 
 const onSubmit= async (data)=>{
   try {
@@ -26,8 +27,8 @@ const onSubmit= async (data)=>{
       },
       body: JSON.stringify(data),
     });
-    
-    if (response.status === 200) {
+    const responseData = await response.json();
+    if (response.status === 200 || response.status === 201) {
       history('/');
       console.log('User registered successfully!');
       const responseData = await response.json();
@@ -49,9 +50,11 @@ const onSubmit= async (data)=>{
       token: responseData.token,
       role: translatedRole
       });
-    } else {
+      } else {
       console.error('Failed to register user');
-    }
+
+      setApiErrors(responseData);
+  }
   } catch (error) {
     console.error('Error registering user:', error);
   }
@@ -263,14 +266,18 @@ const onSubmit= async (data)=>{
                     type="password"
                     id='password'
                     autoComplete='off'
-                    {...register("password", {required: true, 
-                      minLength:{
-                          value : 4,
-                          message: "Пароль должен содержать не менее 4 символов!"
-                      }
-                    })} />
+                    {...register("password", {required: true})}
+                     />
                     <div>{errors?.password && <p className={styles['error-text']}>{errors?.password?.message || 'Придумайте пароль!'}</p>}</div>
-
+                    {apiErrors  &&  (
+                        <div className={styles.errorContainer}>
+                            <ul className={styles['error-list']}>
+                                <li className={styles['error-text-pass']}>
+                                    {apiErrors.password.join('. ')}
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
 
                 <div className={styles.group}>

@@ -6,6 +6,7 @@ import Footer from '../../ui/Footer';
 import axios from 'axios';
 import StudentHeader from './StudentHeader';
 import profileImg from '../../images/studentsImg.svg';
+import def from '../../images/defaultProfImg.jpg';
 
 const StudentEditPage = () => {
   const {user} = useContext(UserContext);
@@ -149,7 +150,7 @@ const handleDeleteImage = async () => {
                                   </div>
                                 ) : (
                                   <>   
-                                  <img className={styles.user_img} src={profileImg} alt="hello" />                         
+                                  <img className={styles.user_img} src={def} alt="hello" />                         
                                       <input
                                         id="fileInput"
                                         type="file"

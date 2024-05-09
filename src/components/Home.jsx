@@ -26,6 +26,7 @@ import FilteredCourseItems from './FilteredCourseItems';
 import ModalToLogin from './ModalToLogin';
 import NotLoginHeader from './NotLoginHeader';
 import CourseCategories from '../components/CourseCategories.jsx';
+import axios from 'axios';
 
 const Home = () => {
   const {user} = useContext(UserContext);
@@ -33,6 +34,10 @@ const Home = () => {
   const [isActiveDropdown, setIsActiveDropdown] = useState(false);
   const [isRotated, setIsRotated] = useState(false);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const [students, setStudents] = useState(0);
+  const [teachers, setTeachers] = useState(0);
+  const [courses, setCourses] = useState(0);
+  const [feedbacks, setFeedbacks] = useState(0);
   const handleDropdownClick = () => {
     setIsActiveDropdown(!isActiveDropdown);
     setIsRotated(!isRotated);
@@ -43,10 +48,26 @@ const Home = () => {
     setIsSearchClicked(true); 
   };
 
-  // useEffect(() => {
-  //   console.log(results);
-  // }, [results]);
-
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [studentsResponse, coursesResponse, feedbacksResponse, teachersResponse] = await Promise.all([
+          axios.get('http://134.209.250.123:8000/api/students-number/'),
+          axios.get('http://134.209.250.123:8000/api/courses-number/'),
+          axios.get('http://134.209.250.123:8000/api/comments-number/'),
+          axios.get('http://134.209.250.123:8000/api/teachers-number/'),
+        ]);
+        
+        setStudents(studentsResponse.data);
+        setCourses(coursesResponse.data);
+        setFeedbacks(feedbacksResponse.data);
+        setTeachers(teachersResponse.data)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
  
   return (
     <div className={styles.wrapper}>
@@ -93,7 +114,7 @@ const Home = () => {
               <div className={styles['about-us-info-item']}>
                 <img src={studentsImg} alt="students" />
                 <div className={styles['about-us-info-item-text']}>
-                  <h3>15K+</h3>
+                  <h3>{students}</h3>
                   <p>Студенты</p>
                 </div>
               </div>
@@ -101,7 +122,7 @@ const Home = () => {
               <div className={styles['about-us-info-item']}>
                 <img src={tutorsImg} alt="tutors" />
                 <div className={styles['about-us-info-item-text']}>
-                  <h3>10K+</h3>
+                  <h3>{teachers}</h3>
                   <p>Репетитор</p>
                 </div>
               </div>
@@ -109,7 +130,7 @@ const Home = () => {
               <div className={styles['about-us-info-item']}>
                 <img src={subjectsImg} alt="subjects" />
                 <div className={styles['about-us-info-item-text']}>
-                  <h3>100+</h3>
+                  <h3>{courses}</h3>
                   <p>Предметы</p>
                 </div>
               </div>
@@ -117,7 +138,7 @@ const Home = () => {
               <div className={styles['about-us-info-item']}>
                 <img src={feedbacksImg} alt="feedbacks" />
                 <div className={styles['about-us-info-item-text']}>
-                  <h3>100+</h3>
+                  <h3>{feedbacks}</h3>
                   <p>Отзывы</p>
                 </div>
               </div>             
