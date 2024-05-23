@@ -47,7 +47,6 @@
         }
 
         const handleCreateMeeting = async () => {
-          // const webSocketRef = useRef(null);
           try {
             const token = localStorage.getItem('token');
             const response = await axios.post(`http://134.209.250.123:8000/api/create-video-conference/${selectedCourse}`, {
@@ -66,7 +65,6 @@
             const peer = new Peer({ initiator: true, trickle: false, stream: stream });
             peerRef.current = peer;
 
-            // webSocketRef.current.send(JSON.stringify({ type: 'offer', roomName: sessionId }));
 
             peer.on('signal', (data) => {
               console.log('Sending offer:', data);
@@ -89,7 +87,7 @@
 
         useEffect(() => {
           if (roomName) {
-              const wsUrl = `ws://134.209.250.123:8080/ws/conference/${roomName}`;
+              const wsUrl = `ws://134.209.250.123:8000/ws/conference/${roomName}`;
               console.log(wsUrl)
               const ws = new WebSocket(wsUrl);
               console.log(ws)
@@ -118,16 +116,12 @@
                 setWsOpen(false);
             };
 
-              // return () => {
-              //     ws.close();
-              //     webSocketRef.current = null;
-              // };
           }
       }, [roomName]);
 
       
       const sendSignal = (data) => {
-        if (wsOpen) { // Проверяем, что соединение установлено
+        if (wsOpen) { 
             webSocketRef.current.send(JSON.stringify(data));
         } else {
             console.error('WebSocket is not open yet');

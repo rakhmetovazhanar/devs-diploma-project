@@ -63,7 +63,7 @@ const JoinMeetPage = () => {
           const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
           setStudentStream(stream);
 
-          const ws = new WebSocket(`ws://134.209.250.123:8080/ws/conference/${meetingLink.url}`);
+          const ws = new WebSocket(`ws://134.209.250.123:8000/ws/conference/${meetingLink.url}`);
 
             ws.onopen = () => {
                 console.log('WebSocket connection is open');

@@ -767,4 +767,22 @@ text-decoration: none;
     z-index: 1000;
 }
 
+@media (max-width: 1024px) {
+    .container{
+        width: 926px;
+    }
+
+    .navLink ul, .navLink_item a{
+        font-size: 12px;
+        align-items:center;
+        display: flex;
+    }
+    .my_courses a , 
+    .my_lessons a{
+        padding: 6px;
+        font-size: 12px;
+        right: 40px;
+    }
+}
+
 

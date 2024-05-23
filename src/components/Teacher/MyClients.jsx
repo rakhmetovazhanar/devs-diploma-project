@@ -77,7 +77,7 @@ const MyClients = () => {
                                         <h3 className={styles.course_name}>{course.name}</h3>
                                     </Link>
                              </div>
-                            ))}                         
+                            ))}                          
                         </div>
                     </div>
                     )}
