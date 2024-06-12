@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback , useState} from 'react';
 import freeice from 'freeice';
 import useStateWithCallback from './useStateWithCallback';
 import socket from '../socket';
@@ -8,6 +8,8 @@ export const LOCAL_VIDEO = 'LOCAL_VIDEO';
 
 export default function useWebRTC(roomID) {
   const [clients, updateClients] = useStateWithCallback([]);
+  const [isAudioEnabled, setAudioEnabled] = useState(true);
+  const [isVideoEnabled, setVideoEnabled] = useState(true);
 
   const addNewClient = useCallback((newClient, cb) => {
     updateClients(list => {
@@ -185,8 +187,24 @@ export default function useWebRTC(roomID) {
     peerMediaElements.current[id] = node;
   }, []);
 
+  const toggleAudio = useCallback(() => {
+    const enabled = !isAudioEnabled;
+    setAudioEnabled(enabled);
+    localMediaStream.current.getAudioTracks().forEach(track => track.enabled = enabled);
+  }, [isAudioEnabled]);
+
+  const toggleVideo = useCallback(() => {
+    const enabled = !isVideoEnabled;
+    setVideoEnabled(enabled);
+    localMediaStream.current.getVideoTracks().forEach(track => track.enabled = enabled);
+  }, [isVideoEnabled]);
+
   return {
     clients,
-    provideMediaRef
+    provideMediaRef,
+    toggleAudio,
+    toggleVideo,
+    isAudioEnabled,
+    isVideoEnabled
   };
 }

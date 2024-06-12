@@ -5,6 +5,7 @@ import StudentHeader from './Student/StudentHeader';
 import styles from '../styles/MeetingPage.module.css';
 import { useParams } from 'react-router-dom';
 import useWebRTC, { LOCAL_VIDEO } from '../hooks/useWebRTC';
+import {Link} from 'react-router-dom';
 
 function layout(clientsNumber = 1) {
 
@@ -40,7 +41,7 @@ function layout(clientsNumber = 1) {
 const MeetingPage = () => {
   const { user } = useContext(UserContext);
   const { roomId } = useParams();
-  const { clients, provideMediaRef } = useWebRTC(roomId);
+  const { clients, provideMediaRef, toggleAudio, toggleVideo, isAudioEnabled, isVideoEnabled } = useWebRTC(roomId);
   const videoLayout = layout(clients.length);
 
 
@@ -87,6 +88,15 @@ const MeetingPage = () => {
                   </div>
                 );
               })}
+            </div>
+
+            <div className={styles.controls}>
+              <button onClick={toggleAudio}>
+                {isAudioEnabled ? 'Mute Audio' : 'Unmute Audio'}
+              </button>
+              <button onClick={toggleVideo}>
+                {isVideoEnabled ? 'Stop Video' : 'Start Video'}
+              </button>
             </div>
           </div>
         </div>
