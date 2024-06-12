@@ -56,7 +56,7 @@ const MeetingPage = () => {
 
   const handleLeaveMeeting = () => {
     leaveMeeting();
-    history.push('/my-courses'); // Redirect to home page or any other page
+    history('/my-courses'); // Redirect to home page or any other page
   };
 
   return (
@@ -84,7 +84,8 @@ const MeetingPage = () => {
               marginTop: '56px',
               backgroundColor: 'rgba(25, 31, 69, 1)',
               borderRadius: '20px',
-              padding: '25px'
+              padding: '25px 25px 60px 25px',
+              position:'relative'
             }}>
               {clients.map((clientID, index) => {
                 return (
@@ -102,10 +103,10 @@ const MeetingPage = () => {
                 );
               })}
               <div className={styles.controls}>
-              <button onClick={toggleAudio}>
+              <button className={styles.audioBtn} onClick={toggleAudio}>
                 {isAudioEnabled ? <AiOutlineAudio /> : <AiOutlineAudioMuted />}
               </button>
-              <button onClick={toggleVideo}>
+              <button className={styles.videoBtn} onClick={toggleVideo}>
                 {isVideoEnabled ? <CiVideoOn /> : <CiVideoOff />}
               </button>
               <button className={styles.closeMeet} onClick={handleLeaveMeeting}><RxExit /></button> 
