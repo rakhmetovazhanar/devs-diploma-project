@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes , Route} from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import LoginPage from './LoginPage';
 import RegisterStudent from './RegisterStudent';
@@ -32,44 +32,42 @@ import JoinMeetPage from './Student/JoinMeetPage';
 import MeetingPage from './MeetingPage';
 import Dashboard from './Dashboard';
 
-const AppRoutes = () =>{
-    return(
-        <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/student-register' element={<RegisterStudent/>}/>
-            <Route path='/login' element={<LoginPage/>}/>
-            <Route path='/instructor-register' element={<RegisterInstructor/>}/>
-            <Route path='/forgot-password' element={<ForgotPassword/>}/>
-            <Route path='/logout' element={<LogoutPage/>}/>
-            <Route path='/verify-code-form' element={<VerifyCodeForm/>}/>
-            <Route path='/set-new-password' element={<SetNewPasswordForm/>}/>
-            <Route path='/success-reset-password' element={<SuccessResetPassword/>}/>
-            <Route path='/my-courses' element={<MyCourses/>}/>
-            <Route path='/add-course' element={<AddCourse/>}/>
-            <Route path='/teacher-profile' element={<TeacherProfile/>}/>
-            <Route path='/teacher-edit-page' element={<TeacherEditPage/>}/>
-            <Route path='/student-profile' element={<StudentProfile/>}/>
-            <Route path='/student-edit-profile' element={<StudentEditPage/>}/>
-            <Route path='/teacher-delete-account' element={<TeacherDeleteAccount/>}/>
-            <Route path='/student-delete-account' element={<StudentDeleteAccount/>}/>
-            <Route path='/student-courses' element={<StudentCourses/>}/>
-            <Route path='/teacher-edit-course/:courseId' element={<EditCourse/>}/>
-            <Route path='/teacher-course-page/:courseId' element={<TeacherCoursePage/>}/>
-            <Route path='/course-item/:courseId' element={<CourseItemPage/>}/>
-            <Route path='/student-course-page/:courseId' element={<StudentCourseItem/>}/>
-            <Route path='/courses-by-category/:categoryId/:categoryName' element={<CoursesByCategory/>}/>
-            <Route path='/teacher-course-clients/:courseId' element={<CourseClients/>} />
-            <Route path='/teacher-clients' element={<MyClients/>} />
-            <Route path='/teacher-settings' element={<TeacherSettings/>} />
-            <Route path='/student-settings' element={<StudentSettings/>} />
-            <Route path='/create-meeting' element={<CreateMeeting/>} />
-            <Route path='/join-meet-page/:courseId' element={<JoinMeetPage/>} />
-            <Route path='/meeting' element={<MeetingPage/>} />
-            <Route path='/dashboard' element={<Dashboard/>} />
-
-
-        </Routes>
-    )
-}
+const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/student-register' element={<RegisterStudent/>}/>
+      <Route path='/login' element={<LoginPage/>}/>
+      <Route path='/instructor-register' element={<RegisterInstructor/>}/>
+      <Route path='/forgot-password' element={<ForgotPassword/>}/>
+      <Route path='/logout' element={<LogoutPage/>}/>
+      <Route path='/verify-code-form' element={<VerifyCodeForm/>}/>
+      <Route path='/set-new-password' element={<SetNewPasswordForm/>}/>
+      <Route path='/success-reset-password' element={<SuccessResetPassword/>}/>
+      <Route path='/my-courses' element={<MyCourses/>}/>
+      <Route path='/add-course' element={<AddCourse/>}/>
+      <Route path='/teacher-profile' element={<TeacherProfile/>}/>
+      <Route path='/teacher-edit-page' element={<TeacherEditPage/>}/>
+      <Route path='/student-profile' element={<StudentProfile/>}/>
+      <Route path='/student-edit-profile' element={<StudentEditPage/>}/>
+      <Route path='/teacher-delete-account' element={<TeacherDeleteAccount/>}/>
+      <Route path='/student-delete-account' element={<StudentDeleteAccount/>}/>
+      <Route path='/student-courses' element={<StudentCourses/>}/>
+      <Route path='/teacher-edit-course/:courseId' element={<EditCourse/>}/>
+      <Route path='/teacher-course-page/:courseId' element={<TeacherCoursePage/>}/>
+      <Route path='/course-item/:courseId' element={<CourseItemPage/>}/>
+      <Route path='/student-course-page/:courseId' element={<StudentCourseItem/>}/>
+      <Route path='/courses-by-category/:categoryId/:categoryName' element={<CoursesByCategory/>}/>
+      <Route path='/teacher-course-clients/:courseId' element={<CourseClients/>}/>
+      <Route path='/teacher-clients' element={<MyClients/>}/>
+      <Route path='/teacher-settings' element={<TeacherSettings/>}/>
+      <Route path='/student-settings' element={<StudentSettings/>}/>
+      <Route path='/create-meeting' element={<CreateMeeting/>}/>
+      <Route path='/join-meet-page/:courseId' element={<JoinMeetPage/>}/>
+      <Route path='/meeting/:roomId' element={<MeetingPage/>}/>
+      <Route path='/dashboard' element={<Dashboard/>}/>
+    </Routes>
+  );
+};
 
 export default AppRoutes;
