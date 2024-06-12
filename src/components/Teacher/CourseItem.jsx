@@ -62,7 +62,7 @@ const CourseItem = ({course, handleDelete, deleteCourse}) => {
             )}
             {user.role ==='Студент' && (
               <>
-              <Link to={`/join-meet-page/${course.id}`}><button className={styles.course_item_video}>Присоединение к уроку</button></Link>
+              <Link to={`/meeting/${course.id}`}><button className={styles.course_item_video}>Присоединение к уроку</button></Link>
               <button  onClick={()=>deleteCourse(course.id)}  className={styles.course_item_delete}>Удалить</button>
 
               </>

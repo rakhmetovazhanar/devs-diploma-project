@@ -48,9 +48,8 @@ const JoinMeetPage = () => {
       try {
           const token = localStorage.getItem('token');
           console.log(token);
-          const meetingId = enteredLink.split('/').pop();
           
-          const response = await axios.post(`https://genuis.tech/api/join-to-video-conference/${meetingId}`, 
+          const response = await axios.post(`https://genuis.tech/api/join-to-video-conference/${courseId}`, 
               { url: enteredLink }, 
               { 
                   headers: {
