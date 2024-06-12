@@ -1,5 +1,4 @@
 import { io } from 'socket.io-client';
 
-const socket = new io('http://134.209.250.123:3030');
-
+const socket = new io('https://genuis.tech');
 export default socket;
