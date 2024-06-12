@@ -29,7 +29,7 @@ const JoinMeetPage = () => {
     useEffect(() => {
         const fetchCourse = async () => {
           try {
-            const response = await axios.get(`https://134.209.250.123:8000/api/course-details/${courseId}`);
+            const response = await axios.get(`https://genuis.tech/api/course-details/${courseId}`);
             setTeacher(response.data);
             console.log(response.data)
           } catch (error) {
@@ -49,9 +49,9 @@ const JoinMeetPage = () => {
           const token = localStorage.getItem('token');
           console.log(token);
           
-          const response = await axios.post(`https://134.209.250.123:8000/api/join-to-video-conference/${courseId}`, 
+          const response = await axios.post(`https://genuis.tech/api/join-to-video-conference/${courseId}`, 
               { url: enteredLink }, 
-              {
+              { 
                   headers: {
                       Authorization: `Token ${token}`,
                   },

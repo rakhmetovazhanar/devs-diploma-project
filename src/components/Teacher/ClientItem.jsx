@@ -15,7 +15,7 @@ const ClientItem = ({client, courseId,setClientsList,clientsList}) => {
       const deleteClient = async (clientId) => {
         try {
           const token = localStorage.getItem('token');
-          const response = await axios.delete(`https://134.209.250.123:8000/api/delete-client/${clientId}`, {
+          const response = await axios.delete(`https://genuis.tech/api/delete-client/${clientId}`, {
             headers: {
               Authorization: `Token ${token}`,
             },

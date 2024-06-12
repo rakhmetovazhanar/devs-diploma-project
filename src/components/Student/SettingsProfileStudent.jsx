@@ -18,7 +18,7 @@ const SettingsProfileStudent = () => {
     useEffect(() => {
         const fetchTeacherProfile = async () => {
           try {
-            const response = await axios.get(`https://134.209.250.123:8000/api/teacher-profile/${user.user_id}`, {
+            const response = await axios.get(`https://genuis.tech/api/teacher-profile/${user.user_id}`, {
               headers: {
                 Authorization: `Token ${token}`,
                 'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ const SettingsProfileStudent = () => {
             return;
           }
     
-          const response = await axios.post('https://134.209.250.123:8000/api/logout/', null, {
+          const response = await axios.post('https://genuis.tech/api/logout/', null, {
             headers: {
               'Authorization': `Token ${token}`,
               'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ const SettingsProfileStudent = () => {
 
       const deleteStudent = async () => {
         try {
-          const response = await axios.delete(`https://134.209.250.123:8000/api/delete-student-profile/${user.user_id}`, {
+          const response = await axios.delete(`https://genuis.tech/api/delete-student-profile/${user.user_id}`, {
             headers: {
               Authorization: `Token ${token}`,
              'Content-Type' : 'application/json'
@@ -92,7 +92,7 @@ const SettingsProfileStudent = () => {
         ) : ( 
         <div className={styles.profile_content_info}>
         {studentData && studentData.profile_picture ? (
-            <img className={styles.user_img} src={`https://134.209.250.123:8000${studentData.profile_picture}`} alt="Profile" />
+            <img className={styles.user_img} src={`https://genuis.tech${studentData.profile_picture}`} alt="Profile" />
         ) : (
             <img className={styles.user_img} src={def} alt="profile_img" />
         )}

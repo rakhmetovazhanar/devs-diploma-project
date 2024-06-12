@@ -36,7 +36,7 @@ const AddCourse = () => {
         setIsSubmitting(true);
         try {
           const formData = {...data, teacher_id: user.user_id};
-          const response = await axios.post('https://134.209.250.123:8000/api/add-course/', formData, {
+          const response = await axios.post('https://genuis.tech/api/add-course/', formData, {
             headers: {
                 Authorization: `Token ${token}`,
                 'Content-Type': 'application/json'

@@ -16,7 +16,7 @@ const ForgotPassword = () => {
     const handleForgotPassword = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post('https://134.209.250.123:8000/api/forgot-password/', { username });
+          const response = await axios.post('https://genuis.tech/api/forgot-password/', { username });
           history(
            '/verify-code-form',
             {state: { username }} // Pass username as state

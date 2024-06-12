@@ -22,7 +22,7 @@ const handleLogout = async () => {
         return;
       }
 
-      const response = await axios.post('https://134.209.250.123:8000/api/logout/', null, {
+      const response = await axios.post('/api/logout/', null, {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json'

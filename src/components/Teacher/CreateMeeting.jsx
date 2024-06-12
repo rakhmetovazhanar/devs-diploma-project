@@ -23,7 +23,7 @@ const CreateMeeting = () => {
   const handleCreateMeeting = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`https://134.209.250.123:8000/api/create-video-conference/${selectedCourse}`, {
+      const response = await axios.post(`https://genuis.tech/api/create-video-conference/${selectedCourse}`, {
         courseId: selectedCourse
       }, {
         headers: {

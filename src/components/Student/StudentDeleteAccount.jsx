@@ -12,7 +12,7 @@ const token = localStorage.getItem('token');
 
 const deleteStudent = async (studentId) => {
   try {
-    const response = await axios.delete(`https://134.209.250.123:8000/api/delete-student-profile/${studentId}`, {
+    const response = await axios.delete(`https://genuis.tech/api/delete-student-profile/${studentId}`, {
       headers: {
         Authorization: `Token ${token}`,
        'Content-Type' : 'application/json'

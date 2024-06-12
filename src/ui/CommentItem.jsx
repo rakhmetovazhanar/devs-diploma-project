@@ -17,7 +17,7 @@ const CommentItem = ({comment}) => {
         <div>
         <div className={styles.name_rating}>
             <div className={styles.name_photo}>
-                <img src={comment.profile_picture ? `https://134.209.250.123:8000${comment.profile_picture}` : def} alt="prof" />
+                <img src={comment.profile_picture ? `https://genuis.tech${comment.profile_picture}` : def} alt="prof" />
                 <h4>{comment.first_name} {comment.last_name}</h4>
             </div>
             <div className={styles.stars}>

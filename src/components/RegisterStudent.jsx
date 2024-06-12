@@ -23,7 +23,7 @@ const RegisterStudent = () =>{
     const onSubmit= async (data)=>{
        
         try {
-            const response = await fetch('https://134.209.250.123:8000/api/register-student/', {
+            const response = await fetch('https://genuis.tech/api/register-student/', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',

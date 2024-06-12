@@ -31,7 +31,7 @@ import { useParams } from 'react-router-dom';
             const fetchCourses = async () => {
                 try {
                     const token = localStorage.getItem('token');
-                    const response = await axios.get('https://134.209.250.123:8000/api/get-teacher-courses/', {
+                    const response = await axios.get('https://genuis.tech/api/get-teacher-courses/', {
                         headers: {
                             Authorization: `Token ${token}`,
                         },
@@ -66,7 +66,7 @@ import { useParams } from 'react-router-dom';
             setIsSubmitting(true);
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.put(`https://134.209.250.123:8000/api/update-course/${course.id}`, course, {
+                const response = await axios.put(`https://genuis.tech/api/update-course/${course.id}`, course, {
                     headers: {
                         Authorization: `Token ${token}`,
                         'Content-Type': 'application/json'

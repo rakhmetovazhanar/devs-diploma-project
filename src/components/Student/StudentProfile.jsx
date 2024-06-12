@@ -21,7 +21,7 @@ const StudentProfile = () => {
   useEffect(() => {
     const fetchTeacherProfile = async () => {
       try {
-        const response = await axios.get(`https://134.209.250.123:8000/api/teacher-profile/${user.user_id}`, {
+        const response = await axios.get(`https://genuis.tech/api/teacher-profile/${user.user_id}`, {
           headers: {
             Authorization: `Token ${token}`,
             'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ const StudentProfile = () => {
                     <div className={styles.profile_content}>
                         <div className={styles.profile_content_info}>
                         {studentData && studentData.profile_picture ? (
-                            <img className={styles.user_img} src={`https://134.209.250.123:8000${studentData.profile_picture}`} alt="Profile" />
+                            <img className={styles.user_img} src={`https://genuis.tech${studentData.profile_picture}`} alt="Profile" />
                         ) : (
                             <img className={styles.user_img} src={def} alt="profile_img" />
                         )}

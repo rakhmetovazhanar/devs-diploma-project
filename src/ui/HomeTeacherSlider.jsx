@@ -17,7 +17,7 @@ const HomeTeacherSlider = () => {
     const fetchTeachers = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('https://134.209.250.123:8000/api/top-teacher/', {
+        const response = await axios.get('https://genuis.tech/api/top-teacher/', {
           headers: {
             Authorization: `Token ${token}`,
           },
@@ -77,7 +77,7 @@ const HomeTeacherSlider = () => {
                 {topTeachers.map((d,index) =>(
                     <div key={index} className={styles.slider_item}>
                          <div className={styles.slider_item_img}>
-                         <img className={styles.profilePic} src={d.profile_picture ? `https://134.209.250.123:8000${d.profile_picture}` : def} alt="prof" />
+                         <img className={styles.profilePic} src={d.profile_picture ? `https://genuis.tech${d.profile_picture}` : def} alt="prof" />
                         </div>
                         
                         <div className={styles.slider_item_info}>

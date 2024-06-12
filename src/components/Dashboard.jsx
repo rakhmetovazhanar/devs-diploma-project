@@ -23,12 +23,12 @@ const Dashboard = () => {
         const fetchData = async () => {
           try {
             const urls = {
-              d1: 'https://134.209.250.123:8000/api/top-courses-dashboard/',
-              d2: 'https://134.209.250.123:8000/api/student-dashboard/',
-              d3: 'https://134.209.250.123:8000/api/users-number-dashboard/',
-              d4: 'https://134.209.250.123:8000/api/age-dashboard/',
-              d5: 'https://134.209.250.123:8000/api/experience-dashboard/',
-              d6: 'https://134.209.250.123:8000/api/city-dashboard/'
+              d1: 'https://genuis.tech/api/top-courses-dashboard/',
+              d2: 'https://genuis.tech/api/student-dashboard/',
+              d3: 'https://genuis.tech/api/users-number-dashboard/',
+              d4: 'https://genuis.tech/api/age-dashboard/',
+              d5: 'https://genuis.tech/api/experience-dashboard/',
+              d6: 'https://genuis.tech/api/city-dashboard/'
             };
     
             for (const key of Object.keys(urls)) {

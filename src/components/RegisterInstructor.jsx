@@ -20,7 +20,7 @@ const [apiErrors, setApiErrors] = useState(null);
 
 const onSubmit= async (data)=>{
   try {
-    const response = await fetch('https://134.209.250.123:8000/api/register-teacher/', {
+    const response = await fetch('https://genuis.tech/api/register-teacher/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

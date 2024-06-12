@@ -80,7 +80,7 @@ const StudentCourseItem = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`https://134.209.250.123:8000/api/course-details/${courseId}`);
+        const response = await axios.get(`https://genuis.tech/api/course-details/${courseId}`);
         setCourseData(response.data);
         setLoading(false);
         console.log(response.data)
@@ -102,7 +102,7 @@ const StudentCourseItem = () => {
         }
       };
   
-      await axios.post(`https://134.209.250.123:8000/api/rate-course/${courseId}`, {
+      await axios.post(`https://genuis.tech/api/rate-course/${courseId}`, {
         studentId: user.user_id,
         rating: value
       }, config);
@@ -117,7 +117,7 @@ const StudentCourseItem = () => {
   
     const fetchComments = async () => {
       try {
-        const response = await axios.get(`https://134.209.250.123:8000/api/comments/${courseId}`);
+        const response = await axios.get(`https://genuis.tech/api/comments/${courseId}`);
         setCourseComments(response.data);
         console.log('comments:', response.data)
       } catch (error) {
@@ -138,7 +138,7 @@ const StudentCourseItem = () => {
   const postComment = async () => {
     try {
       const token = localStorage.getItem('token');
-      await axios.post(`https://134.209.250.123:8000/api/comment/${courseId}`, {
+      await axios.post(`https://genuis.tech/api/comment/${courseId}`, {
         comment: comment
       },{
         headers: {
@@ -202,7 +202,7 @@ const StudentCourseItem = () => {
                           <span className={styles.line}></span>
                           <div className={styles.course_info_details2}>
                             <div className={styles.course_teacher}>
-                            <img className={styles.teacher_img} src={courseData.profile_picture ? `https://134.209.250.123:8000${courseData.profile_picture}` : def} alt="prof" />
+                            <img className={styles.teacher_img} src={courseData.profile_picture ? `https://genuis.tech${courseData.profile_picture}` : def} alt="prof" />
                             <div className={styles.created_name_sur}>
                               <p className={styles.created}>Созданный: </p>
                               <div className={styles.course_teacher_name_sur}>

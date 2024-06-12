@@ -9,7 +9,7 @@ const ProfilePicture = () => {
 
   return (
     <img className={styles.profilePic}
-    src={user.profile_picture ? `https://134.209.250.123:8000${user.profile_picture}` : def}
+    src={user.profile_picture ? `https://genuis.tech${user.profile_picture}` : def}
     alt="prof" />
   );
 };

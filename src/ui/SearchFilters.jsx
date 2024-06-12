@@ -19,7 +19,7 @@ const SearchFilters = ({onSearchResults}) => {
             max_cost: maxCostInputValue
         };
     
-        let apiUrl = 'https://134.209.250.123:8000/api/search-and-filter/';
+        let apiUrl = 'https://genuis.tech/api/search-and-filter/';
 
         fetch(apiUrl, {
             method: 'POST',
