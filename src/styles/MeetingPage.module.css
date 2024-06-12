@@ -129,7 +129,7 @@ text-decoration: none;
 
 .controls {
     position: absolute;
-    bottom: 5px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -141,8 +141,8 @@ text-decoration: none;
   
 .audioBtn,
 .videoBtn{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     margin: 0 5px;
     /* padding: 5px 10px; */
     background-color: #076dda;
@@ -158,8 +158,8 @@ text-decoration: none;
   }
 
 .closeMeet{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     margin: 0 5px;
     /* padding: 5px 10px; */
     background-color: #f11d06;

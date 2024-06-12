@@ -84,7 +84,7 @@ const MeetingPage = () => {
               marginTop: '56px',
               backgroundColor: 'rgba(25, 31, 69, 1)',
               borderRadius: '20px',
-              padding: '25px 25px 60px 25px',
+              padding: '25px 25px 70px 25px',
               position:'relative'
             }}>
               {clients.map((clientID, index) => {
@@ -104,12 +104,12 @@ const MeetingPage = () => {
               })}
               <div className={styles.controls}>
               <button className={styles.audioBtn} onClick={toggleAudio}>
-                {isAudioEnabled ? <AiOutlineAudio /> : <AiOutlineAudioMuted />}
+                {isAudioEnabled ? <AiOutlineAudio size={24}/> : <AiOutlineAudioMuted size={24}/>}
               </button>
               <button className={styles.videoBtn} onClick={toggleVideo}>
-                {isVideoEnabled ? <CiVideoOn /> : <CiVideoOff />}
+                {isVideoEnabled ? <CiVideoOn size={24}/> : <CiVideoOff size={24}/>}
               </button>
-              <button className={styles.closeMeet} onClick={handleLeaveMeeting}><RxExit /></button> 
+              <button className={styles.closeMeet} onClick={handleLeaveMeeting}><RxExit size={24}/></button> 
             </div>
               
             </div>
