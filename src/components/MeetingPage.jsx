@@ -58,7 +58,11 @@ const MeetingPage = () => {
               alignItems: 'center',
               justifyContent: 'center',
               flexWrap: 'wrap',
-              height: '100vh'
+              height: '700px',
+              width: '800px',
+              marginTop: '150px',
+              backgroundColor: 'rgba(25, 31, 69, 1)',
+              borderRadius: '20px'
             }}>
               {clients.map((clientID, index) => {
                 return (
