@@ -28,7 +28,7 @@ const CourseByCategory = ({course, categoryName}) => {
       const fetchCourses = async () => {
         try{
           const token = localStorage.getItem('token');
-          const response = await axios.get(`http://134.209.250.123:8000/api/student-courses/${user && user.user_id}`, {
+          const response = await axios.get(`https://134.209.250.123:8000/api/student-courses/${user && user.user_id}`, {
             headers: {
               Authorization: `Token ${token}`,
             },
@@ -54,7 +54,7 @@ const CourseByCategory = ({course, categoryName}) => {
       try {
         if(courseId) {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://134.209.250.123:8000/api/course-delete/${courseId}`, {
+        await axios.delete(`https://134.209.250.123:8000/api/course-delete/${courseId}`, {
           headers: {
             Authorization: `Token ${token}`,
           }
@@ -78,7 +78,7 @@ const CourseByCategory = ({course, categoryName}) => {
   
   const handleEnrollClick = () => {
     if (user.loggedIn) {
-      axios.post(`http://134.209.250.123:8000/api/enroll-to-course/${course.id}`,null, {
+      axios.post(`https://134.209.250.123:8000/api/enroll-to-course/${course.id}`,null, {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json'

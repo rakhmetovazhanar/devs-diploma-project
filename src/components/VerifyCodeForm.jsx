@@ -19,7 +19,7 @@ const VerifyCodeForm = () => {
     const handleVerifyCode = async (e) => {
       e.preventDefault();
       try {
-          const response = await axios.post('http://134.209.250.123:8000/api/verify-code/', { code , username },{ headers: { Authorization: `Bearer ${token}` } });
+          const response = await axios.post('https://134.209.250.123:8000/api/verify-code/', { code , username },{ headers: { Authorization: `Bearer ${token}` } });
         if(response) {
            let token = response.data.token
            navigate('/set-new-password', {state : {token}})

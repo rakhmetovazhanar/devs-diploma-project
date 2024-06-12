@@ -45,10 +45,10 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const [studentsResponse, coursesResponse, feedbacksResponse, teachersResponse] = await Promise.all([
-          axios.get('http://134.209.250.123:8000/api/students-number/'),
-          axios.get('http://134.209.250.123:8000/api/courses-number/'),
-          axios.get('http://134.209.250.123:8000/api/comments-number/'),
-          axios.get('http://134.209.250.123:8000/api/teachers-number/'),
+          axios.get('https://134.209.250.123:8000/api/students-number/'),
+          axios.get('https://134.209.250.123:8000/api/courses-number/'),
+          axios.get('https://134.209.250.123:8000/api/comments-number/'),
+          axios.get('https://134.209.250.123:8000/api/teachers-number/'),
         ]);
         
         setStudents(studentsResponse.data);

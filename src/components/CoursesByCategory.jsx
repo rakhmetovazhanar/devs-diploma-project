@@ -15,7 +15,7 @@ const CoursesByCategory = () => {
   useEffect(() => {
     const fetchCoursesByCategory = async () => {
       try {
-        const response = await fetch(`http://134.209.250.123:8000/api/courses-by-category/${categoryId}`);
+        const response = await fetch(`https://134.209.250.123:8000/api/courses-by-category/${categoryId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch courses');
         }

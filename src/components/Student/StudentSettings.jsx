@@ -31,7 +31,7 @@ const StudentSettings = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://134.209.250.123:8000/api/student-profile/${user.user_id}`,{
+        const response = await axios.get(`https://134.209.250.123:8000/api/student-profile/${user.user_id}`,{
           headers: {
             Authorization: `Token ${token}`,
             'Content-Type': 'application/json'
@@ -95,7 +95,7 @@ const StudentSettings = () => {
       formData.append('experience', userData.experience);
       formData.append('bio', userData.bio);
 
-      const response = await axios.put(`http://134.209.250.123:8000/api/update-student-profile/${user.user_id}`, formData,{
+      const response = await axios.put(`https://134.209.250.123:8000/api/update-student-profile/${user.user_id}`, formData,{
         headers: {
           Authorization: `Token ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -104,7 +104,7 @@ const StudentSettings = () => {
       if(response.status === 200){
         // console.log(formData)
         console.log('Successfully updated!');
-        const updatedUserData = await axios.get(`http://134.209.250.123:8000/api/student-profile/${user.user_id}`, {
+        const updatedUserData = await axios.get(`https://134.209.250.123:8000/api/student-profile/${user.user_id}`, {
         headers: {
           Authorization: `Token ${token}`,
           'Content-Type': 'application/json'
@@ -133,7 +133,7 @@ const StudentSettings = () => {
 
   const handleDeleteImage = async () => {
     try {
-      const response = await axios.delete(`http://134.209.250.123:8000/api/delete-picture/${user.user_id}`, {
+      const response = await axios.delete(`https://134.209.250.123:8000/api/delete-picture/${user.user_id}`, {
         headers: {
           Authorization: `Token ${token}`
         }

@@ -20,7 +20,7 @@ const MyCourses = () => {
     const fetchCourses = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://134.209.250.123:8000/api/get-teacher-courses/', {
+        const response = await axios.get('https://134.209.250.123:8000/api/get-teacher-courses/', {
           headers: {
             Authorization: `Token ${token}`,
           },
@@ -47,7 +47,7 @@ const MyCourses = () => {
     try {
       if(courseId) {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://134.209.250.123:8000/api/delete-course/${courseId}`, {
+      await axios.delete(`https://134.209.250.123:8000/api/delete-course/${courseId}`, {
         headers: {
           Authorization: `Token ${token}`,
         }

@@ -26,8 +26,8 @@ const LoginPage = () =>{
     try {
       const response = await fetch(
         userType === "s"
-          ? "http://134.209.250.123:8000/api/login-student/"
-          : "http://134.209.250.123:8000/api/login-teacher/",
+          ? "https://134.209.250.123:8000/api/login-student/"
+          : "https://134.209.250.123:8000/api/login-teacher/",
         {
           method: "POST",
           headers: {
@@ -43,7 +43,7 @@ const LoginPage = () =>{
         localStorage.setItem("token", responseData.token);
 
         const profileResponse = await axios.get(
-          `http://134.209.250.123:8000/api/teacher-profile/${responseData.data.id}`,
+          `https://134.209.250.123:8000/api/teacher-profile/${responseData.data.id}`,
           {
             headers: {
               Authorization: `Token ${responseData.token}`,

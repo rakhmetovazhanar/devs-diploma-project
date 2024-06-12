@@ -12,7 +12,7 @@ const token = localStorage.getItem('token');
 
 const deleteTeacher = async (teacherId) => {
   try {
-    const response = await axios.delete(`http://134.209.250.123:8000/api/delete-teacher-profile/${teacherId}`, {
+    const response = await axios.delete(`https://134.209.250.123:8000/api/delete-teacher-profile/${teacherId}`, {
       headers: {
         Authorization: `Token ${token}`,
        'Content-Type' : 'application/json'

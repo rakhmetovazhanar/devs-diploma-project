@@ -33,7 +33,7 @@ const MyClients = () => {
     const fetchCourses = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://134.209.250.123:8000/api/get-teacher-courses/', {
+        const response = await axios.get('https://134.209.250.123:8000/api/get-teacher-courses/', {
           headers: {
             Authorization: `Token ${token}`,
           },

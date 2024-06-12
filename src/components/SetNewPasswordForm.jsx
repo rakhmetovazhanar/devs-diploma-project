@@ -23,7 +23,7 @@ const SetNewPasswordForm = () => {
 
       try {
         const response = await axios.post(
-          'http://134.209.250.123:8000/api/change-password/',
+          'https://134.209.250.123:8000/api/change-password/',
           { new_password: new_password, confirm_password: confirm_password },
           { headers: { Authorization: `Token ${token}` } }
         );

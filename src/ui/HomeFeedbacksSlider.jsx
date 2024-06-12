@@ -26,7 +26,7 @@ const HomeFeedbacksSlider = () => {
         const fetchFeedbacks = async () => {
           try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://134.209.250.123:8000/api/teacher-comments/', {
+            const response = await axios.get('https://134.209.250.123:8000/api/teacher-comments/', {
               headers: {
                 Authorization: `Token ${token}`,
               },
@@ -56,7 +56,7 @@ const HomeFeedbacksSlider = () => {
                 {data.map((d,index) =>(
                     <div key={index} className={styles.feedback_slider_item}>
                         <div className={styles.feedback_slider_item_img}>
-                        <img className={styles.profilePic} src={d.profile_picture ? `http://134.209.250.123:8000${d.profile_picture}` : def} alt="prof" />
+                        <img className={styles.profilePic} src={d.profile_picture ? `https://134.209.250.123:8000${d.profile_picture}` : def} alt="prof" />
                         </div>
                         
                         <div className={styles.feedback_slider_item_info}>

@@ -27,7 +27,7 @@ const CoursePage = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const response = await axios.get(`http://134.209.250.123:8000/api/course-details/${courseId}`);
+        const response = await axios.get(`https://134.209.250.123:8000/api/course-details/${courseId}`);
         setLoading(false);
         setCourseData(response.data);
       } catch (error) {
@@ -46,7 +46,7 @@ const CoursePage = () => {
     try {
       if(courseData.id) {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://134.209.250.123:8000/api/delete-course/${courseData.id}`, {
+      await axios.delete(`https://134.209.250.123:8000/api/delete-course/${courseData.id}`, {
         headers: {
           Authorization: `Token ${token}`,
         }

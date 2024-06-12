@@ -34,7 +34,7 @@ const TeacherEditPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://134.209.250.123:8000/api/teacher-profile/${user.user_id}`,{
+        const response = await axios.get(`https://134.209.250.123:8000/api/teacher-profile/${user.user_id}`,{
           headers: {
             Authorization: `Token ${token}`,
             'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ const handleExperienceChange = (e) => {
       formData.append('experience', userData.experience);
       formData.append('bio', userData.bio);
 
-      const response = await axios.put(`http://134.209.250.123:8000/api/update-teacher-profile/${user.user_id}`, formData,{
+      const response = await axios.put(`https://134.209.250.123:8000/api/update-teacher-profile/${user.user_id}`, formData,{
         headers: {
           Authorization: `Token ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -131,7 +131,7 @@ const handleExperienceChange = (e) => {
 
   const handleDeleteImage = async () => {
     try {
-      const response = await axios.delete(`http://134.209.250.123:8000/api/delete-picture/${user.user_id}`, {
+      const response = await axios.delete(`https://134.209.250.123:8000/api/delete-picture/${user.user_id}`, {
         headers: {
           Authorization: `Token ${token}`
         }
@@ -168,7 +168,7 @@ const handleExperienceChange = (e) => {
                                 {userData.profile_picture ? (
                                   <div>
                                     {/* <img className={styles.user_img} src={`http://134.209.250.123:8000${userData.profile_picture}`} alt="hello" /> */}
-                                    <img className={styles.user_img} src={`http://134.209.250.123:8000${userData.profile_picture}?${Date.now()}`} alt="hello" />
+                                    <img className={styles.user_img} src={`https://134.209.250.123:8000${userData.profile_picture}?${Date.now()}`} alt="hello" />
 
                                     {/* <img className={styles.user_img} src={userData.profile_picture} alt="Profile" /> */}
                                     

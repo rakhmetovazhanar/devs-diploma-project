@@ -27,7 +27,7 @@ const TeacherProfile = () => {
   useEffect(() => {
     const fetchTeacherProfile = async () => {
       try {
-        const response = await axios.get(`http://134.209.250.123:8000/api/teacher-profile/${user.user_id}`, {
+        const response = await axios.get(`https://134.209.250.123:8000/api/teacher-profile/${user.user_id}`, {
           headers: {
             Authorization: `Token ${token}`,
             'Content-Type': 'application/json'
@@ -53,19 +53,19 @@ const TeacherProfile = () => {
     const fetchData = async () => {
       try {
         const [studentsResponse, coursesResponse, feedbacksResponse] = await Promise.all([
-          axios.get(`http://134.209.250.123:8000/api/students/${user.user_id}`, {
+          axios.get(`https://134.209.250.123:8000/api/students/${user.user_id}`, {
             headers: {
               Authorization: `Token ${token}`,
               'Content-Type': 'application/json'
             }
           }),
-          axios.get(`http://134.209.250.123:8000/api/courses/${user.user_id}`, {
+          axios.get(`https://134.209.250.123:8000/api/courses/${user.user_id}`, {
             headers: {
               Authorization: `Token ${token}`,
               'Content-Type': 'application/json'
             }
           }),
-          axios.get(`http://134.209.250.123:8000/api/feedback/${user.user_id}`, {
+          axios.get(`https://134.209.250.123:8000/api/feedback/${user.user_id}`, {
             headers: {
               Authorization: `Token ${token}`,
               'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ const TeacherProfile = () => {
                     <div className={styles.profile_content_info}>
                       
                     {teacherData && teacherData.profile_picture ? (
-                          <img className={styles.user_img} src={`http://134.209.250.123:8000${teacherData.profile_picture}`} alt="Profile" />
+                          <img className={styles.user_img} src={`https://134.209.250.123:8000${teacherData.profile_picture}`} alt="Profile" />
                       ) : (
                           <img className={styles.user_img} src={def} alt="profile_img" />
                       )}
