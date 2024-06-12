@@ -128,21 +128,41 @@ text-decoration: none;
 }
 
 .controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    border-radius: 10px;
   }
   
-.controls button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
+.controls button{
+    width: 150px;
+    height: 150px;
+    margin: 0 5px;
+    /* padding: 5px 10px; */
+    background-color: #076dda;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     cursor: pointer;
   }
   
 .controls button:hover {
     background-color: #0056b3;
   }
+
+.closeMeet{
+    width: 150px;
+    height: 150px;
+    margin: 0 5px;
+    /* padding: 5px 10px; */
+    background-color: #f11d06;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}

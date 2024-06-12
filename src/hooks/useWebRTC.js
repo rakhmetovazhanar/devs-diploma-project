@@ -8,7 +8,8 @@ export const LOCAL_VIDEO = 'LOCAL_VIDEO';
 
 export default function useWebRTC(roomID) {
   const [clients, updateClients] = useStateWithCallback([]);
-  const [mediaStates, setMediaStates] = useState({});
+  const [isAudioEnabled, setAudioEnabled] = useState(true);
+  const [isVideoEnabled, setVideoEnabled] = useState(true);
 
   const addNewClient = useCallback((newClient, cb) => {
     updateClients(list => {
@@ -25,6 +26,17 @@ export default function useWebRTC(roomID) {
   const peerMediaElements = useRef({
     [LOCAL_VIDEO]: null
   });
+
+  const leaveMeeting = useCallback(() => {
+    localMediaStream.current.getTracks().forEach(track => track.stop());
+    socket.emit(ACTIONS.LEAVE);
+    // Close all peer connections
+    Object.values(peerConnections.current).forEach(peerConnection => {
+      peerConnection.close();
+    });
+    // Reset state
+    updateClients([]);
+  }, [updateClients]);
 
   useEffect(() => {
     async function handleNewPeer({ peerID, createOffer }) {
@@ -186,47 +198,25 @@ export default function useWebRTC(roomID) {
     peerMediaElements.current[id] = node;
   }, []);
 
-  const toggleAudio = useCallback((clientID) => {
-    const enabled = !mediaStates[clientID]?.isAudioEnabled;
-    setMediaStates(prev => ({
-      ...prev,
-      [clientID]: {
-        ...prev[clientID],
-        isAudioEnabled: enabled
-      }
-    }));
+  const toggleAudio = useCallback(() => {
+    const enabled = !isAudioEnabled;
+    setAudioEnabled(enabled);
+    localMediaStream.current.getAudioTracks().forEach(track => track.enabled = enabled);
+  }, [isAudioEnabled]);
 
-    if (clientID === LOCAL_VIDEO) {
-      localMediaStream.current.getAudioTracks().forEach(track => track.enabled = enabled);
-    } else {
-      const stream = peerMediaElements.current[clientID]?.srcObject;
-      stream?.getAudioTracks().forEach(track => track.enabled = enabled);
-    }
-  }, [mediaStates]);
-
-  const toggleVideo = useCallback((clientID) => {
-    const enabled = !mediaStates[clientID]?.isVideoEnabled;
-    setMediaStates(prev => ({
-      ...prev,
-      [clientID]: {
-        ...prev[clientID],
-        isVideoEnabled: enabled
-      }
-    }));
-
-    if (clientID === LOCAL_VIDEO) {
-      localMediaStream.current.getVideoTracks().forEach(track => track.enabled = enabled);
-    } else {
-      const stream = peerMediaElements.current[clientID]?.srcObject;
-      stream?.getVideoTracks().forEach(track => track.enabled = enabled);
-    }
-  }, [mediaStates]);
+  const toggleVideo = useCallback(() => {
+    const enabled = !isVideoEnabled;
+    setVideoEnabled(enabled);
+    localMediaStream.current.getVideoTracks().forEach(track => track.enabled = enabled);
+  }, [isVideoEnabled]);
 
   return {
     clients,
     provideMediaRef,
     toggleAudio,
     toggleVideo,
-    mediaStates
+    isAudioEnabled,
+    isVideoEnabled,
+    leaveMeeting
   };
 }

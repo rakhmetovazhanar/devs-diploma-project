@@ -2,7 +2,7 @@ import React from 'react';
 import { LOCAL_VIDEO } from '../hooks/useWebRTC';
 import styles from '../styles/Participant.module.css';
 
-const Participant = ({ clientID, provideMediaRef, toggleAudio, toggleVideo, mediaState }) => {
+const Participant = ({ clientID, provideMediaRef, toggleAudio, toggleVideo, isAudioEnabled, isVideoEnabled  }) => {
   return (
     <div className={styles.participant}>
       <video
@@ -11,14 +11,14 @@ const Participant = ({ clientID, provideMediaRef, toggleAudio, toggleVideo, medi
         playsInline
         muted={clientID === LOCAL_VIDEO}
       />
-      <div className={styles.controls}>
-        <button onClick={() => toggleAudio(clientID)}>
-          {mediaState.isAudioEnabled ? 'Mute Audio' : 'Unmute Audio'}
-        </button>
-        <button onClick={() => toggleVideo(clientID)}>
-          {mediaState.isVideoEnabled ? 'Stop Video' : 'Start Video'}
-        </button>
-      </div>
+       <div className={styles.controls}>
+              <button onClick={toggleAudio}>
+                {isAudioEnabled ? 'Mute Audio' : 'Unmute Audio'}
+              </button>
+              <button onClick={toggleVideo}>
+                {isVideoEnabled ? 'Stop Video' : 'Start Video'}
+              </button>
+            </div>
     </div>
   );
 };

@@ -3,10 +3,15 @@ import { UserContext } from './UserContext';
 import TeacherHeader from './Teacher/TeacherHeader';
 import StudentHeader from './Student/StudentHeader';
 import styles from '../styles/MeetingPage.module.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useWebRTC, { LOCAL_VIDEO } from '../hooks/useWebRTC';
 import {Link} from 'react-router-dom';
 import Participant from './Participant';
+import { RxExit } from "react-icons/rx";
+import { AiOutlineAudio } from "react-icons/ai";
+import { AiOutlineAudioMuted } from "react-icons/ai";
+import { CiVideoOn } from "react-icons/ci";
+import { CiVideoOff } from "react-icons/ci";
 
 function layout(clientsNumber = 1) {
 
@@ -42,9 +47,14 @@ function layout(clientsNumber = 1) {
 const MeetingPage = () => {
   const { user } = useContext(UserContext);
   const { roomId } = useParams();
-  const { clients, provideMediaRef, toggleAudio, toggleVideo, mediaStates } = useWebRTC(roomId);
+  const { clients, provideMediaRef, toggleAudio, toggleVideo, mediaStates, leaveMeeting } = useWebRTC(roomId);
   const videoLayout = layout(clients.length);
+  const history = useNavigate();
 
+  const handleLeaveMeeting = () => {
+    leaveMeeting();
+    history.push('/my-courses'); // Redirect to home page or any other page
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -59,7 +69,7 @@ const MeetingPage = () => {
 
             <div className={styles.pages_links}>
               <Link to='/'>Главная страница / </Link>
-              <Link to='/my-courses'> Мои курсы / </Link>
+              <Link to='/my-courses'> Мои курсы </Link>
             </div>
 
             <div style={{
@@ -76,16 +86,28 @@ const MeetingPage = () => {
               {clients.map((clientID, index) => {
                 return (
                   <div key={clientID} style={videoLayout[index]} id={clientID}>
-                    <Participant
-                    clientID={clientID}
-                    provideMediaRef={provideMediaRef}
-                    toggleAudio={toggleAudio}
-                    toggleVideo={toggleVideo}
-                    mediaState={mediaStates[clientID] || { isAudioEnabled: true, isVideoEnabled: true }}
+                  <video
+                    width='100%'
+                    height='100%'
+                    ref={instance => provideMediaRef(clientID, instance)}
+                    autoPlay
+                    playsInline
+                    muted={clientID === LOCAL_VIDEO}
                   />
-                  </div>
+                </div>
+                  
                 );
               })}
+              <div className={styles.controls}>
+              <button onClick={toggleAudio}>
+                {isAudioEnabled ? <AiOutlineAudio /> : <AiOutlineAudioMuted />}
+              </button>
+              <button onClick={toggleVideo}>
+                {isVideoEnabled ? <CiVideoOn /> : <CiVideoOff />}
+              </button>
+              <button className={styles.closeMeet} onClick={handleLeaveMeeting}><RxExit /></button> 
+            </div>
+              
             </div>
           </div>
         </div>
