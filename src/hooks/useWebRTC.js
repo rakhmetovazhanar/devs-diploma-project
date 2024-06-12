@@ -8,8 +8,7 @@ export const LOCAL_VIDEO = 'LOCAL_VIDEO';
 
 export default function useWebRTC(roomID) {
   const [clients, updateClients] = useStateWithCallback([]);
-  const [isAudioEnabled, setAudioEnabled] = useState(true);
-  const [isVideoEnabled, setVideoEnabled] = useState(true);
+  const [mediaStates, setMediaStates] = useState({});
 
   const addNewClient = useCallback((newClient, cb) => {
     updateClients(list => {
