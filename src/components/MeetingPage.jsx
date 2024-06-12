@@ -47,7 +47,10 @@ function layout(clientsNumber = 1) {
 const MeetingPage = () => {
   const { user } = useContext(UserContext);
   const { roomId } = useParams();
-  const { clients, provideMediaRef, toggleAudio, toggleVideo, mediaStates, leaveMeeting } = useWebRTC(roomId);
+  const { clients, provideMediaRef,  toggleAudio,
+    toggleVideo,
+    isAudioEnabled,
+    isVideoEnabled, leaveMeeting } = useWebRTC(roomId);
   const videoLayout = layout(clients.length);
   const history = useNavigate();
 
