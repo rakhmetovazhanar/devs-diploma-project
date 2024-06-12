@@ -105,3 +105,24 @@ text-decoration: none;
     text-align: center;
 }
 
+
+.pages_links{
+    display: flex;
+    gap: 10px;
+    margin-top: 110px;
+
+}
+
+.pages_links a{
+    color: rgba(24, 32, 69, 0.8);
+    font-weight: 500;
+    font-size:16px;
+    line-height: 24px;
+}
+
+.pages_links p{
+    color: rgba(24, 32, 69, 0.9);
+    font-weight: 700;
+    font-size:16px;
+    line-height: 24px;
+}

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from './UserContext';
 import TeacherHeader from './Teacher/TeacherHeader';
 import StudentHeader from './Student/StudentHeader';
@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import useWebRTC, { LOCAL_VIDEO } from '../hooks/useWebRTC';
 
 function layout(clientsNumber = 1) {
+
   const pairs = Array.from({ length: clientsNumber })
     .reduce((acc, next, index, arr) => {
       if (index % 2 === 0) {
@@ -35,6 +36,7 @@ function layout(clientsNumber = 1) {
   }).flat();
 }
 
+
 const MeetingPage = () => {
   const { user } = useContext(UserContext);
   const { roomId } = useParams();
@@ -53,16 +55,21 @@ const MeetingPage = () => {
               <StudentHeader headerTitle={'Видеоконференция'}/>
             )}
 
+            <div className={styles.pages_links}>
+              <Link to='/'>Главная страница / </Link>
+              <Link to='/my-courses'> Мои курсы / </Link>
+            </div>
+
             <div style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               flexWrap: 'wrap',
-              height: '700px',
-              width: '800px',
-              marginTop: '150px',
+              width: '100%',
+              marginTop: '56px',
               backgroundColor: 'rgba(25, 31, 69, 1)',
-              borderRadius: '20px'
+              borderRadius: '20px',
+              padding: '25px'
             }}>
               {clients.map((clientID, index) => {
                 return (
