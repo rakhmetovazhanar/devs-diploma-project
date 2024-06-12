@@ -187,24 +187,47 @@ export default function useWebRTC(roomID) {
     peerMediaElements.current[id] = node;
   }, []);
 
-  const toggleAudio = useCallback(() => {
-    const enabled = !isAudioEnabled;
-    setAudioEnabled(enabled);
-    localMediaStream.current.getAudioTracks().forEach(track => track.enabled = enabled);
-  }, [isAudioEnabled]);
+  const toggleAudio = useCallback((clientID) => {
+    const enabled = !mediaStates[clientID]?.isAudioEnabled;
+    setMediaStates(prev => ({
+      ...prev,
+      [clientID]: {
+        ...prev[clientID],
+        isAudioEnabled: enabled
+      }
+    }));
 
-  const toggleVideo = useCallback(() => {
-    const enabled = !isVideoEnabled;
-    setVideoEnabled(enabled);
-    localMediaStream.current.getVideoTracks().forEach(track => track.enabled = enabled);
-  }, [isVideoEnabled]);
+    if (clientID === LOCAL_VIDEO) {
+      localMediaStream.current.getAudioTracks().forEach(track => track.enabled = enabled);
+    } else {
+      const stream = peerMediaElements.current[clientID]?.srcObject;
+      stream?.getAudioTracks().forEach(track => track.enabled = enabled);
+    }
+  }, [mediaStates]);
+
+  const toggleVideo = useCallback((clientID) => {
+    const enabled = !mediaStates[clientID]?.isVideoEnabled;
+    setMediaStates(prev => ({
+      ...prev,
+      [clientID]: {
+        ...prev[clientID],
+        isVideoEnabled: enabled
+      }
+    }));
+
+    if (clientID === LOCAL_VIDEO) {
+      localMediaStream.current.getVideoTracks().forEach(track => track.enabled = enabled);
+    } else {
+      const stream = peerMediaElements.current[clientID]?.srcObject;
+      stream?.getVideoTracks().forEach(track => track.enabled = enabled);
+    }
+  }, [mediaStates]);
 
   return {
     clients,
     provideMediaRef,
     toggleAudio,
     toggleVideo,
-    isAudioEnabled,
-    isVideoEnabled
+    mediaStates
   };
 }

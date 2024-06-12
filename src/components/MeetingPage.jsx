@@ -6,6 +6,7 @@ import styles from '../styles/MeetingPage.module.css';
 import { useParams } from 'react-router-dom';
 import useWebRTC, { LOCAL_VIDEO } from '../hooks/useWebRTC';
 import {Link} from 'react-router-dom';
+import Participant from './Participant';
 
 function layout(clientsNumber = 1) {
 
@@ -41,7 +42,7 @@ function layout(clientsNumber = 1) {
 const MeetingPage = () => {
   const { user } = useContext(UserContext);
   const { roomId } = useParams();
-  const { clients, provideMediaRef, toggleAudio, toggleVideo, isAudioEnabled, isVideoEnabled } = useWebRTC(roomId);
+  const { clients, provideMediaRef, toggleAudio, toggleVideo, mediaStates } = useWebRTC(roomId);
   const videoLayout = layout(clients.length);
 
 
@@ -75,28 +76,16 @@ const MeetingPage = () => {
               {clients.map((clientID, index) => {
                 return (
                   <div key={clientID} style={videoLayout[index]} id={clientID}>
-                    <video
-                      width='100%'
-                      height='100%'
-                      ref={instance => {
-                        provideMediaRef(clientID, instance);
-                      }}
-                      autoPlay
-                      playsInline
-                      muted={clientID === LOCAL_VIDEO}
-                    />
+                    <Participant
+                    clientID={clientID}
+                    provideMediaRef={provideMediaRef}
+                    toggleAudio={toggleAudio}
+                    toggleVideo={toggleVideo}
+                    mediaState={mediaStates[clientID] || { isAudioEnabled: true, isVideoEnabled: true }}
+                  />
                   </div>
                 );
               })}
-            </div>
-
-            <div className={styles.controls}>
-              <button onClick={toggleAudio}>
-                {isAudioEnabled ? 'Mute Audio' : 'Unmute Audio'}
-              </button>
-              <button onClick={toggleVideo}>
-                {isVideoEnabled ? 'Stop Video' : 'Start Video'}
-              </button>
             </div>
           </div>
         </div>
