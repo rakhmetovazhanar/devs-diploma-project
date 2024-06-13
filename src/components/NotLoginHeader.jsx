@@ -13,8 +13,12 @@ const NotLoginHeader = ({showNavLinks}) => {
     const {user} = useContext(UserContext);
     const [isActiveDropdown, setIsActiveDropdown] = useState(false);
     const [isRotated, setIsRotated] = useState(false);
+
+    useEffect(() => {
+      console.log('User in header component:', user);
+  }, [user]);
    
-    
+    console.log(user.first_name)
     const handleDropdownClick = () => {
         setIsActiveDropdown(!isActiveDropdown);
         setIsRotated(!isRotated);

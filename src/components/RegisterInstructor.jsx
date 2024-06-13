@@ -43,6 +43,13 @@ const onSubmit= async (data)=>{
         }
       };
       const translatedRole = translateRoleToRussian(responseData.role);
+      console.log('Setting user in context:', {
+        loggedIn: true,
+        first_name: responseData.data.first_name,
+        last_name: responseData.data.last_name,
+        token: responseData.token,
+        role: translatedRole
+    });
       setUser({
       loggedIn: true,
       first_name: responseData.data.first_name,
