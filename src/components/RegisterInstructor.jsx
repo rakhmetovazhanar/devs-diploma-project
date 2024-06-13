@@ -276,7 +276,7 @@ const onSubmit= async (data)=>{
                     {...register("password", {required: true})}
                      />
                     <div>{errors?.password && <p className={styles['error-text']}>{errors?.password?.message || 'Придумайте пароль!'}</p>}</div>
-                    {apiErrors  &&  (
+                    {apiErrors && apiErrors.password && Array.isArray(apiErrors.password) && (
                         <div className={styles.errorContainer}>
                             <ul className={styles['error-list']}>
                                 <li className={styles['error-text-pass']}>
